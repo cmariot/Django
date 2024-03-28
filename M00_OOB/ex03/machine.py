@@ -44,29 +44,48 @@ class CoffeeMachine:
 
 if __name__ == "__main__":
 
-    machine = CoffeeMachine()
+    try:
 
-    drinks = {
-        "HotBeverage": HotBeverage,
-        "Coffee": Coffee,
-        "Tea": Tea,
-        "Chocolate": Chocolate,
-        "Cappuccino": Cappuccino
-    }
+        machine = CoffeeMachine()
 
-    while (True):
+        drinks = {
+            "HotBeverage": HotBeverage,
+            "Coffee": Coffee,
+            "Tea": Tea,
+            "Chocolate": Chocolate,
+            "Cappuccino": Cappuccino
+        }
 
-        user_input = input("What drink do you want?\n")
+        while (True):
 
-        if user_input not in drinks.keys():
-            print("This drink is not available.")
-            continue
+            user_input = input("What drink do you want?\n")
 
-        try:
-            drink = machine.serve(drinks[user_input]())
-            print(drink, "\n")
-        except machine.BrokenMachineException as error:
-            print(error)
+            if user_input == "exit":
+                break
+            elif user_input == "":
+                user_input = "Coffee"
 
-            input("Do you want to repair the machine? (yes/no)")
+            if user_input not in drinks.keys():
+                print("This drink is not available.")
+                continue
 
+            try:
+                drink = machine.serve(drinks[user_input]())
+                print(drink, "\n")
+            except machine.BrokenMachineException as error:
+                print(error)
+
+                repair = input("Do you want to repair the machine? (yes/no)")
+
+                if repair == "yes":
+                    machine.repair()
+                    print("The machine has been repaired.")
+                else:
+                    print("The machine is still broken.")
+
+            except Exception as error:
+                print(error)
+                break
+
+    except KeyboardInterrupt:
+        print("\nGoodbye!")

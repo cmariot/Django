@@ -33,7 +33,7 @@ def create_html_file(elements):
         css = """
 
         html {
-            background-color: lightsteelblue;
+            background-color: #d0dae8;
             font-family: Helvetica, sans-serif;
         }
 
@@ -124,7 +124,20 @@ def create_html_file(elements):
 
         """
 
+        # On click, open the wikipedia page of the element in a new tab
         js = """
+        document.addEventListener("DOMContentLoaded", function() {
+            let tds = document.querySelectorAll("td:not(.no-border)");
+            tds.forEach(td => {
+                td.addEventListener("click", function() {
+                    let elementName = td.querySelector(".name").textContent;
+                    window.open(
+                        `https://en.wikipedia.org/wiki/${elementName}`,
+                        "_blank"
+                    );
+                });
+            });
+        });
         """
 
         f.write("<!DOCTYPE html>\n")

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang='en'>
-
 <head>
-    <title>Periodic Table</title>
-    <meta charset='UTF-8'>
-    <style>
+<title>Periodic Table</title>
+<meta charset='UTF-8'>
+<style>
+
+
         html {
-            background-color: lightsteelblue;
+            background-color: #d0dae8;
             font-family: Helvetica, sans-serif;
         }
 
@@ -94,1037 +95,874 @@
             grid-row: 5/6;
             font-size: 0.5em;
         }
-    </style>
-    <script>
 
-    </script>
+        
+</style>
+<script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let tds = document.querySelectorAll("td:not(.no-border)");
+            tds.forEach(td => {
+                td.addEventListener("click", function() {
+                    let elementName = td.querySelector(".name").textContent;
+                    window.open(
+                        `https://en.wikipedia.org/wiki/${elementName}`,
+                        "_blank"
+                    );
+                });
+            });
+        });
+        
+</script>
 </head>
-
 <body>
-    <h1>Periodic table of the elements</h1>
-    <table>
-        <tbody>
-            <tr>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Hydrogen</li>
-                        <li class='number'>1</li>
-                        <li class='small'>
-                            <h4>H</h4>
-                        </li>
-                        <li class='molar'>1.00794</li>
-                        <li class='electron'>1</li>
-                    </ul>
-                </td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Helium</li>
-                        <li class='number'>2</li>
-                        <li class='small'>
-                            <h4>He</h4>
-                        </li>
-                        <li class='molar'>4.002602</li>
-                        <li class='electron'>2</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Lithium</li>
-                        <li class='number'>3</li>
-                        <li class='small'>
-                            <h4>Li</h4>
-                        </li>
-                        <li class='molar'>6.941</li>
-                        <li class='electron'>2 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Beryllium</li>
-                        <li class='number'>4</li>
-                        <li class='small'>
-                            <h4>Be</h4>
-                        </li>
-                        <li class='molar'>9.012182</li>
-                        <li class='electron'>2 2</li>
-                    </ul>
-                </td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Boron</li>
-                        <li class='number'>5</li>
-                        <li class='small'>
-                            <h4>B</h4>
-                        </li>
-                        <li class='molar'>10.811</li>
-                        <li class='electron'>2 3</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Carbon</li>
-                        <li class='number'>6</li>
-                        <li class='small'>
-                            <h4>C</h4>
-                        </li>
-                        <li class='molar'>12.0107</li>
-                        <li class='electron'>2 4</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Nitrogen</li>
-                        <li class='number'>7</li>
-                        <li class='small'>
-                            <h4>N</h4>
-                        </li>
-                        <li class='molar'>14.0067</li>
-                        <li class='electron'>2 5</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Oxygen</li>
-                        <li class='number'>8</li>
-                        <li class='small'>
-                            <h4>O</h4>
-                        </li>
-                        <li class='molar'>15.9994</li>
-                        <li class='electron'>2 6</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Fluorine</li>
-                        <li class='number'>9</li>
-                        <li class='small'>
-                            <h4>F</h4>
-                        </li>
-                        <li class='molar'>18.998404</li>
-                        <li class='electron'>2 7</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Neon</li>
-                        <li class='number'>10</li>
-                        <li class='small'>
-                            <h4>Ne</h4>
-                        </li>
-                        <li class='molar'>20.1797</li>
-                        <li class='electron'>2 8</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Sodium</li>
-                        <li class='number'>11</li>
-                        <li class='small'>
-                            <h4>Na</h4>
-                        </li>
-                        <li class='molar'>22.989769</li>
-                        <li class='electron'>2 8 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Magnesium</li>
-                        <li class='number'>12</li>
-                        <li class='small'>
-                            <h4>Mg</h4>
-                        </li>
-                        <li class='molar'>24.305</li>
-                        <li class='electron'>2 8 2</li>
-                    </ul>
-                </td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td class='no-border'></td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Aluminium</li>
-                        <li class='number'>13</li>
-                        <li class='small'>
-                            <h4>Al</h4>
-                        </li>
-                        <li class='molar'>26.981539</li>
-                        <li class='electron'>2 8 3</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Silicon</li>
-                        <li class='number'>14</li>
-                        <li class='small'>
-                            <h4>Si</h4>
-                        </li>
-                        <li class='molar'>28.0855</li>
-                        <li class='electron'>2 8 4</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Phosphorus</li>
-                        <li class='number'>15</li>
-                        <li class='small'>
-                            <h4>P</h4>
-                        </li>
-                        <li class='molar'>30.973763</li>
-                        <li class='electron'>2 8 5</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Sulfur</li>
-                        <li class='number'>16</li>
-                        <li class='small'>
-                            <h4>S</h4>
-                        </li>
-                        <li class='molar'>32.065</li>
-                        <li class='electron'>2 8 6</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Chlorine</li>
-                        <li class='number'>17</li>
-                        <li class='small'>
-                            <h4>Cl</h4>
-                        </li>
-                        <li class='molar'>35.453</li>
-                        <li class='electron'>2 8 7</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Argon</li>
-                        <li class='number'>18</li>
-                        <li class='small'>
-                            <h4>Ar</h4>
-                        </li>
-                        <li class='molar'>39.948</li>
-                        <li class='electron'>2 8 8</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Potassium</li>
-                        <li class='number'>19</li>
-                        <li class='small'>
-                            <h4>K</h4>
-                        </li>
-                        <li class='molar'>39.0983</li>
-                        <li class='electron'>2 8 8 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Calcium</li>
-                        <li class='number'>20</li>
-                        <li class='small'>
-                            <h4>Ca</h4>
-                        </li>
-                        <li class='molar'>40.078</li>
-                        <li class='electron'>2 8 8 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Scandium</li>
-                        <li class='number'>21</li>
-                        <li class='small'>
-                            <h4>Sc</h4>
-                        </li>
-                        <li class='molar'>44.955914</li>
-                        <li class='electron'>2 8 9 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Titanium</li>
-                        <li class='number'>22</li>
-                        <li class='small'>
-                            <h4>Ti</h4>
-                        </li>
-                        <li class='molar'>47.867</li>
-                        <li class='electron'>2 8 10 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Vanadium</li>
-                        <li class='number'>23</li>
-                        <li class='small'>
-                            <h4>V</h4>
-                        </li>
-                        <li class='molar'>50.9415</li>
-                        <li class='electron'>2 8 11 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Chromium</li>
-                        <li class='number'>24</li>
-                        <li class='small'>
-                            <h4>Cr</h4>
-                        </li>
-                        <li class='molar'>51.9961</li>
-                        <li class='electron'>2 8 13 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Manganese</li>
-                        <li class='number'>25</li>
-                        <li class='small'>
-                            <h4>Mn</h4>
-                        </li>
-                        <li class='molar'>54.938046</li>
-                        <li class='electron'>2 8 13 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Iron</li>
-                        <li class='number'>26</li>
-                        <li class='small'>
-                            <h4>Fe</h4>
-                        </li>
-                        <li class='molar'>55.845</li>
-                        <li class='electron'>2 8 14 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Cobalt</li>
-                        <li class='number'>27</li>
-                        <li class='small'>
-                            <h4>Co</h4>
-                        </li>
-                        <li class='molar'>58.933193</li>
-                        <li class='electron'>2 8 15 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Nickel</li>
-                        <li class='number'>28</li>
-                        <li class='small'>
-                            <h4>Ni</h4>
-                        </li>
-                        <li class='molar'>58.6934</li>
-                        <li class='electron'>2 8 16 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Copper</li>
-                        <li class='number'>29</li>
-                        <li class='small'>
-                            <h4>Cu</h4>
-                        </li>
-                        <li class='molar'>63.546</li>
-                        <li class='electron'>2 8 18 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Zinc</li>
-                        <li class='number'>30</li>
-                        <li class='small'>
-                            <h4>Zn</h4>
-                        </li>
-                        <li class='molar'>65.38</li>
-                        <li class='electron'>2 8 18 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Gallium</li>
-                        <li class='number'>31</li>
-                        <li class='small'>
-                            <h4>Ga</h4>
-                        </li>
-                        <li class='molar'>69.723</li>
-                        <li class='electron'>2 8 18 3</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Germanium</li>
-                        <li class='number'>32</li>
-                        <li class='small'>
-                            <h4>Ge</h4>
-                        </li>
-                        <li class='molar'>72.63</li>
-                        <li class='electron'>2 8 18 4</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Arsenic</li>
-                        <li class='number'>33</li>
-                        <li class='small'>
-                            <h4>As</h4>
-                        </li>
-                        <li class='molar'>74.9216</li>
-                        <li class='electron'>2 8 18 5</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Selenium</li>
-                        <li class='number'>34</li>
-                        <li class='small'>
-                            <h4>Se</h4>
-                        </li>
-                        <li class='molar'>78.96</li>
-                        <li class='electron'>2 8 18 6</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Bromine</li>
-                        <li class='number'>35</li>
-                        <li class='small'>
-                            <h4>Br</h4>
-                        </li>
-                        <li class='molar'>79.904</li>
-                        <li class='electron'>2 8 18 7</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Krypton</li>
-                        <li class='number'>36</li>
-                        <li class='small'>
-                            <h4>Kr</h4>
-                        </li>
-                        <li class='molar'>83.798</li>
-                        <li class='electron'>2 8 18 8</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Rubidium</li>
-                        <li class='number'>37</li>
-                        <li class='small'>
-                            <h4>Rb</h4>
-                        </li>
-                        <li class='molar'>85.4678</li>
-                        <li class='electron'>2 8 18 8 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Strontium</li>
-                        <li class='number'>38</li>
-                        <li class='small'>
-                            <h4>Sr</h4>
-                        </li>
-                        <li class='molar'>87.62</li>
-                        <li class='electron'>2 8 18 8 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Yttrium</li>
-                        <li class='number'>39</li>
-                        <li class='small'>
-                            <h4>Y</h4>
-                        </li>
-                        <li class='molar'>88.90585</li>
-                        <li class='electron'>2 8 18 9 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Zirconium</li>
-                        <li class='number'>40</li>
-                        <li class='small'>
-                            <h4>Zr</h4>
-                        </li>
-                        <li class='molar'>91.224</li>
-                        <li class='electron'>2 8 18 10 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Niobium</li>
-                        <li class='number'>41</li>
-                        <li class='small'>
-                            <h4>Nb</h4>
-                        </li>
-                        <li class='molar'>92.90638</li>
-                        <li class='electron'>2 8 18 12 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Molybdenum</li>
-                        <li class='number'>42</li>
-                        <li class='small'>
-                            <h4>Mo</h4>
-                        </li>
-                        <li class='molar'>95.96</li>
-                        <li class='electron'>2 8 18 13 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Technetium</li>
-                        <li class='number'>43</li>
-                        <li class='small'>
-                            <h4>Tc</h4>
-                        </li>
-                        <li class='molar'>98</li>
-                        <li class='electron'>2 8 18 13 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Ruthenium</li>
-                        <li class='number'>44</li>
-                        <li class='small'>
-                            <h4>Ru</h4>
-                        </li>
-                        <li class='molar'>101.07</li>
-                        <li class='electron'>2 8 18 15 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Rhodium</li>
-                        <li class='number'>45</li>
-                        <li class='small'>
-                            <h4>Rh</h4>
-                        </li>
-                        <li class='molar'>102.9055</li>
-                        <li class='electron'>2 8 18 16 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Palladium</li>
-                        <li class='number'>46</li>
-                        <li class='small'>
-                            <h4>Pd</h4>
-                        </li>
-                        <li class='molar'>106.42</li>
-                        <li class='electron'>2 8 18 18</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Silver</li>
-                        <li class='number'>47</li>
-                        <li class='small'>
-                            <h4>Ag</h4>
-                        </li>
-                        <li class='molar'>107.8682</li>
-                        <li class='electron'>2 8 18 18 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Cadmium</li>
-                        <li class='number'>48</li>
-                        <li class='small'>
-                            <h4>Cd</h4>
-                        </li>
-                        <li class='molar'>112.411</li>
-                        <li class='electron'>2 8 18 18 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Indium</li>
-                        <li class='number'>49</li>
-                        <li class='small'>
-                            <h4>In</h4>
-                        </li>
-                        <li class='molar'>114.818</li>
-                        <li class='electron'>2 8 18 18 3</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Tin</li>
-                        <li class='number'>50</li>
-                        <li class='small'>
-                            <h4>Sn</h4>
-                        </li>
-                        <li class='molar'>118.71</li>
-                        <li class='electron'>2 8 18 18 4</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Antimony</li>
-                        <li class='number'>51</li>
-                        <li class='small'>
-                            <h4>Sb</h4>
-                        </li>
-                        <li class='molar'>121.76</li>
-                        <li class='electron'>2 8 18 18 5</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Tellurium</li>
-                        <li class='number'>52</li>
-                        <li class='small'>
-                            <h4>Te</h4>
-                        </li>
-                        <li class='molar'>127.6</li>
-                        <li class='electron'>2 8 18 18 6</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Iodine</li>
-                        <li class='number'>53</li>
-                        <li class='small'>
-                            <h4>I</h4>
-                        </li>
-                        <li class='molar'>126.90447</li>
-                        <li class='electron'>2 8 18 18 7</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Xenon</li>
-                        <li class='number'>54</li>
-                        <li class='small'>
-                            <h4>Xe</h4>
-                        </li>
-                        <li class='molar'>131.293</li>
-                        <li class='electron'>2 8 18 18 8</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Caesium</li>
-                        <li class='number'>55</li>
-                        <li class='small'>
-                            <h4>Cs</h4>
-                        </li>
-                        <li class='molar'>132.90546</li>
-                        <li class='electron'>2 8 18 18 8 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Barium</li>
-                        <li class='number'>56</li>
-                        <li class='small'>
-                            <h4>Ba</h4>
-                        </li>
-                        <li class='molar'>137.327</li>
-                        <li class='electron'>2 8 18 18 8 2</li>
-                    </ul>
-                </td>
-                <td class='no-border'></td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Hafnium</li>
-                        <li class='number'>72</li>
-                        <li class='small'>
-                            <h4>Hf</h4>
-                        </li>
-                        <li class='molar'>178.49</li>
-                        <li class='electron'>2 8 18 32 10 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Tantalum</li>
-                        <li class='number'>73</li>
-                        <li class='small'>
-                            <h4>Ta</h4>
-                        </li>
-                        <li class='molar'>180.94788</li>
-                        <li class='electron'>2 8 18 32 11 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Tungsten</li>
-                        <li class='number'>74</li>
-                        <li class='small'>
-                            <h4>W</h4>
-                        </li>
-                        <li class='molar'>183.84</li>
-                        <li class='electron'>2 8 18 32 12 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Rhenium</li>
-                        <li class='number'>75</li>
-                        <li class='small'>
-                            <h4>Re</h4>
-                        </li>
-                        <li class='molar'>186.207</li>
-                        <li class='electron'>2 8 18 32 13 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Osmium</li>
-                        <li class='number'>76</li>
-                        <li class='small'>
-                            <h4>Os</h4>
-                        </li>
-                        <li class='molar'>190.23</li>
-                        <li class='electron'>2 8 18 32 14 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Iridium</li>
-                        <li class='number'>77</li>
-                        <li class='small'>
-                            <h4>Ir</h4>
-                        </li>
-                        <li class='molar'>192.217</li>
-                        <li class='electron'>2 8 18 32 15 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Platinum</li>
-                        <li class='number'>78</li>
-                        <li class='small'>
-                            <h4>Pt</h4>
-                        </li>
-                        <li class='molar'>195.084</li>
-                        <li class='electron'>2 8 18 32 17 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Gold</li>
-                        <li class='number'>79</li>
-                        <li class='small'>
-                            <h4>Au</h4>
-                        </li>
-                        <li class='molar'>196.96657</li>
-                        <li class='electron'>2 8 18 32 18 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Mercury</li>
-                        <li class='number'>80</li>
-                        <li class='small'>
-                            <h4>Hg</h4>
-                        </li>
-                        <li class='molar'>200.59</li>
-                        <li class='electron'>2 8 18 32 18 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Thallium</li>
-                        <li class='number'>81</li>
-                        <li class='small'>
-                            <h4>Tl</h4>
-                        </li>
-                        <li class='molar'>204.3833</li>
-                        <li class='electron'>2 8 18 32 18 3</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Lead</li>
-                        <li class='number'>82</li>
-                        <li class='small'>
-                            <h4>Pb</h4>
-                        </li>
-                        <li class='molar'>207.2</li>
-                        <li class='electron'>2 8 18 32 18 4</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Bismuth</li>
-                        <li class='number'>83</li>
-                        <li class='small'>
-                            <h4>Bi</h4>
-                        </li>
-                        <li class='molar'>208.9804</li>
-                        <li class='electron'>2 8 18 32 18 5</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Polonium</li>
-                        <li class='number'>84</li>
-                        <li class='small'>
-                            <h4>Po</h4>
-                        </li>
-                        <li class='molar'>209</li>
-                        <li class='electron'>2 8 18 32 18 6</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Astatine</li>
-                        <li class='number'>85</li>
-                        <li class='small'>
-                            <h4>At</h4>
-                        </li>
-                        <li class='molar'>210</li>
-                        <li class='electron'>2 8 18 32 18 7</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Radon</li>
-                        <li class='number'>86</li>
-                        <li class='small'>
-                            <h4>Rn</h4>
-                        </li>
-                        <li class='molar'>222</li>
-                        <li class='electron'>2 8 18 32 18 8</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Francium</li>
-                        <li class='number'>87</li>
-                        <li class='small'>
-                            <h4>Fr</h4>
-                        </li>
-                        <li class='molar'>223</li>
-                        <li class='electron'>2 8 18 32 18 8 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Radium</li>
-                        <li class='number'>88</li>
-                        <li class='small'>
-                            <h4>Ra</h4>
-                        </li>
-                        <li class='molar'>226</li>
-                        <li class='electron'>2 8 18 32 18 8 2</li>
-                    </ul>
-                </td>
-                <td class='no-border'></td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Rutherfordium</li>
-                        <li class='number'>104</li>
-                        <li class='small'>
-                            <h4>Rf</h4>
-                        </li>
-                        <li class='molar'>267</li>
-                        <li class='electron'>2 8 18 32 32 10 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Dubnium</li>
-                        <li class='number'>105</li>
-                        <li class='small'>
-                            <h4>Db</h4>
-                        </li>
-                        <li class='molar'>268</li>
-                        <li class='electron'>2 8 18 32 32 11 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Seaborgium</li>
-                        <li class='number'>106</li>
-                        <li class='small'>
-                            <h4>Sg</h4>
-                        </li>
-                        <li class='molar'>271</li>
-                        <li class='electron'>2 8 18 32 32 12 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Bohrium</li>
-                        <li class='number'>107</li>
-                        <li class='small'>
-                            <h4>Bh</h4>
-                        </li>
-                        <li class='molar'>272</li>
-                        <li class='electron'>2 8 18 32 32 13 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Hassium</li>
-                        <li class='number'>108</li>
-                        <li class='small'>
-                            <h4>Hs</h4>
-                        </li>
-                        <li class='molar'>270</li>
-                        <li class='electron'>2 8 18 32 32 14 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Meitnerium</li>
-                        <li class='number'>109</li>
-                        <li class='small'>
-                            <h4>Mt</h4>
-                        </li>
-                        <li class='molar'>276</li>
-                        <li class='electron'>2 8 18 32 32 15 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Darmstadtium</li>
-                        <li class='number'>110</li>
-                        <li class='small'>
-                            <h4>Ds</h4>
-                        </li>
-                        <li class='molar'>281</li>
-                        <li class='electron'>2 8 18 32 32 17 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Roentgenium</li>
-                        <li class='number'>111</li>
-                        <li class='small'>
-                            <h4>Rg</h4>
-                        </li>
-                        <li class='molar'>280</li>
-                        <li class='electron'>2 8 18 32 32 18 1</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Copernicium</li>
-                        <li class='number'>112</li>
-                        <li class='small'>
-                            <h4>Cn</h4>
-                        </li>
-                        <li class='molar'>285</li>
-                        <li class='electron'>2 8 18 32 32 18 2</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Ununtrium</li>
-                        <li class='number'>113</li>
-                        <li class='small'>
-                            <h4>Uut</h4>
-                        </li>
-                        <li class='molar'>284</li>
-                        <li class='electron'>2 8 18 32 32 18 3</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Flerovium</li>
-                        <li class='number'>114</li>
-                        <li class='small'>
-                            <h4>Fl</h4>
-                        </li>
-                        <li class='molar'>289</li>
-                        <li class='electron'>2 8 18 32 32 18 4</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Ununpentium</li>
-                        <li class='number'>115</li>
-                        <li class='small'>
-                            <h4>Uup</h4>
-                        </li>
-                        <li class='molar'>288</li>
-                        <li class='electron'>2 8 18 32 32 18 5</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Livermorium</li>
-                        <li class='number'>116</li>
-                        <li class='small'>
-                            <h4>Lv</h4>
-                        </li>
-                        <li class='molar'>293</li>
-                        <li class='electron'>2 8 18 32 32 18 6</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Ununseptium</li>
-                        <li class='number'>117</li>
-                        <li class='small'>
-                            <h4>Uus</h4>
-                        </li>
-                        <li class='molar'>294</li>
-                        <li class='electron'>2 8 18 32 32 18 7</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class='wrapper'>
-                        <li class='name'>Ununoctium</li>
-                        <li class='number'>118</li>
-                        <li class='small'>
-                            <h4>Uuo</h4>
-                        </li>
-                        <li class='molar'>294</li>
-                        <li class='electron'>2 8 18 32 32 18 8</li>
-                    </ul>
-                </td>
-            </tr>
-    </table>
+<h1>Periodic table of the elements</h1>
+<table>
+<tbody>
+<tr>
+<td>
+<ul class='wrapper'>
+<li class='name'>Hydrogen</li>
+<li class='number'>1</li>
+<li class='small'><h4> H</h4></li>
+<li class='molar'>1.00794}</li>
+<li class='electron'>1</li>
+</ul>
+</td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Helium</li>
+<li class='number'>2</li>
+<li class='small'><h4> He</h4></li>
+<li class='molar'>4.002602}</li>
+<li class='electron'>2</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<ul class='wrapper'>
+<li class='name'>Lithium</li>
+<li class='number'>3</li>
+<li class='small'><h4> Li</h4></li>
+<li class='molar'>6.941}</li>
+<li class='electron'>2 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Beryllium</li>
+<li class='number'>4</li>
+<li class='small'><h4> Be</h4></li>
+<li class='molar'>9.012182}</li>
+<li class='electron'>2 2</li>
+</ul>
+</td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Boron</li>
+<li class='number'>5</li>
+<li class='small'><h4> B</h4></li>
+<li class='molar'>10.811}</li>
+<li class='electron'>2 3</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Carbon</li>
+<li class='number'>6</li>
+<li class='small'><h4> C</h4></li>
+<li class='molar'>12.0107}</li>
+<li class='electron'>2 4</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Nitrogen</li>
+<li class='number'>7</li>
+<li class='small'><h4> N</h4></li>
+<li class='molar'>14.0067}</li>
+<li class='electron'>2 5</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Oxygen</li>
+<li class='number'>8</li>
+<li class='small'><h4> O</h4></li>
+<li class='molar'>15.9994}</li>
+<li class='electron'>2 6</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Fluorine</li>
+<li class='number'>9</li>
+<li class='small'><h4> F</h4></li>
+<li class='molar'>18.998404}</li>
+<li class='electron'>2 7</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Neon</li>
+<li class='number'>10</li>
+<li class='small'><h4> Ne</h4></li>
+<li class='molar'>20.1797}</li>
+<li class='electron'>2 8</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<ul class='wrapper'>
+<li class='name'>Sodium</li>
+<li class='number'>11</li>
+<li class='small'><h4> Na</h4></li>
+<li class='molar'>22.989769}</li>
+<li class='electron'>2 8 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Magnesium</li>
+<li class='number'>12</li>
+<li class='small'><h4> Mg</h4></li>
+<li class='molar'>24.305}</li>
+<li class='electron'>2 8 2</li>
+</ul>
+</td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td class='no-border'></td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Aluminium</li>
+<li class='number'>13</li>
+<li class='small'><h4> Al</h4></li>
+<li class='molar'>26.981539}</li>
+<li class='electron'>2 8 3</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Silicon</li>
+<li class='number'>14</li>
+<li class='small'><h4> Si</h4></li>
+<li class='molar'>28.0855}</li>
+<li class='electron'>2 8 4</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Phosphorus</li>
+<li class='number'>15</li>
+<li class='small'><h4> P</h4></li>
+<li class='molar'>30.973763}</li>
+<li class='electron'>2 8 5</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Sulfur</li>
+<li class='number'>16</li>
+<li class='small'><h4> S</h4></li>
+<li class='molar'>32.065}</li>
+<li class='electron'>2 8 6</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Chlorine</li>
+<li class='number'>17</li>
+<li class='small'><h4> Cl</h4></li>
+<li class='molar'>35.453}</li>
+<li class='electron'>2 8 7</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Argon</li>
+<li class='number'>18</li>
+<li class='small'><h4> Ar</h4></li>
+<li class='molar'>39.948}</li>
+<li class='electron'>2 8 8</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<ul class='wrapper'>
+<li class='name'>Potassium</li>
+<li class='number'>19</li>
+<li class='small'><h4> K</h4></li>
+<li class='molar'>39.0983}</li>
+<li class='electron'>2 8 8 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Calcium</li>
+<li class='number'>20</li>
+<li class='small'><h4> Ca</h4></li>
+<li class='molar'>40.078}</li>
+<li class='electron'>2 8 8 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Scandium</li>
+<li class='number'>21</li>
+<li class='small'><h4> Sc</h4></li>
+<li class='molar'>44.955914}</li>
+<li class='electron'>2 8 9 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Titanium</li>
+<li class='number'>22</li>
+<li class='small'><h4> Ti</h4></li>
+<li class='molar'>47.867}</li>
+<li class='electron'>2 8 10 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Vanadium</li>
+<li class='number'>23</li>
+<li class='small'><h4> V</h4></li>
+<li class='molar'>50.9415}</li>
+<li class='electron'>2 8 11 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Chromium</li>
+<li class='number'>24</li>
+<li class='small'><h4> Cr</h4></li>
+<li class='molar'>51.9961}</li>
+<li class='electron'>2 8 13 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Manganese</li>
+<li class='number'>25</li>
+<li class='small'><h4> Mn</h4></li>
+<li class='molar'>54.938046}</li>
+<li class='electron'>2 8 13 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Iron</li>
+<li class='number'>26</li>
+<li class='small'><h4> Fe</h4></li>
+<li class='molar'>55.845}</li>
+<li class='electron'>2 8 14 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Cobalt</li>
+<li class='number'>27</li>
+<li class='small'><h4> Co</h4></li>
+<li class='molar'>58.933193}</li>
+<li class='electron'>2 8 15 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Nickel</li>
+<li class='number'>28</li>
+<li class='small'><h4> Ni</h4></li>
+<li class='molar'>58.6934}</li>
+<li class='electron'>2 8 16 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Copper</li>
+<li class='number'>29</li>
+<li class='small'><h4> Cu</h4></li>
+<li class='molar'>63.546}</li>
+<li class='electron'>2 8 18 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Zinc</li>
+<li class='number'>30</li>
+<li class='small'><h4> Zn</h4></li>
+<li class='molar'>65.38}</li>
+<li class='electron'>2 8 18 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Gallium</li>
+<li class='number'>31</li>
+<li class='small'><h4> Ga</h4></li>
+<li class='molar'>69.723}</li>
+<li class='electron'>2 8 18 3</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Germanium</li>
+<li class='number'>32</li>
+<li class='small'><h4> Ge</h4></li>
+<li class='molar'>72.63}</li>
+<li class='electron'>2 8 18 4</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Arsenic</li>
+<li class='number'>33</li>
+<li class='small'><h4> As</h4></li>
+<li class='molar'>74.9216}</li>
+<li class='electron'>2 8 18 5</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Selenium</li>
+<li class='number'>34</li>
+<li class='small'><h4> Se</h4></li>
+<li class='molar'>78.96}</li>
+<li class='electron'>2 8 18 6</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Bromine</li>
+<li class='number'>35</li>
+<li class='small'><h4> Br</h4></li>
+<li class='molar'>79.904}</li>
+<li class='electron'>2 8 18 7</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Krypton</li>
+<li class='number'>36</li>
+<li class='small'><h4> Kr</h4></li>
+<li class='molar'>83.798}</li>
+<li class='electron'>2 8 18 8</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<ul class='wrapper'>
+<li class='name'>Rubidium</li>
+<li class='number'>37</li>
+<li class='small'><h4> Rb</h4></li>
+<li class='molar'>85.4678}</li>
+<li class='electron'>2 8 18 8 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Strontium</li>
+<li class='number'>38</li>
+<li class='small'><h4> Sr</h4></li>
+<li class='molar'>87.62}</li>
+<li class='electron'>2 8 18 8 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Yttrium</li>
+<li class='number'>39</li>
+<li class='small'><h4> Y</h4></li>
+<li class='molar'>88.90585}</li>
+<li class='electron'>2 8 18 9 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Zirconium</li>
+<li class='number'>40</li>
+<li class='small'><h4> Zr</h4></li>
+<li class='molar'>91.224}</li>
+<li class='electron'>2 8 18 10 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Niobium</li>
+<li class='number'>41</li>
+<li class='small'><h4> Nb</h4></li>
+<li class='molar'>92.90638}</li>
+<li class='electron'>2 8 18 12 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Molybdenum</li>
+<li class='number'>42</li>
+<li class='small'><h4> Mo</h4></li>
+<li class='molar'>95.96}</li>
+<li class='electron'>2 8 18 13 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Technetium</li>
+<li class='number'>43</li>
+<li class='small'><h4> Tc</h4></li>
+<li class='molar'>98}</li>
+<li class='electron'>2 8 18 13 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Ruthenium</li>
+<li class='number'>44</li>
+<li class='small'><h4> Ru</h4></li>
+<li class='molar'>101.07}</li>
+<li class='electron'>2 8 18 15 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Rhodium</li>
+<li class='number'>45</li>
+<li class='small'><h4> Rh</h4></li>
+<li class='molar'>102.9055}</li>
+<li class='electron'>2 8 18 16 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Palladium</li>
+<li class='number'>46</li>
+<li class='small'><h4> Pd</h4></li>
+<li class='molar'>106.42}</li>
+<li class='electron'>2 8 18 18</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Silver</li>
+<li class='number'>47</li>
+<li class='small'><h4> Ag</h4></li>
+<li class='molar'>107.8682}</li>
+<li class='electron'>2 8 18 18 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Cadmium</li>
+<li class='number'>48</li>
+<li class='small'><h4> Cd</h4></li>
+<li class='molar'>112.411}</li>
+<li class='electron'>2 8 18 18 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Indium</li>
+<li class='number'>49</li>
+<li class='small'><h4> In</h4></li>
+<li class='molar'>114.818}</li>
+<li class='electron'>2 8 18 18 3</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Tin</li>
+<li class='number'>50</li>
+<li class='small'><h4> Sn</h4></li>
+<li class='molar'>118.71}</li>
+<li class='electron'>2 8 18 18 4</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Antimony</li>
+<li class='number'>51</li>
+<li class='small'><h4> Sb</h4></li>
+<li class='molar'>121.76}</li>
+<li class='electron'>2 8 18 18 5</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Tellurium</li>
+<li class='number'>52</li>
+<li class='small'><h4> Te</h4></li>
+<li class='molar'>127.6}</li>
+<li class='electron'>2 8 18 18 6</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Iodine</li>
+<li class='number'>53</li>
+<li class='small'><h4> I</h4></li>
+<li class='molar'>126.90447}</li>
+<li class='electron'>2 8 18 18 7</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Xenon</li>
+<li class='number'>54</li>
+<li class='small'><h4> Xe</h4></li>
+<li class='molar'>131.293}</li>
+<li class='electron'>2 8 18 18 8</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<ul class='wrapper'>
+<li class='name'>Caesium</li>
+<li class='number'>55</li>
+<li class='small'><h4> Cs</h4></li>
+<li class='molar'>132.90546}</li>
+<li class='electron'>2 8 18 18 8 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Barium</li>
+<li class='number'>56</li>
+<li class='small'><h4> Ba</h4></li>
+<li class='molar'>137.327}</li>
+<li class='electron'>2 8 18 18 8 2</li>
+</ul>
+</td>
+<td class='no-border'></td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Hafnium</li>
+<li class='number'>72</li>
+<li class='small'><h4> Hf</h4></li>
+<li class='molar'>178.49}</li>
+<li class='electron'>2 8 18 32 10 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Tantalum</li>
+<li class='number'>73</li>
+<li class='small'><h4> Ta</h4></li>
+<li class='molar'>180.94788}</li>
+<li class='electron'>2 8 18 32 11 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Tungsten</li>
+<li class='number'>74</li>
+<li class='small'><h4> W</h4></li>
+<li class='molar'>183.84}</li>
+<li class='electron'>2 8 18 32 12 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Rhenium</li>
+<li class='number'>75</li>
+<li class='small'><h4> Re</h4></li>
+<li class='molar'>186.207}</li>
+<li class='electron'>2 8 18 32 13 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Osmium</li>
+<li class='number'>76</li>
+<li class='small'><h4> Os</h4></li>
+<li class='molar'>190.23}</li>
+<li class='electron'>2 8 18 32 14 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Iridium</li>
+<li class='number'>77</li>
+<li class='small'><h4> Ir</h4></li>
+<li class='molar'>192.217}</li>
+<li class='electron'>2 8 18 32 15 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Platinum</li>
+<li class='number'>78</li>
+<li class='small'><h4> Pt</h4></li>
+<li class='molar'>195.084}</li>
+<li class='electron'>2 8 18 32 17 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Gold</li>
+<li class='number'>79</li>
+<li class='small'><h4> Au</h4></li>
+<li class='molar'>196.96657}</li>
+<li class='electron'>2 8 18 32 18 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Mercury</li>
+<li class='number'>80</li>
+<li class='small'><h4> Hg</h4></li>
+<li class='molar'>200.59}</li>
+<li class='electron'>2 8 18 32 18 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Thallium</li>
+<li class='number'>81</li>
+<li class='small'><h4> Tl</h4></li>
+<li class='molar'>204.3833}</li>
+<li class='electron'>2 8 18 32 18 3</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Lead</li>
+<li class='number'>82</li>
+<li class='small'><h4> Pb</h4></li>
+<li class='molar'>207.2}</li>
+<li class='electron'>2 8 18 32 18 4</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Bismuth</li>
+<li class='number'>83</li>
+<li class='small'><h4> Bi</h4></li>
+<li class='molar'>208.9804}</li>
+<li class='electron'>2 8 18 32 18 5</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Polonium</li>
+<li class='number'>84</li>
+<li class='small'><h4> Po</h4></li>
+<li class='molar'>209}</li>
+<li class='electron'>2 8 18 32 18 6</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Astatine</li>
+<li class='number'>85</li>
+<li class='small'><h4> At</h4></li>
+<li class='molar'>210}</li>
+<li class='electron'>2 8 18 32 18 7</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Radon</li>
+<li class='number'>86</li>
+<li class='small'><h4> Rn</h4></li>
+<li class='molar'>222}</li>
+<li class='electron'>2 8 18 32 18 8</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>
+<ul class='wrapper'>
+<li class='name'>Francium</li>
+<li class='number'>87</li>
+<li class='small'><h4> Fr</h4></li>
+<li class='molar'>223}</li>
+<li class='electron'>2 8 18 32 18 8 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Radium</li>
+<li class='number'>88</li>
+<li class='small'><h4> Ra</h4></li>
+<li class='molar'>226}</li>
+<li class='electron'>2 8 18 32 18 8 2</li>
+</ul>
+</td>
+<td class='no-border'></td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Rutherfordium</li>
+<li class='number'>104</li>
+<li class='small'><h4> Rf</h4></li>
+<li class='molar'>267}</li>
+<li class='electron'>2 8 18 32 32 10 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Dubnium</li>
+<li class='number'>105</li>
+<li class='small'><h4> Db</h4></li>
+<li class='molar'>268}</li>
+<li class='electron'>2 8 18 32 32 11 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Seaborgium</li>
+<li class='number'>106</li>
+<li class='small'><h4> Sg</h4></li>
+<li class='molar'>271}</li>
+<li class='electron'>2 8 18 32 32 12 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Bohrium</li>
+<li class='number'>107</li>
+<li class='small'><h4> Bh</h4></li>
+<li class='molar'>272}</li>
+<li class='electron'>2 8 18 32 32 13 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Hassium</li>
+<li class='number'>108</li>
+<li class='small'><h4> Hs</h4></li>
+<li class='molar'>270}</li>
+<li class='electron'>2 8 18 32 32 14 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Meitnerium</li>
+<li class='number'>109</li>
+<li class='small'><h4> Mt</h4></li>
+<li class='molar'>276}</li>
+<li class='electron'>2 8 18 32 32 15 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Darmstadtium</li>
+<li class='number'>110</li>
+<li class='small'><h4> Ds</h4></li>
+<li class='molar'>281}</li>
+<li class='electron'>2 8 18 32 32 17 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Roentgenium</li>
+<li class='number'>111</li>
+<li class='small'><h4> Rg</h4></li>
+<li class='molar'>280}</li>
+<li class='electron'>2 8 18 32 32 18 1</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Copernicium</li>
+<li class='number'>112</li>
+<li class='small'><h4> Cn</h4></li>
+<li class='molar'>285}</li>
+<li class='electron'>2 8 18 32 32 18 2</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Ununtrium</li>
+<li class='number'>113</li>
+<li class='small'><h4> Uut</h4></li>
+<li class='molar'>284}</li>
+<li class='electron'>2 8 18 32 32 18 3</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Flerovium</li>
+<li class='number'>114</li>
+<li class='small'><h4> Fl</h4></li>
+<li class='molar'>289}</li>
+<li class='electron'>2 8 18 32 32 18 4</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Ununpentium</li>
+<li class='number'>115</li>
+<li class='small'><h4> Uup</h4></li>
+<li class='molar'>288}</li>
+<li class='electron'>2 8 18 32 32 18 5</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Livermorium</li>
+<li class='number'>116</li>
+<li class='small'><h4> Lv</h4></li>
+<li class='molar'>293}</li>
+<li class='electron'>2 8 18 32 32 18 6</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Ununseptium</li>
+<li class='number'>117</li>
+<li class='small'><h4> Uus</h4></li>
+<li class='molar'>294}</li>
+<li class='electron'>2 8 18 32 32 18 7</li>
+</ul>
+</td>
+<td>
+<ul class='wrapper'>
+<li class='name'>Ununoctium</li>
+<li class='number'>118</li>
+<li class='small'><h4> Uuo</h4></li>
+<li class='molar'>294}</li>
+<li class='electron'>2 8 18 32 32 18 8</li>
+</ul>
+</td>
+</tr>
+</table>
 </body>
-
 </html>
