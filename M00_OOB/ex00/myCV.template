@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>{first_name} {last_name}'s CV</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <style>{style}</style>
+</head>
+
+<body>
+    <h1>{first_name} {last_name}'s CV</h1>
+    <table>
+        <tr>
+            <th>First Name</th>
+            <td>{first_name}</td>
+        </tr>
+        <tr>
+            <th>Last Name</th>
+            <td>{last_name}</td>
+        </tr>
+        <tr>
+            <th>Skills</th>
+            <td>
+                <ul>
+                    <li>{skill1}</li>
+                    <li>{skill2}</li>
+                    <li>{skill3}</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Experiences</th>
+            <td>
+                <ol>
+                    <li>{experience1}</li>
+                    <li>{experience2}</li>
+                    <li>{experience3}</li>
+                </ol>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
