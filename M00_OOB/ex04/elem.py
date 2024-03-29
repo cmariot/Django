@@ -57,6 +57,7 @@ class Elem:
         self.tag_type = tag_type
         self.attr = attr
         self.content = []
+        self.level = 0
         if content is not None and self.check_type(content):
             self.add_content(content)
 
@@ -75,7 +76,7 @@ class Elem:
             result += self.__make_content()
             result += '</' + self.tag + '>'
         elif self.tag_type == 'simple':
-            result = '<' + self.tag + self.__make_attr() + ' />'
+            result += '<' + self.tag + self.__make_attr() + ' />'
         return result
 
     def __make_attr(self):
@@ -117,11 +118,9 @@ class Elem:
         if len(self.content) == 0:
             return ''
         result = '\n'
-        embedded_level = 1
         for elem in self.content:
-            result += "  " * embedded_level + elem.__str__() + '\n'
-            if isinstance(elem, Elem):
-                level += 1
+            result += elem.level * 2 * ' '
+            result += elem.__str__() + '\n'
         return result
 
     def add_content(self, content):
@@ -129,6 +128,11 @@ class Elem:
             self.content += [elem for elem in content if elem != Text('')]
         elif content != Text(''):
             self.content.append(content)
+        level = self.level
+        for elem in self.content:
+            elem.level = level
+            if elem.tag_type == 'double':
+                elem.level += 1
 
     class ValidationError(Exception):
         """
@@ -142,7 +146,13 @@ class Elem:
 if __name__ == '__main__':
 
     try:
-        elem = Elem(content=Elem(content=Elem(content=Elem())))
+        elem = Elem(
+                content=Elem(
+                    content=Elem(
+                        content=Elem()
+                        )
+                    )
+                )
         print(elem)
     except Exception as e:
         print(f"An error occurred: {e}")
