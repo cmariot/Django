@@ -1,0 +1,99 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="popup.js"></script>
+    <title>Form</title>
+    <style>
+        #awesomeForm {
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        #awesomeForm div {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 100%;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        #awesomeForm span {
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+            width: 100%;
+            align-items: center;
+            margin-block: 0.5rem;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="awesomeForm">
+
+        <h1>Form</h1>
+
+        <div>
+            <label for="firstname">FirstName: </label>
+            <input type="text" id="firstname" name="firstname" class="full-width">
+        </div>
+
+        <div>
+            <label for="name">Name: </label>
+            <input type="text" id="name" name="name" class="full-width">
+        </div>
+
+        <div>
+            <label for="age">Age: </label>
+            <input type="number" id="age" name="age" class="full-width">
+        </div>
+
+        <div>
+            <label for="phone">Phone: </label>
+            <input type="tel" id="phone" name="phone" class="full-width">
+        </div>
+
+        <div>
+            <label for="email">Email: </label>
+            <input type="email" id="email" name="email" class="full-width">
+        </div>
+
+        <span>
+            <label for="student">Student at 42? </label>
+            <input type="checkbox" id="student" name="student">
+        </span>
+
+        <span>
+            <span style="justify-content:center;">
+                <input type="radio" id="gender_male" name="gender" value="Male">
+                <label for="gender_male">Male</label>
+            </span>
+            <span style="justify-content:center;">
+                <input type="radio" id="gender_female" name="gender" value="Female">
+                <label for="gender_female">Female</label>
+            </span>
+            <span style="justify-content:center;">
+                <input type="radio" id="gender_other" name="gender" value="Other">
+                <label for="gender_other">Other</label>
+            </span>
+        </span>
+
+        <input type="submit" value="Submit" onclick="displayFormContents()"
+            style="max-width: 100px; align-self: center; padding:0.5rem;">
+
+    </form>
+</body>
+
+</html>
