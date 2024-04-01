@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./10_Lib/local_lib"
+    ]
+}
