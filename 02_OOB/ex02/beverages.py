@@ -2,9 +2,10 @@ class HotBeverage:
 
     price = 0.30
     name = "hot beverage"
+    _description = "Just some hot water in a cup."
 
     def description(self) -> str:
-        return "Just some hot water in a cup."
+        return self._description
 
     def __str__(self):
         str = f"name : {self.name}\n" + \
@@ -18,9 +19,7 @@ class Coffee(HotBeverage):
     def __init__(self) -> None:
         self.name = "coffee"
         self.price = 0.40
-
-    def description(self) -> str:
-        return "A coffee, to stay awake."
+        self._description = "A coffee, to stay awake."
 
 
 class Tea(HotBeverage):
@@ -29,9 +28,7 @@ class Tea(HotBeverage):
         super().__init__()
         self.name = "tea"
         self.price = 0.30
-
-    def description(self) -> str:
-        return "Just some hot water in a cup."
+        self._description = "Just some hot water in a cup."
 
 
 class Chocolate(HotBeverage):
@@ -40,9 +37,7 @@ class Chocolate(HotBeverage):
         super().__init__()
         self.name = "chocolate"
         self.price = 0.50
-
-    def description(self) -> str:
-        return "Chocolate, sweet chocolate..."
+        self._description = "Chocolate, sweet chocolate..."
 
 
 class Cappuccino(HotBeverage):
@@ -51,21 +46,19 @@ class Cappuccino(HotBeverage):
         super().__init__()
         self.name = "cappuccino"
         self.price = 0.45
-
-    def description(self) -> str:
-        return "Un po’ di Italia nella sua tazza!"
+        self._description = "Un po’ di Italia nella sua tazza!"
 
 
 if __name__ == "__main__":
     try:
 
-        classes = [
+        classes = (
             HotBeverage(),
             Coffee(),
             Tea(),
             Chocolate(),
             Cappuccino()
-        ]
+        )
 
         for item in classes:
             print(item, "\n")

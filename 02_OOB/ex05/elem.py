@@ -53,6 +53,10 @@ class Elem:
         Obviously.
         """
         self.tag = tag
+        if tag_type not in ('simple', 'double'):
+            raise Exception(
+                "Invalid tag_type, only 'simple' or 'double' allowed"
+            )
         self.tag_type = tag_type
         self.attr = attr
         self.level = 0

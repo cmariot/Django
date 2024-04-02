@@ -3,7 +3,7 @@ import sys
 
 def parse_argument():
     if len(sys.argv) != 2:
-        print("usage: python render.py 'filename'")
+        print("usage: python render.py 'filename.template'")
         sys.exit(1)
     filename = sys.argv[1]
     if not filename.endswith(".template"):

@@ -13,9 +13,7 @@ class CoffeeMachine:
         def __init__(self) -> None:
             self.name = "empty cup"
             self.price = 0.90
-
-        def description(self) -> str:
-            return "An empty cup?! Gimme my money back!"
+            self._description = "An empty cup?! Gimme my money back!"
 
     class BrokenMachineException(Exception):
         def __init__(self) -> None:
@@ -32,12 +30,12 @@ class CoffeeMachine:
 
         if random_number == 1:
             self.served_drinks += 1
-            if self.served_drinks > 10 or self.is_broken:
+            if self.served_drinks >= 10 or self.is_broken:
                 self.is_broken = True
                 raise self.BrokenMachineException()
             return beverage
         else:
-            if self.served_drinks > 10 or self.is_broken:
+            if self.served_drinks >= 10 or self.is_broken:
                 raise self.BrokenMachineException()
             return self.EmptyCup()
 
@@ -75,7 +73,7 @@ if __name__ == "__main__":
             except machine.BrokenMachineException as error:
                 print(error)
 
-                repair = input("Do you want to repair the machine? (yes/no)")
+                repair = input("Do you want to repair the machine? (yes/no)\n")
 
                 if repair == "yes":
                     machine.repair()

@@ -6,7 +6,7 @@
 #    By: cmariot <cmariot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/30 13:26:36 by cmariot           #+#    #+#              #
-#    Updated: 2024/03/30 13:29:28 by cmariot          ###   ########.fr        #
+#    Updated: 2024/04/02 10:10:10 by cmariot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,37 +105,72 @@ class Tr(Elem):
 
 class Td(Elem):
     def __init__(self, content=None, attr={}):
-        super().__init__(tag='td', tag_type='double', content=content, attr=attr)
+        super().__init__(
+            tag='td',
+            tag_type='double',
+            content=content,
+            attr=attr
+        )
 
 
 class Ul(Elem):
     def __init__(self, content=None, attr={}):
-        super().__init__(tag='ul', tag_type='double', content=content, attr=attr)
+        super().__init__(
+            tag='ul',
+            tag_type='double',
+            content=content,
+            attr=attr
+        )
 
 
 class Ol(Elem):
     def __init__(self, content=None, attr={}):
-        super().__init__(tag='ol', tag_type='double', content=content, attr=attr)
+        super().__init__(
+            tag='ol',
+            tag_type='double',
+            content=content,
+            attr=attr
+        )
 
 
 class Li(Elem):
     def __init__(self, content=None, attr={}):
-        super().__init__(tag='li', tag_type='double', content=content, attr=attr)
+        super().__init__(
+            tag='li',
+            tag_type='double',
+            content=content,
+            attr=attr
+        )
 
 
 class H1(Elem):
     def __init__(self, content=None, attr={}):
-        super().__init__(tag='h1', tag_type='double', content=content, attr=attr)
+        super().__init__(
+            tag='h1',
+            tag_type='double',
+            content=content,
+            attr=attr
+        )
 
 
 class H2(Elem):
     def __init__(self, content=None, attr={}):
-        super().__init__(tag='h2', tag_type='double', content=content, attr=attr)
+        super().__init__(
+            tag='h2',
+            tag_type='double',
+            content=content,
+            attr=attr
+        )
 
 
 class P(Elem):
     def __init__(self, content=None, attr={}):
-        super().__init__(tag='p', tag_type='double', content=content, attr=attr)
+        super().__init__(
+            tag='p',
+            tag_type='double',
+            content=content,
+            attr=attr
+        )
 
 
 class Div(Elem):
