@@ -18,5 +18,5 @@ cat ../local_lib/install.log
 
 # Si la librairie a été correctement installée, il doit finalement exécuter le petit pro- gramme que vous devez également créer.
 if [ -d ../local_lib ]; then
-    python my_program.py
+    python3 my_program.py
 fi

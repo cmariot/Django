@@ -1,5 +1,4 @@
 import sys
-import antigravity
 
 
 # Geohashing is an outdoor recreational activity inspired by the xkcd webcomic,
@@ -58,11 +57,11 @@ def parse_arguments():
 
     if len(sys.argv) != 4:
         print(
-            "Usage: python geohashing.py <latitude> <longitude> <date>"
-            "Example:" +
-            "python geohashing.py 37.421542, -122.085589, '2005-05-26-10458.68'"
+            "Usage: python geohashing.py <latitude> <longitude> <date>\n"
+            "Example:\n" +
+            "python3 geohashing.py 37.421542 -122.085589 '2005-05-26-10458.68'\n"
         )
-        return
+        exit()
 
     lat = float(sys.argv[1])
     lon = float(sys.argv[2])
@@ -76,56 +75,61 @@ def parse_arguments():
     return lat, lon, date.encode()
 
 
-def geohash(lat: str, lon: str, date: str):
+# def geohash(lat: str, lon: str, date: str):
 
-    """
-    My implementation of the geohash function based on :
-    https://xkcd.com/426/
-    """
+#     """
+#     My implementation of the geohash function based on :
+#     https://xkcd.com/426/
+#     """
 
-    import hashlib
+#     import hashlib
 
-    # md5 the date
-    date_hash = hashlib.md5(date, usedforsecurity=False).hexdigest()
+#     # md5 the date
+#     date_hash = hashlib.md5(date, usedforsecurity=False).hexdigest()
 
-    # split the date hash into two parts
-    first_16 = date_hash[:16]
-    last_16 = date_hash[-16:]
+#     # split the date hash into two parts
+#     first_16 = date_hash[:16]
+#     last_16 = date_hash[-16:]
 
-    # convert to the str to 0.XXXXX with XXXXX being the 16 hexa characters
-    first_16 = int(first_16, 16) * 16**-16
-    last_16 = int(last_16, 16) * 16**-16
+#     # convert to the str to 0.XXXXX with XXXXX being the 16 hexa characters
+#     first_16 = int(first_16, 16) * 16**-16
+#     last_16 = int(last_16, 16) * 16**-16
 
-    # split the latitude and longitude
-    split_lat = str(lat).split(".")
-    split_lon = str(lon).split(".")
+#     # split the latitude and longitude
+#     split_lat = str(lat).split(".")
+#     split_lon = str(lon).split(".")
 
-    # calculate the geohash
-    float_lat = float(split_lat[0])
-    float_lon = float(split_lon[0])
+#     # calculate the geohash
+#     float_lat = float(split_lat[0])
+#     float_lon = float(split_lon[0])
 
-    # add the first 16 and last 16 to the latitude and longitude first part
-    # if the latitude or longitude is negative, subtract the value
-    # if the latitude or longitude is positive, add the value
-    if float_lat > 0:
-        lat_geohash = float_lat + first_16
-    else:
-        lat_geohash = float_lat - first_16
+#     # add the first 16 and last 16 to the latitude and longitude first part
+#     # if the latitude or longitude is negative, subtract the value
+#     # if the latitude or longitude is positive, add the value
+#     if float_lat > 0:
+#         lat_geohash = float_lat + first_16
+#     else:
+#         lat_geohash = float_lat - first_16
 
-    if float_lon > 0:
-        lon_geohash = float_lon + last_16
-    else:
-        lon_geohash = float_lon - last_16
+#     if float_lon > 0:
+#         lon_geohash = float_lon + last_16
+#     else:
+#         lon_geohash = float_lon - last_16
 
-    # print the latitude and longitude with a precision of 6
-    print(f"{lat_geohash:.6f} {lon_geohash:.6f}")
+#     # print the latitude and longitude with a precision of 6
+#     print(f"{lat_geohash:.6f} {lon_geohash:.6f}")
 
 
 def main():
 
     lat, lon, date = parse_arguments()
+
+    # The import is here to avoid boring
+    from antigravity import geohash
+
     geohash(lat, lon, date)
-    antigravity.geohash(lat, lon, date)
+
+    # geohash(lat, lon, date)
 
 
 if __name__ == "__main__":
