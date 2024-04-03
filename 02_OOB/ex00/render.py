@@ -32,9 +32,9 @@ def read_settings():
                         "'key = value' format"
                     )
                 key, value = splitted_line
+                banned_chars = ["<", ">"]
                 # Avoiding XSS attacks
                 # first_name = "John<script>alert('XSS');</script>"
-                banned_chars = ["<", ">"]
                 for char in banned_chars:
                     if char in value:
                         raise ValueError(
