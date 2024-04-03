@@ -2,37 +2,56 @@ import sys
 
 
 def parse_argument():
+
+    """
+    Get the argument of the program and split it by the commas
+    Return a list of capitals/states
+    """
+
     if len(sys.argv) != 2:
         exit()
-    splitted_arg = sys.argv[1].split(",")
-    elements = []
+
     i = 0
+    elements = []
+    splitted_arg = sys.argv[1].split(",")
+
     for elem in splitted_arg:
+
+        # Two ',' -> exit
         if len(elem) == 0 and i != len(splitted_arg) - 1:
             exit()
+
         stripped_elem = elem.strip()
+
         if len(stripped_elem) != 0:
             elements.append(stripped_elem)
+
         i += 1
+
     return elements
 
 
 def get_state(city_input, states, capital_cities):
+    """
+    Search for the state of a capital city.
+    """
 
-    state = None
-    for key, value in capital_cities.items():
-        if value.upper() == city_input.upper():
-            state = key
-            capital_city_correct = value
+    # Search for the state of the capital city by value
+    abbreviation = None
+    for state_abbr, capital_name in capital_cities.items():
+        if capital_name.upper() == city_input.upper():
+            abbreviation = state_abbr
+            capital_city_correct = capital_name
             break
 
-    if state is None:
+    if abbreviation is None:
         return False, None, None
 
+    # Search for the state name by it's abbreviation
     state_name = None
-    for key, value in states.items():
-        if value.upper() == state.upper():
-            state_name = key
+    for state, state_abbr in states.items():
+        if state_abbr.upper() == abbreviation.upper():
+            state_name = state
             break
 
     if state_name is None:
@@ -43,21 +62,26 @@ def get_state(city_input, states, capital_cities):
 
 def get_capital(state_input, states, capital_cities):
 
-    state = None
-    state_correct = None
-    for key, value in states.items():
-        if key.upper() == state_input.upper():
-            state = value
-            state_correct = key
+    """
+    Search for the capital city of a state.
+    """
+
+    # Search for the abbreviation of the state
+    abbreviation = None
+    for state, state_abbr in states.items():
+        if state.upper() == state_input.upper():
+            abbreviation = state_abbr
+            state_correct = state
             break
 
-    if state is None:
+    if abbreviation is None:
         return False, None, None
 
+    # Search for the capital city of the state
     capital_city = None
-    for key, value in capital_cities.items():
-        if key.upper() == state.upper():
-            capital_city = value
+    for state_abbr, capital_name in capital_cities.items():
+        if state_abbr.upper() == abbreviation.upper():
+            capital_city = capital_name
             break
 
     if capital_city is None:

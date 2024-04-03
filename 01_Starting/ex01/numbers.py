@@ -1,9 +1,10 @@
 def print_numbers():
-    with open("numbers.txt", "r") as f:
-        file_content = f.read()
-        numbers_list = file_content.split(",")
-        for number in numbers_list:
-            print(number)
+    file_content = ""
+    with open("numbers.txt", "r") as file:
+        file_content = file.read()
+    numbers_list = file_content.split(",")
+    for number in numbers_list:
+        print(number.strip('\n'))
 
 
 if __name__ == "__main__":

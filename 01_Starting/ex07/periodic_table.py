@@ -1,24 +1,51 @@
 def get_elements_from_file():
+    """
+    Parse the periodic_table.txt file and return a dictionary containing the
+    elements.
+
+    The dictionary should have the following format:
+    {
+        "Hydrogen": {
+            "pos": "0",
+            "number": "1",
+            "small": "H",
+            "molar": "1.00794",
+            "electron": "1"
+        },
+        "Helium": {
+            "pos": "1",
+            "number": "2",
+            "small": "He",
+            "molar": "4.002602",
+            "electron": "2"
+        },
+        ...
+    }
+    """
+
     elements = {}
     with open("periodic_table.txt", "r") as f:
         file_lines = f.read().splitlines()
 
         for line in file_lines:
 
-            # Parse the line,
-            # Line example :
+            # Parse the line. Line example :
             # Hydrogen = pos:0, number:1, small: H, molar:1.00794, electron:1
 
             # Split the line by "="
-            name, properties = line.split("=")
-
-            # Split the properties by ","
-            properties = properties.split(",")
+            splitted = line.split("=")
+            if len(splitted) != 2:
+                raise Exception("Invalid line")
+            name, properties = splitted
 
             # Parse the properties
+            properties = properties.split(",")
             element = {}
             for prop in properties:
-                key, value = prop.split(":")
+                splitted = prop.split(":")
+                if len(splitted) != 2:
+                    raise Exception("Invalid property")
+                key, value = splitted
                 element[key.strip()] = value.strip()
 
             elements[name.strip()] = element
@@ -27,6 +54,10 @@ def get_elements_from_file():
 
 
 def create_html_file(elements):
+
+    """
+    Write the periodic table in a html format.
+    """
 
     with open("periodic_table.html", "w") as f:
 
@@ -124,7 +155,6 @@ def create_html_file(elements):
 
         """
 
-        # On click, open the wikipedia page of the element in a new tab
         js = """
         document.addEventListener("DOMContentLoaded", function() {
             let tds = document.querySelectorAll("td:not(.no-border)");
@@ -142,34 +172,43 @@ def create_html_file(elements):
 
         f.write("<!DOCTYPE html>\n")
         f.write("<html lang='en'>\n")
-        f.write("<head>\n")
-        f.write("<title>Periodic Table</title>\n")
-        f.write("<meta charset='UTF-8'>\n")
-        f.write("<style>\n")
-        f.write(f"{css}\n")
-        f.write("</style>\n")
-        f.write("<script>\n")
-        f.write(f"{js}\n")
-        f.write("</script>\n")
-        f.write("</head>\n")
-        f.write("<body>\n")
-        f.write("<h1>Periodic table of the elements</h1>\n")
-        f.write("<table>\n")
-        f.write("<tbody>\n")
+        f.write("   <head>\n")
+        f.write("       <title>Periodic Table</title>\n")
+        f.write("       <meta charset='UTF-8'>\n")
+        f.write("       <style>\n")
+        f.write(f"      {css}\n")
+        f.write("       </style>\n")
+        f.write("       <script>\n")
+        f.write(f"      {js}\n")
+        f.write("       </script>\n")
+        f.write("   </head>\n")
+        f.write("   <body>\n")
+        f.write("       <h1>Periodic table of the elements</h1>\n")
+        f.write("       <table>\n")
+        f.write("       <tbody>\n")
+
         row, column = 0, 0
+
+        # For each element, write the corresponding html code
         for element_name, element_properties in elements.items():
+
+            # Start a new row
             if column == 0:
                 f.write("<tr>\n")
+
+            # Add empty cells if needed
             while column < int(element_properties['position']):
-                f.write("<td class='no-border'></td>\n")
+                f.write("           <td class='no-border'></td>\n")
                 column += 1
                 if column == 18:
                     f.write("</tr>\n")
                     column = 0
                     row += 1
+
+            # Add the element cell
             f.write("<td>\n")
             f.write("<ul class='wrapper'>\n")
-            f.write(f"<li class='name'>{element_name}</li>\n")
+            f.write(f"<li class='name'><h4>{element_name}</h4></li>\n")
             f.write(f"<li class='number'>{element_properties['number']}</li>\n")
             f.write(
                 "<li class='small'><h4> " +
@@ -188,11 +227,15 @@ def create_html_file(elements):
             )
             f.write("</ul>\n")
             f.write("</td>\n")
+
             column += 1
+
+            # Close the row if needed
             if column == 18:
                 f.write("</tr>\n")
                 column = 0
                 row += 1
+
         f.write("</table>\n")
         f.write("</body>\n")
         f.write("</html>\n")

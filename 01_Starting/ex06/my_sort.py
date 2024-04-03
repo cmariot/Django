@@ -2,21 +2,25 @@ def my_sort(d):
 
     # Create a dictionary with the year as key and a list of names as value
     grouped_by_year = {}
-    for key, value in d.items():
-        if value not in grouped_by_year:
-            grouped_by_year[value] = [key]
+    for artist, year in d.items():
+        if year not in grouped_by_year:
+            grouped_by_year[year] = [artist]
         else:
-            grouped_by_year[value].append(key)
+            grouped_by_year[year].append(artist)
 
     # Sort the dictionary by year
     sorted_dict = dict(sorted(grouped_by_year.items()))
 
     # Sort the names in each list and print them
-    for key, value in sorted_dict.items():
-        value.sort()
-        for name in value:
-            print(name)
-            # print(key, name)
+    for artist_list in sorted_dict.values():
+        artist_list.sort()
+        for artist in artist_list:
+            print(artist)
+
+    # for year, artist_list in sorted_dict.items():
+    #     artist_list.sort()
+    #     for artist in artist_list:
+    #         print(f"{year}: {artist}")
 
 
 if __name__ == '__main__':
