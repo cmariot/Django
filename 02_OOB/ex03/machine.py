@@ -54,36 +54,40 @@ if __name__ == "__main__":
             "Cappuccino": Cappuccino
         }
 
-        while (True):
+        BLUE = '\033[94m'
+        RED = '\033[91m'
+        ORANGE = '\033[93m'
+        GREEN = '\033[92m'
+        RESET = '\033[0m'
 
-            user_input = input("What drink do you want?\n")
+        while True:
+
+            user_input = input(f"👋 {BLUE}What drink do you want?\n{RESET}")
 
             if user_input == "exit":
                 break
             elif user_input == "":
                 user_input = "Coffee"
-
-            if user_input not in drinks.keys():
-                print("This drink is not available.")
+            elif user_input not in drinks.keys():
+                print(f"{RED}This drink is not available.{RESET}")
                 continue
 
             try:
                 drink = machine.serve(drinks[user_input]())
-                print(drink, "\n")
-            except machine.BrokenMachineException as error:
-                print(error)
-
-                repair = input("Do you want to repair the machine? (yes/no)\n")
-
+                print(f"{drink}\n")
+            except machine.BrokenMachineException as broken_machine:
+                print(f"{RED}{broken_machine}{RESET}\n")
+                repair = input(
+                    f"🧑‍🔧 {BLUE}Do you want to repair the machine? " +
+                    f"(yes/no){RESET}\n"
+                )
                 if repair == "yes":
                     machine.repair()
-                    print("The machine has been repaired.")
+                    print(f"🧑‍🔧 {GREEN}The machine has been repaired.{RESET}\n")
                 else:
-                    print("The machine is still broken.")
-
-            except Exception as error:
-                print(error)
-                break
+                    print(f"🧑‍🔧 {ORANGE}The machine is still broken.{RESET}\n")
 
     except KeyboardInterrupt:
         print("\nGoodbye!")
+    except Exception as error:
+        print(error)

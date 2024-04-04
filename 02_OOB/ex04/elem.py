@@ -90,8 +90,9 @@ class Elem:
         Example in <img src="hello.jpg">, src="hello.jpg" is an attribute.
         """
         result = str()
-        for pair in sorted(self.attr.items()):
-            result += ' ' + str(pair[0]) + '="' + str(pair[1]) + '"'
+        if self.attr:
+            for pair in sorted(self.attr.items()):
+                result += ' ' + str(pair[0]) + '="' + str(pair[1]) + '"'
         return result
 
     @staticmethod
@@ -125,8 +126,7 @@ class Elem:
         for elem in self.content:
             elem.level = level
             if isinstance(elem, Text):
-                result += level * "  "
-                result += elem.__str__() + '\n'
+                result += level * "  " + elem.__str__() + '\n'
             else:
                 result += elem.__str__() + '\n'
                 if elem.tag == 'double':
@@ -135,7 +135,9 @@ class Elem:
         return result
 
     def add_content(self, content):
-        if not self.check_type(content):
+        if self.tag_type == 'simple':
+            raise Elem.ValidationError("Simple tag can't have content")
+        elif not self.check_type(content):
             raise Elem.ValidationError
         if type(content) is list:
             self.content += [elem for elem in content if elem != Text('')]
