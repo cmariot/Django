@@ -379,7 +379,7 @@ if __name__ == "__main__":
         )
     )
 
-    # test_default_constructor()
-    # test_default_constructor_with_attr()
-    # test_default_constructor_with_content()
-    # test_default_constructor_with_content_and_attr()
+    test_default_constructor()
+    test_default_constructor_with_attr()
+    test_default_constructor_with_content()
+    test_default_constructor_with_content_and_attr()

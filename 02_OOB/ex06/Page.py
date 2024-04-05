@@ -153,8 +153,7 @@ class Page:
             if isinstance(elem, Tr):
                 if len(elem.content) == 0:
                     return False
-                th = False
-                td = False
+                th, td = False, False
                 for e in elem.content:
                     if isinstance(e, Th):
                         if td:

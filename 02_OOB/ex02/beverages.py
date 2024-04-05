@@ -8,8 +8,9 @@ class HotBeverage:
         return self._description
 
     def __str__(self):
+        # The price attribute must be limited to two decimal points
         str = f"name : {self.name}\n" + \
-              f"price : {self.price}\n" +\
+              f"price : {self.price:.2f}\n" +\
               f"description : {self.description()}"
         return str
 
@@ -17,6 +18,7 @@ class HotBeverage:
 class Coffee(HotBeverage):
 
     def __init__(self) -> None:
+        super().__init__()
         self.name = "coffee"
         self.price = 0.40
         self._description = "A coffee, to stay awake."

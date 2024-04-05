@@ -11,6 +11,7 @@ class CoffeeMachine:
     class EmptyCup(HotBeverage):
 
         def __init__(self) -> None:
+            super().__init__()
             self.name = "empty cup"
             self.price = 0.90
             self._description = "An empty cup?! Gimme my money back!"
@@ -69,7 +70,7 @@ if __name__ == "__main__":
             elif user_input == "":
                 user_input = "Coffee"
             elif user_input not in drinks.keys():
-                print(f"{RED}This drink is not available.{RESET}")
+                print(f"{RED}This drink is not available.{RESET}\n")
                 continue
 
             try:

@@ -9,50 +9,6 @@ import sys
 # Proof based on non-electronic navigation is also acceptable.
 
 
-def check_date_format(date):
-    # check if the date is in the correct format
-    # YYYY-MM-DD-XXXXX.XX
-    # YYYY: year
-    # MM: month
-    # DD: day
-    # XXXXX.XX: a float number
-
-    if not isinstance(date, str):
-        return False
-
-    date = date.split("-")
-
-    if len(date) != 4:
-        return False
-
-    year, month, day, float_num = date
-
-    if len(year) != 4 or len(month) != 2 or len(day) != 2:
-        return False
-    if not year.isdigit() or not month.isdigit() or not day.isdigit():
-        return False
-    if not float_num.replace(".", "").isdigit():
-        return False
-    if not float_num.count(".") == 1:
-        return False
-    split_float = float_num.split(".")
-    if len(split_float[0]) != 5 or len(split_float[1]) != 2:
-        return False
-    if not split_float[0].isdigit() or not split_float[1].isdigit():
-        return False
-
-    return True
-
-
-def check_lat_lon(lat, lon):
-    # check if the latitude and longitude are in the correct format
-    # latitude: -90 to 90
-    # longitude: -180 to 180
-    if lat >= -90 and lat <= 90 and lon >= -180 and lon <= 180:
-        return True
-    return False
-
-
 def parse_arguments():
 
     if len(sys.argv) != 4:
@@ -73,6 +29,57 @@ def parse_arguments():
         raise ValueError("Invalid date format")
 
     return lat, lon, date.encode()
+
+
+def check_lat_lon(lat, lon):
+
+    # check if the latitude and longitude are in the correct format
+    # latitude: -90 to 90
+    # longitude: -180 to 180
+
+    if not isinstance(lat, (int, float)):
+        return False
+    if not isinstance(lon, (int, float)):
+        return False
+    if lat < -90 or lat > 90:
+        return False
+    if lon < -180 or lon > 180:
+        return False
+    return True
+
+
+def check_date_format(date):
+
+    # check if the date is in the correct format
+    # YYYY-MM-DD-XXXXX.XX
+    # YYYY: year
+    # MM: month
+    # DD: day
+    # XXXXX.XX: the date (or most recent) DOW opening
+
+    if not isinstance(date, str):
+        return False
+
+    date = date.split("-")
+
+    if len(date) != 4:
+        return False
+
+    year, month, day, dow_opening = date
+
+    if len(year) != 4 or len(month) != 2 or len(day) != 2:
+        return False
+    if not year.isdigit() or not month.isdigit() or not day.isdigit():
+        return False
+    if not dow_opening.replace(".", "").isdigit():
+        return False
+    if not dow_opening.count(".") == 1:
+        return False
+    split_float = dow_opening.split(".")
+    if not split_float[0].isdigit() or not split_float[1].isdigit():
+        return False
+
+    return True
 
 
 # def geohash(lat: str, lon: str, date: str):
@@ -124,7 +131,6 @@ def main():
 
     lat, lon, date = parse_arguments()
 
-    # The import is here to avoid boring
     from antigravity import geohash
 
     geohash(lat, lon, date)

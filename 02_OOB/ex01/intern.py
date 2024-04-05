@@ -25,13 +25,12 @@ if __name__ == "__main__":
     try:
 
         first_intern = Intern()
-        second_intern = Intern("Mark")
-
         print(f"Name of the first_intern : {first_intern}")
+
+        second_intern = Intern("Mark")
         print(f"Name of the second_intern : {second_intern}")
 
         coffee = second_intern.make_coffee()
-
         print(f"The coffee that Mark made me : {coffee}")
 
         try:
