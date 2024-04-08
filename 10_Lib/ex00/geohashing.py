@@ -1,4 +1,5 @@
 import sys
+from antigravity import geohash
 
 
 # Geohashing is an outdoor recreational activity inspired by the xkcd webcomic,
@@ -15,7 +16,7 @@ def parse_arguments():
         print(
             "Usage: python geohashing.py <latitude> <longitude> <date>\n"
             "Example:\n" +
-            "python3 geohashing.py 37.421542 -122.085589 '2005-05-26-10458.68'\n"
+            "python3 geohashing.py 37.421542 -122.085589 2005-05-26-10458.68\n"
         )
         exit()
 
@@ -130,8 +131,6 @@ def check_date_format(date):
 def main():
 
     lat, lon, date = parse_arguments()
-
-    from antigravity import geohash
 
     geohash(lat, lon, date)
 
