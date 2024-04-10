@@ -1,19 +1,20 @@
-from path import Path
+from local_lib.path import Path
 
 
 def main():
+
     # Create a Directory
-    p = Path("../local_lib/my_directory")
-    p.mkdir()
+    p = Path("my_directory")
+
+    if not p.exists():
+        p.mkdir()
 
     # Create a File
-    p = Path("../local_lib/my_directory/my_file.txt")
-    p.touch()
+    p = Path("my_directory/my_file.txt")
+    p.write_text("The path module is correctly installed.")
 
-    # Write to a File
-    p.write_text("Installation is complete.")
-
-    # Read from a File
+    # Read the File
+    p = Path("my_directory/my_file.txt")
     print(p.read_text())
 
 
