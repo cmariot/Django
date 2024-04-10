@@ -1,1 +1,0 @@
-The path module is correctly installed.

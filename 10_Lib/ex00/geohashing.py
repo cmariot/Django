@@ -131,9 +131,10 @@ def main():
 
     lat, lon, date = parse_arguments()
 
-    my_geohash(lat, lon, date)
+    # my_geohash(lat, lon, date)
 
     from antigravity import geohash
+
     geohash(lat, lon, date)
 
 
