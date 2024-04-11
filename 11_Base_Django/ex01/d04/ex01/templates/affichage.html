@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+
+{% block title %}Ex01 : Processus d’affichage d’une page statique.{% endblock %}
+
+
+{% block styles %}style1.css{% endblock %}
+
+
+{% block content %}
+    <h1>Processus d’affichage d’une page statique</h1>
+
+    <h2>1. Le client envoie une requête HTTP au serveur :</h2>
+    <pre>GET /ma-page/ HTTP/1.1
+Host: monsite.com</pre>
+
+    <h2>2. Le serveur Django reçoit la requête et la route vers la vue appropriée :</h2>
+    <pre># urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('ma-page/', views.ma_vue, name='ma_page'),
+]</pre>
+
+    <h2>3. La vue récupère les données nécessaires et rend le template :</h2>
+    <pre># views.py
+from django.shortcuts import render
+
+def ma_vue(request):
+    context = {
+        'titre': 'Ma Page',
+        'contenu': 'Bienvenue sur ma page web statique !',
+    }
+    return render(request, 'mon_template.html', context)</pre>
+
+    <h2>4. Le template utilise les données passées par la vue pour générer la page HTML :</h2>
+    <pre>&lt;!-- mon_template.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;&#123;&#123; titre &#125;&#125;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;&#123;&#123; titre &#125;&#125;&lt;/h1&gt;
+    &lt;p&gt;&#123;&#123; contenu &#125;&#125;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+    <h2>5. Le serveur Django génère la réponse HTTP et renvoie la page HTML au client :</h2>
+    <pre>HTTP/1.1 200 OK
+Content-Type: text/html
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Ma Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Ma Page&lt;/h1&gt;
+    &lt;p&gt;Bienvenue sur ma page web statique !&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+{% endblock %}

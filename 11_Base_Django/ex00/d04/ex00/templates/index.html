@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Markdown Syntax</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Markdown Syntax</h1>
+    <table>
+        <tr>
+            <th>Syntax</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td>
+                <code># Header 1</code>
+                <p>or</p>
+                <code>Header 1</br>=========</code>
+
+            </td>
+            <td>
+                <h1>Header 1</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>## Header 2</code>
+                <p>or</p>
+                <code>Header 2</br>---------</code>
+            </td>
+            <td>
+                <h2>Header 2</h2>
+            </td>
+        </tr>
+        <tr>
+            <td><code>### Header 3</code></td>
+            <td>
+                <h3>Header 3</h3>
+            </td>
+        </tr>
+        <tr>
+            <td><code>#### Header 4</code></td>
+            <td>
+                <h4>Header 4</h4>
+            </td>
+        </tr>
+        <tr>
+            <td><code>##### Header 5</code></td>
+            <td>
+                <h5>Header 5</h5>
+            </td>
+        </tr>
+        <tr>
+            <td><code>###### Header 6</code></td>
+            <td>
+                <h6>Header 6</h6>
+            </td>
+        </tr>
+        <tr>
+            <td><code>paragraph</code></td>
+            <td>
+                <p>
+                    A blank line separates paragraphs.
+                    <br>
+                    A line break is created by ending a line with two or more spaces.
+                </p>
+            </td>
+        <tr>
+            <td>
+                <code>_italic_</code>
+                <p>or</p>
+                <code>*italic*</code>
+            </td>            <td>
+                <p><em>italic</em></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>__bold__</code>
+                <p>or</p>
+                <code>**bold**</code>
+            </td>
+            <td>
+                <p><strong>bold</strong></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>***bold italic***</code>
+                <p>or</p>
+                <code>___bold italic___</code>
+            </td>
+            <td>
+                <p><strong><em>bold italic</em></strong></p>
+            </td>
+        </tr>
+        <tr>
+            <td><code>- Item 1</code></td>
+            <td>
+                <pre>
+- Item 1
+- Item 2
+  - Subitem 1
+  - Subitem 2
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><code>[Link text](URL)</code></td>
+            <td>
+                <pre>
+[Google](https://www.google.com)
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><code>![Alt text](URL)</code></td>
+            <td>
+                <pre>
+![Django logo](https://www.djangoproject.com/m/img/logos/django-logo-negative.png)
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><code>`inline code`</code></td>
+            <td>
+                <pre>
+Use the `print()` function to output text.
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><code>```</code><br><code>block of code</code><br><code>```</code></td>
+            <td>
+                <pre>
+```python
+def fibonacci(n):
+    if n <= 1:
+        return n
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)

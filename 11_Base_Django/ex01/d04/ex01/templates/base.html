@@ -1,0 +1,17 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            {% block title %}{% endblock %}
+        </title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/' %}{% block styles %}{% endblock %}">
+    </head>
+    <body>
+        {% include 'nav.html' %}
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </body>
+</html>

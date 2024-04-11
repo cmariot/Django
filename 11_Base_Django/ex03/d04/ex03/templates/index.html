@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ex03</title>
+        <style>
+            table {
+                border-collapse: collapse;
+            }
+            tr, th, td {
+                height: 40px;
+                width: 80px;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <tr>
+                {% for key in colors.keys %}
+                    <th>
+                        <h3 style="color: {{ key }};">
+                            {{ key }}
+                        </h3>
+                    </th>
+                {% endfor %}
+            </tr>
+            {% for i in max_lines %}
+                <tr>
+                    {% for value in colors.values %}
+                        <td style="background-color: rgb(
+                            {{ value.change_color }}
+                        )"></td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
