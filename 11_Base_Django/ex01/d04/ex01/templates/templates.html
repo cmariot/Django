@@ -1,8 +1,11 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Ex01 : Moteur de template.{% endblock %}
 
-{% block styles %}style2.css{% endblock %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style2.css' %}" />
+{% endblock %}
 
 {% block content %}
     <h1>Moteur de template</h1>

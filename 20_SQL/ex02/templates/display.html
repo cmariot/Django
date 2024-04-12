@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Display{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<h1>Available data in the 'ex02_movies' table:</h1>
+
+{% if data %}
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Episode number</th>
+            <th>Opening crawl</th>
+            <th>Director</th>
+            <th>Producer</th>
+            <th>Release date</th>
+        </tr>
+        {% for movie in data %}
+            <tr>
+                {% for field in movie %}
+                    <td>{{ field }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No data available</p>
+{% endif %}
+
+{% endblock %}

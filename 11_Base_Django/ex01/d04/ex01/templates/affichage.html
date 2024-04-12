@@ -1,10 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
 
 
 {% block title %}Ex01 : Processus d’affichage d’une page statique.{% endblock %}
 
 
-{% block styles %}style1.css{% endblock %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}" />
+{% endblock %}
 
 
 {% block content %}

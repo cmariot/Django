@@ -1,8 +1,11 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Ex01 : Django, framework web.{% endblock %}
 
-{% block styles %}style1.css{% endblock %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}" />
+{% endblock %}
 
 {% block content %}
 
