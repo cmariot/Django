@@ -1,0 +1,9 @@
+{% block nav %}
+    <nav style="margin-top: 20px; margin-bottom: 75px;">
+        <ul style="display: flex; list-style-type: None; justify-content: space-evenly; ">
+            {% for key, value in nav_links.items %}
+                <li><a href="{{ value }}">{{ key }}</a></li>
+            {% endfor %}
+        </ul>
+    </nav>
+{% endblock %}
