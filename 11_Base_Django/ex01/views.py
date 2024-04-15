@@ -14,7 +14,7 @@ def django(request):
         "style": "style1.css",
         "nav_links": get_nav_links(),
     }
-    return render(request, "django.html", context)
+    return render(request, "ex01/templates/django.html", context)
 
 
 def affichage(request):
@@ -22,7 +22,7 @@ def affichage(request):
         "style": "style1.css",
         "nav_links": get_nav_links(),
     }
-    return render(request, "affichage.html", context)
+    return render(request, "ex01/templates/affichage.html", context)
 
 
 def templates(request):
@@ -30,4 +30,4 @@ def templates(request):
         "style": "style1.css",
         "nav_links": get_nav_links(),
     }
-    return render(request, "templates.html", context)
+    return render(request, "ex01/templates/templates.html", context)

@@ -30,4 +30,4 @@ def index(request):
         },
         "max_lines": range(0, 50),
     }
-    return render(request, "index.html", context)
+    return render(request, "ex03/templates/index.html", context)

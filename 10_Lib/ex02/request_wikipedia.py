@@ -4,38 +4,49 @@ import dewiki
 
 
 def parse_arguments():
+
+    """
+    Parse the command line arguments and return the query.
+    There should be only one, non-empty argument.
+    """
+
     if len(sys.argv) != 2:
         print("Usage: python request_wikipedia.py <query>")
-        return
-    return sys.argv[1]
+        exit()
+    query = sys.argv[1]
+    if not query:
+        print("Please provide a non-empty query")
+        exit()
+    return query
 
 
 def search_wikipedia(url: str, query: str) -> list:
 
-    # Opensearch : search for a query
-    # Returns a list of search results
+    """
+    Search for a query on Wikipedia and return a list of search results.
+    """
 
     params = {
         "action": "opensearch",
         "search": query,
         "format": "json",
     }
-
     response = requests.get(url, params=params)
     if response.status_code != 200:
-        return
-
+        return None
     data: dict = response.json()
-
     if not data:
-        return
+        return None
     elif len(data) < 2:
-        return
-
+        return None
     return data[1]
 
 
 def request_wiki(url: str, query: str) -> str:
+
+    """
+    Search for a query on Wikipedia and return the extract of the page.
+    """
 
     params = {
         "action": "query",          # fetch data
@@ -49,23 +60,21 @@ def request_wiki(url: str, query: str) -> str:
     # Send a request to the Wikipedia API
     response = requests.get(url, params=params)
     if response.status_code != 200:
-        print(f"Error: {response.status_code}")
-        return
+        return None
 
     # Parse the JSON response
     data: dict = response.json()
     if not data:
-        return
+        return None
     elif 'query' not in data:
-        return
+        return None
     elif 'pages' not in data['query']:
-        return
+        return None
 
     # Get the first page id from the response
-    page_id = next(iter(data['query']['pages']))
+    page_id = list(data['query']['pages'].keys())[0]
     if page_id == "-1":
-        print("Page not found")
-        return
+        return None
 
     # Remove Wiki Markup formatting from the extract of the page
     extract = dewiki.from_string(
@@ -77,7 +86,7 @@ def request_wiki(url: str, query: str) -> str:
 
 def save_extract(query: str, extract: str):
 
-    # Create file name based on the query
+    # Create filename based on the query
     filename = (query + ".wiki").replace(" ", "_")
 
     # Write the result to a file
@@ -100,6 +109,9 @@ def main():
 
         list_of_results = search_wikipedia(url, query)
 
+        if not list_of_results:
+            continue
+
         for search_result in list_of_results:
 
             extract = request_wiki(url, search_result)
@@ -108,7 +120,7 @@ def main():
                 exit()
 
     if not extract:
-        print(f"Could not find the page for {query}")
+        print(f"Error: No results found for {query}")
         return
 
 

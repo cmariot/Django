@@ -54,12 +54,7 @@ ROOT_URLCONF = "d04.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        'DIRS': [
-            os.path.join(BASE_DIR, 'ex00/templates'),
-            os.path.join(BASE_DIR, 'ex01/templates'),
-            os.path.join(BASE_DIR, 'ex02/templates'),
-            os.path.join(BASE_DIR, 'ex03/templates'),
-        ],
+        'DIRS': [os.path.join(BASE_DIR)],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -78,12 +73,7 @@ WSGI_APPLICATION = "d04.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+DATABASES = {}
 
 
 # Password validation
@@ -126,3 +116,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOG_FILE_PATH = os.path.join(BASE_DIR, "/ex02/form.log")
