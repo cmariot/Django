@@ -1,3 +1,1 @@
-Django
-psycopg2-binary
-psycopg2
+Django==5.0.4

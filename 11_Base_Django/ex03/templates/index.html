@@ -13,7 +13,7 @@
         </style>
     </head>
     <body>
-        <table>
+        <table style="margin: auto;">
             <tr>
                 {% for key in colors.keys %}
                     <th>
@@ -28,7 +28,7 @@
                     {% for value in colors.values %}
                         <td style="background-color: rgb(
                             {{ value.change_color }}
-                        )"></td>
+                        );"></td>
                     {% endfor %}
                 </tr>
             {% endfor %}

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "ex01/templates/base.html" %}
 {% load static %}
 
 
@@ -6,7 +6,7 @@
 
 
 {% block styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/style1.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/' %}{{ style }}" />'
 {% endblock %}
 
 

@@ -27,7 +27,7 @@ def affichage(request):
 
 def templates(request):
     context = {
-        "style": "style1.css",
+        "style": "style2.css",
         "nav_links": get_nav_links(),
     }
     return render(request, "ex01/templates/templates.html", context)

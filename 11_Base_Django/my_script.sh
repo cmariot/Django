@@ -6,25 +6,31 @@
 
 
 ENV_NAME=django_venv
-
+BLUE='\033[0;34m'
+NC='\033[0m'
 
 # Create a virtualenv based on the ENV_NAME variable.
 python3 -m venv $ENV_NAME
-echo "${ENV_NAME} virtual environment has been created."
+echo "${BLUE}${ENV_NAME} virtual environment has been created.${NC}"
 echo
 
 # Activate the virtualenv.
 source $ENV_NAME/bin/activate
-echo "The virtual environment is activated."
+echo "${BLUE}The virtual environment is activated.${NC}"
 echo
 
 # Install the requirements in the virtualenv.
-echo "Installing the requirements..."
+echo "${BLUE}Installing the requirements...${NC}"
+python3 -m pip install --upgrade pip
 python3 -m pip install -r requirement.txt
 
 
 echo
 
 # Show the installed packages.
-echo "Installed packages:"
+echo "${BLUE}Installed packages:${NC}"
 python3 -m pip freeze
+echo
+
+echo "${BLUE}Running the server...${NC}"
+python3 manage.py runserver

@@ -11,15 +11,16 @@ def index(request):
             self.coef = [(255 - channel) / 255 for channel in self.rgb]
             self.gap = 0
 
+        def __str__(self):
+            return ", ".join([str(channel) for channel in self.rgb])
+
         def change_color(self):
             for i in range(3):
                 self.rgb[i] += self.gap * self.coef[i]
                 self.rgb[i] = min(255, max(0, self.rgb[i]))
-            self.gap = 255 / 50
+            if self.gap == 0:
+                self.gap = 255 / 50
             return str(self)
-
-        def __str__(self):
-            return ", ".join([str(channel) for channel in self.rgb])
 
     context = {
         "colors": {
@@ -28,6 +29,6 @@ def index(request):
             "Green": Color("Green", (0, 255, 0)),
             "Blue": Color("Blue", (0, 0, 255)),
         },
-        "max_lines": range(0, 50),
+        "max_lines": range(50),
     }
     return render(request, "ex03/templates/index.html", context)

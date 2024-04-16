@@ -112,9 +112,16 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'ex01/static',
+]
+
+STATIC_ROOT = BASE_DIR / 'static'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOG_FILE_PATH = os.path.join(BASE_DIR, "/ex02/form.log")
+LOG_FILE_PATH = "./ex02/form.log"

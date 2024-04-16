@@ -1,171 +1,222 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ex00 : Markdown Cheatsheet.</title>
     <style>
+
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            margin: 20px;
+
+        }
+
+        h2 {
+            margin-top: 40px;
+        }
+
         table {
             border-collapse: collapse;
             width: 100%;
         }
+
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
+            text-align: left;
+            width: 50%;
         }
+
         th {
             background-color: #f2f2f2;
-            text-align: left;
         }
-        code {
-            background-color: #f0f0f0;
-            padding: 2px 5px;
-            border-radius: 3px;
+
+        img {
+            max-width: 200px;
+            height: auto;
         }
+
         pre {
-            background-color: #f5f5f5;
+            background-color: #f2f2f2;
             padding: 10px;
-            border-radius: 3px;
+            border-radius: 5px;
         }
+
+        blockquote {
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-left: 5px solid #ccc;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #ccc;
+        }
+
     </style>
 </head>
 <body>
-    <h1>Ex00 : Markdown Cheatsheet.</h1>
+
+    <h1>Markdown Cheatsheet</h1>
+
+    <p>Markdown est un langage de balisage léger qui permet de formater du texte de manière simple et lisible. Il est souvent utilisé pour rédiger de la documentation, des messages sur les forums, etc. <br>Voici une liste des éléments de syntaxe les plus courants en Markdown et leur rendu en HTML.</p>
+
+    <h2>Titres et sous-titres</h2>
     <table>
         <tr>
-            <th>Syntax</th>
-            <th>Example</th>
+            <th>Syntaxe Markdown</th>
+            <th>Visualisation HTML</th>
         </tr>
         <tr>
-            <td>
-                <code># Header 1</code>
-                <p>or</p>
-                <code>Header 1</br>=========</code>
+            <td># Titre de niveau 1</td>
+            <td><h1>Titre de niveau 1</h1></td>
+        </tr>
+        <tr>
+            <td>## Titre de niveau 2</td>
+            <td><h2>Titre de niveau 2</h2></td>
+        </tr>
+        <tr>
+            <td>### Titre de niveau 3</td>
+            <td><h3>Titre de niveau 3</h3></td>
+        </tr>
+        <tr>
+            <td>#### Titre de niveau 4</td>
+            <td><h4>Titre de niveau 4</h4></td>
+        </tr>
+        <tr>
+            <td>##### Titre de niveau 5</td>
+            <td><h5>Titre de niveau 5</h5></td>
+        </tr>
+        <tr>
+            <td>###### Titre de niveau 6</td>
+            <td><h6>Titre de niveau 6</h6></td>
+        </tr>
+    </table>
 
+    <h2>Formatage de texte</h2>
+    <table>
+        <tr>
+            <th>Syntaxe Markdown</th>
+            <th>Visualisation HTML</th>
+        </tr>
+        <tr>
+            <td>*Italique*</td>
+            <td><em>Italique</em></td>
+        </tr>
+        <tr>
+            <td>**Gras**</td>
+            <td><strong>Gras</strong></td>
+        </tr>
+        <tr>
+            <td>***Gras et italique***</td>
+            <td><strong><em>Gras et italique</em></strong></td>
+        <tr>
+            <td>~~Barré~~</td>
+            <td><del>Barré</del></td>
+        </tr>
+        <tr>
+            <td>`Code`</td>
+            <td><code>Code</code></td>
+        </tr>
+        <tr>
+            <td>
+            Le retour à la ligne se fait en ajoutant deux espaces à la fin d'une ligne.
             </td>
             <td>
-                <h1>Header 1</h1>
+                <p>paragraphe 1<br>paragraphe 2</p>
             </td>
         </tr>
         <tr>
             <td>
-                <code>## Header 2</code>
-                <p>or</p>
-                <code>Header 2</br>---------</code>
+            Les sauts de paragraphe se font en laissant une ligne vide entre les paragraphes.
             </td>
             <td>
-                <h2>Header 2</h2>
-            </td>
-        </tr>
-        <tr>
-            <td><code>### Header 3</code></td>
-            <td>
-                <h3>Header 3</h3>
-            </td>
-        </tr>
-        <tr>
-            <td><code>#### Header 4</code></td>
-            <td>
-                <h4>Header 4</h4>
-            </td>
-        </tr>
-        <tr>
-            <td><code>##### Header 5</code></td>
-            <td>
-                <h5>Header 5</h5>
-            </td>
-        </tr>
-        <tr>
-            <td><code>###### Header 6</code></td>
-            <td>
-                <h6>Header 6</h6>
-            </td>
-        </tr>
-        <tr>
-            <td><code>paragraph</code></td>
-            <td>
-                <p>
-                    A blank line separates paragraphs.
-                    <br>
-                    A line break is created by ending a line with two or more spaces.
-                </p>
-            </td>
-        <tr>
-            <td>
-                <code>_italic_</code>
-                <p>or</p>
-                <code>*italic*</code>
-            </td>            <td>
-                <p><em>italic</em></p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <code>__bold__</code>
-                <p>or</p>
-                <code>**bold**</code>
-            </td>
-            <td>
-                <p><strong>bold</strong></p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <code>***bold italic***</code>
-                <p>or</p>
-                <code>___bold italic___</code>
-            </td>
-            <td>
-                <p><strong><em>bold italic</em></strong></p>
-            </td>
-        </tr>
-        <tr>
-            <td><code>- Item 1</code></td>
-            <td>
-                <pre>
-- Item 1
-- Item 2
-  - Subitem 1
-  - Subitem 2
-                </pre>
-            </td>
-        </tr>
-        <tr>
-            <td><code>[Link text](URL)</code></td>
-            <td>
-                <pre>
-[Google](https://www.google.com)
-                </pre>
-            </td>
-        </tr>
-        <tr>
-            <td><code>![Alt text](URL)</code></td>
-            <td>
-                <pre>
-![Django logo](https://www.djangoproject.com/m/img/logos/django-logo-negative.png)
-                </pre>
-            </td>
-        </tr>
-        <tr>
-            <td><code>`inline code`</code></td>
-            <td>
-                <pre>
-Use the `print()` function to output text.
-                </pre>
-            </td>
-        </tr>
-        <tr>
-            <td><code>```</code><br><code>block of code</code><br><code>```</code></td>
-            <td>
-                <pre>
-```python
-def fibonacci(n):
-    if n <= 1:
-        return n
-    else:
-        return fibonacci(n-1) + fibonacci(n-2)
-```
-                </pre>
+                <p>paragraphe 1</p>
+                <p>paragraphe 2</p>
             </td>
         </tr>
     </table>
+    <h2>Liens et Images</h2>
+    <table>
+        <tr>
+            <th>Syntaxe Markdown</th>
+            <th>Visualisation HTML</th>
+        </tr>
+        <tr>
+            <td>[Texte du lien](url_du_lien)</td>
+            <td><a href="#">Texte du lien</a></td>
+        </tr>
+        <tr>
+            <td>![Texte alternatif](url_de_l_image)</td>
+            <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/42_Logo.svg/langfr-560px-42_Logo.svg.png" alt="Texte alternatif"></td>
+        </tr>
+    </table>
+
+    <h2>Listes</h2>
+    <table>
+        <tr>
+            <th>Syntaxe Markdown</th>
+            <th>Visualisation HTML</th>
+        </tr>
+        <tr>
+            <td>- Élément de liste 1</td>
+            <td><ul><li>Élément de liste 1</li></ul></td>
+        </tr>
+        <tr>
+            <td>- Élément de liste 2<br>&emsp;&emsp;- Sous-élément de liste</td>
+            <td><ul><li>Élément de liste 2<ul><li>Sous-élément de liste</li></ul></li></ul></td>
+        </tr>
+        <tr>
+            <td>1. Élément de liste ordonnée 1</td>
+            <td><ol><li>Élément de liste ordonnée 1</li></ol></td>
+        </tr>
+        <tr>
+            <td>1. Élément de liste ordonnée 2<br>&emsp;&emsp;1. Sous-élément de liste ordonnée</td>
+            <td><ol><li>Élément de liste ordonnée 2<ol><li>Sous-élément de liste ordonnée</li></ol></li></ol></td>
+        </tr>
+        <tr>
+            <td>- [ ] Case à cocher non cochée<br>- [x] Case à cocher cochée</td>
+            <td>
+                <input type="checkbox" disabled> Case à cocher non cochée
+                <br>
+                <input type="checkbox" disabled checked> Case à cocher cochée
+            </td>
+        </tr>
+
+    </table>
+
+    <h2>Blocs de code et Citations</h2>
+    <table>
+        <tr>
+            <th>Syntaxe Markdown</th>
+            <th>Visualisation HTML</th>
+        </tr>
+        <tr>
+            <td>```python<br>print("Hello, world!")<br>```</td>
+            <td><pre><code>print("Hello, world!")</code></pre></td>
+        </tr>
+        <tr>
+            <td>> Ceci est une citation.</td>
+            <td><blockquote>Ceci est une citation.</blockquote></td>
+        </tr>
+    </table>
+
+    <h2>Séparateurs horizontaux et Tableaux</h2>
+    <table>
+        <tr>
+            <th>Syntaxe Markdown</th>
+            <th>Visualisation HTML</th>
+        </tr>
+        <tr>
+            <td>---</td>
+            <td><hr></td>
+        </tr>
+        <tr>
+            <td>| Entête 1 | Entête 2 |<br>|----------|----------|<br>| Cellule 1| Cellule 2|</td>
+            <td><table><thead><tr><th>Entête 1</th><th>Entête 2</th></tr></thead><tbody><tr><td>Cellule 1</td><td>Cellule 2</td></tr></tbody></table></td>
+        </tr>
+    </table>
+
 </body>
 </html>
