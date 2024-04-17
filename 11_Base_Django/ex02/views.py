@@ -3,6 +3,7 @@ from datetime import datetime
 from django.conf import settings
 from .forms import MyForm
 import os
+from django.http import HttpResponseRedirect
 
 
 def create_log_file(log_file_path):
@@ -45,7 +46,8 @@ def form(request):
         form = MyForm(request.POST)
         if form.is_valid():
             write_log(form.cleaned_data["text"])
-            form = MyForm()
+            return HttpResponseRedirect("/ex02/")
+            # form = MyForm()
     file_content = read_log(log_file_path)
     context = {
         "form": form,

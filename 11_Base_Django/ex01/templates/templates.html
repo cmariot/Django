@@ -1,11 +1,28 @@
 {% extends "ex01/templates/base.html" %}
-{% load static %}
+
 
 {% block title %}Ex01 : Moteur de template.{% endblock %}
 
+
 {% block styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/' %}{{ style }}" />'
+<style>
+    body {
+        background-color: #f8f8f8;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica, Arial, sans-serif;
+    }
+    main {
+        margin-top: 20px;
+        margin-bottom: 75px;
+        text-align: justify;
+        width: 75vw;
+        margin: auto;
+    }
+</style>
 {% endblock %}
+
 
 {% block content %}
     <h1>Moteur de template</h1>

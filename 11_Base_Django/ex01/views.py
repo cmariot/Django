@@ -11,7 +11,7 @@ def get_nav_links():
 
 def django(request):
     context = {
-        "style": "style1.css",
+        "style": 1,
         "nav_links": get_nav_links(),
     }
     return render(request, "ex01/templates/django.html", context)
@@ -19,7 +19,7 @@ def django(request):
 
 def affichage(request):
     context = {
-        "style": "style1.css",
+        "style": 1,
         "nav_links": get_nav_links(),
     }
     return render(request, "ex01/templates/affichage.html", context)
@@ -27,7 +27,7 @@ def affichage(request):
 
 def templates(request):
     context = {
-        "style": "style2.css",
+        "style": 2,
         "nav_links": get_nav_links(),
     }
     return render(request, "ex01/templates/templates.html", context)

@@ -3,69 +3,72 @@
 {% block title %}Formulaire{% endblock %}
 
 {% block styles %}
-    <style>
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-            margin: auto;
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-        }
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        margin: auto;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
 
-        label {
-            display: block;
-            margin: auto;
-            width: 75%;
-            padding-top: 15px;
-            padding-bottom: 5px;
-            font-weight: bold;
-        }
+    label {
+        display: block;
+        margin: auto;
+        width: 75%;
+        padding-top: 15px;
+        padding-bottom: 5px;
+        font-weight: bold;
+    }
 
-        input[type="text"] {
-            display: block;
-            width: 75%;
-            padding: 5px;
-            margin: auto;
-        }
+    input[type="text"] {
+        display: block;
+        width: 75%;
+        padding: 5px;
+        margin: auto;
+    }
 
-        input[type="submit"] {
-            width: 100px;
-            margin: auto;
-            margin-bottom: 15px;
-            padding: 5px;
-        }
+    input[type="submit"] {
+        width: 100px;
+        margin: auto;
+        margin-bottom: 15px;
+        padding: 5px;
+    }
 
-        #historic {
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            padding-block: 15px;
-        }
+    #historic {
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        padding-block: 15px;
+    }
 
-        #historic li {
-            padding: 5px;
-            margin: 5px;
-            border-bottom: 1px solid #ccc;
-        }
+    #historic li {
+        padding: 5px;
+        margin: 5px;
+        border-bottom: 1px solid #ccc;
+        word-wrap: break-word;
+    }
 
-        #historic li:last-child {
-            border-bottom: none;
-        }
+    #historic li:last-child {
+        border-bottom: none;
+    }
 
-        .errorlist {
-            color: red;
-            font-weight: bold;
-            list-style-type: none;
-            padding: 0;
-            width: 75%;
-            margin: auto;
-            padding-top: 10px;
-            padding-bottom: 5px;
-        }
-    </style>
+    .errorlist {
+        color: red;
+        font-weight: bold;
+        list-style-type: none;
+        padding: 0;
+        width: 75%;
+        margin: auto;
+        padding-top: 10px;
+        padding-bottom: 5px;
+    }
+
+
+</style>
 {% endblock %}
 
 {% block content %}

@@ -12,7 +12,6 @@ class MyForm(forms.Form):
 
     text = forms.CharField(
         label="Nouvelle entrée :",
-        max_length=100,
         required=True,
         widget=forms.TextInput(
             attrs={"autofocus": "autofocus"}
@@ -25,7 +24,7 @@ class MyForm(forms.Form):
         Check if the text contains line breaks
         """
         text = self.cleaned_data["text"]
-        if "\n" in text:
+        if "\n" in text or "\r" in text:
             raise forms.ValidationError(
                 "Erreur : le texte ne doit pas contenir de retour à la ligne"
             )

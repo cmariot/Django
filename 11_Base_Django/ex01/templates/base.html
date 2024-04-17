@@ -1,14 +1,21 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% if style is 1 %}
+            <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+        {% else %}
+            <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+        {% endif %}
         {% block styles %} {% endblock %}
     </head>
-    <body style="font-family: Helvetica, Arial, sans-serif; ">
+    <body>
         {% include 'ex01/templates/nav.html' %}
-        <main style="text-align: justify; width: 75vw; margin: auto;">
+        <main>
             {% block content %}{% endblock %}
         </main>
     </body>
