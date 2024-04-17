@@ -1,17 +1,17 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 import psycopg2
+from django.conf import settings
 
 
 def init(request):
 
     def connect():
         return psycopg2.connect(
-            user="djangouser",
-            password="secret",
-            host="localhost",
-            port="5432",
-            database="formationdjango",
+            user=settings.DB_USER,
+            password=settings.DB_PASSWORD,
+            host=settings.DB_HOST,
+            port=settings.DB_PORT,
+            database=settings.DB_NAME,
         )
 
     def table_exists(cursor, table_name="ex00_movies"):
@@ -43,11 +43,16 @@ def init(request):
         cursor = connection.cursor()
         if table_exists(cursor):
             close_connection(cursor, connection)
-            return HttpResponse("Table already exists")
+            content = "Table already exists"
         else:
             create_table(cursor)
             close_connection(cursor, connection)
-            return HttpResponse("OK")
+            content = "OK"
     except psycopg2.Error as e:
         close_connection(cursor, connection)
-        return HttpResponse(e)
+        content = e
+    context = {
+        "title": "Initialisation",
+        "content": content
+    }
+    return render(request, "ex00/templates/init.html", context)

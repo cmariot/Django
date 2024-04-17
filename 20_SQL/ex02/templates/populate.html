@@ -1,0 +1,13 @@
+{% extends "ex02/templates/base.html" %}
+{% load static %}
+
+{% block title %}Populate{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<p>{{ content}}</p>
+{% endblock %}

@@ -58,8 +58,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            BASE_DIR / "ex02/templates",
-            BASE_DIR / "ex03/templates",
+            BASE_DIR
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -79,14 +78,21 @@ WSGI_APPLICATION = "d05.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+DB_HOST = os.environ.get("DB_HOST")
+DB_PORT = os.environ.get("DB_PORT")
+DB_NAME = os.environ.get("DB_NAME")
+DB_USER = os.environ.get("DB_USER")
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
+
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "formationdjango",
-        "USER": "djangouser",
-        "PASSWORD": "secret",
-        "HOST": "localhost",
-        "PORT": "5432",
+        "HOST": DB_HOST,
+        "PORT": DB_PORT,
+        "NAME": DB_NAME,
+        "USER": DB_USER,
+        "PASSWORD": DB_PASSWORD,
     }
 }
 
