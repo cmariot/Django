@@ -2,60 +2,27 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import psycopg2
 from django.conf import settings
+from d05.my_lib.sql import (
+    connect, table_exists, close_connection, create_table, insert
+)
 
 
 def init(request):
-
-    def connect():
-        return psycopg2.connect(
-            user=settings.DB_USER,
-            password=settings.DB_PASSWORD,
-            host=settings.DB_HOST,
-            port=settings.DB_PORT,
-            database=settings.DB_NAME,
-        )
-
-    def table_exists(cursor, table_name="ex02_movies"):
-        cursor.execute(
-            "SELECT * FROM information_schema.tables " +
-            f"WHERE table_name='{table_name}'"
-        )
-        return cursor.fetchone()
-
-    def create_table(cursor):
-        cursor.execute(
-            "CREATE TABLE ex02_movies ("
-            "title VARCHAR(64) NOT NULL, "
-            "episode_nb SERIAL PRIMARY KEY, "
-            "opening_crawl TEXT, "
-            "director VARCHAR(32) NOT NULL, "
-            "producer VARCHAR(128) NOT NULL, "
-            "release_date DATE NOT NULL"
-            ")"
-        )
-        connection.commit()
-
-    def close_connection(cursor, connection):
-        cursor.close()
-        connection.close()
-
     try:
-        connection = connect()
-        cursor = connection.cursor()
-        if table_exists(cursor):
-            close_connection(cursor, connection)
+        connection, cursor = connect()
+        if table_exists(cursor, "ex02_movies"):
             content = "Table already exists"
         else:
-            create_table(cursor)
-            close_connection(cursor, connection)
+            create_table(cursor, "ex02_movies")
             content = "OK"
+        close_connection(cursor, connection)
         context = {
             "content": content
         }
         return render(request, "ex02/templates/init.html", context)
     except psycopg2.Error as e:
         close_connection(cursor, connection)
-        return HttpResponse(e)
+        return render(request, "ex02/templates/init.html", {"content": e})
 
 
 def populate(request):
@@ -112,35 +79,8 @@ def populate(request):
         }
     ]
 
-    def connect():
-        return psycopg2.connect(
-            user=settings.DB_USER,
-            password=settings.DB_PASSWORD,
-            host=settings.DB_HOST,
-            port=settings.DB_PORT,
-            database=settings.DB_NAME,
-        )
-
-    def insert(cursor, data):
-        try:
-            title = None
-            for row in data:
-                title = row.get("title")
-                cursor.execute(
-                    "INSERT INTO ex02_movies (episode_nb, title, director, producer, release_date) "
-                    "VALUES (%s, %s, %s, %s, %s)",
-                    (row["episode_nb"], row["title"], row["director"], row["producer"], row["release_date"])
-                )
-        except psycopg2.Error as e:
-            raise psycopg2.Error(f"Error inserting {title}: {e}")
-
-    def close_connection(cursor, connection):
-        cursor.close()
-        connection.close()
-
     try:
-        connection = connect()
-        cursor = connection.cursor()
+        connection, cursor = connect()
         insert(cursor, to_insert)
         connection.commit()
         close_connection(cursor, connection)
