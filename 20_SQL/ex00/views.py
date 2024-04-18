@@ -18,7 +18,7 @@ def init(request):
         content = "Error:" + e
         close_connection(cursor, connection)
     context = {
-        "title": "Initialisation",
+        "title": "Ex00: Initialization of ex00_movies",
         "content": content
     }
     return render(request, "ex00/templates/init.html", context)

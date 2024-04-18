@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import psycopg2
-from django.conf import settings
 from d05.my_lib.sql import (
-    connect, table_exists, close_connection, create_table, insert
+    connect, table_exists, close_connection, create_table, insert, select
 )
 
 
@@ -13,16 +12,31 @@ def init(request):
         if table_exists(cursor, "ex02_movies"):
             content = "Table already exists"
         else:
-            create_table(cursor, "ex02_movies")
+            create_table(cursor, connection, "ex02_movies")
             content = "OK"
         close_connection(cursor, connection)
         context = {
+            "title": "Ex02: Initialization of ex02_movies",
+            "nav_links": {
+                "Initialisation": "/ex02/init",
+                "Peuplement": "/ex02/populate",
+                "Affichage": "/ex02/display",
+            },
             "content": content
         }
         return render(request, "ex02/templates/init.html", context)
     except psycopg2.Error as e:
         close_connection(cursor, connection)
-        return render(request, "ex02/templates/init.html", {"content": e})
+        context = {
+            "title": "Ex02: Initialization of ex02_movies",
+            "nav_links": {
+                "Initialisation": "/ex02/init",
+                "Peuplement": "/ex02/populate",
+                "Affichage": "/ex02/display",
+            },
+            "content": e
+        }
+        return render(request, "ex02/templates/init.html", context)
 
 
 def populate(request):
@@ -89,6 +103,12 @@ def populate(request):
         close_connection(cursor, connection)
         content = e
     context = {
+        "title": "Ex02: Populate ex02_movies",
+        "nav_links": {
+            "Initialisation": "/ex02/init",
+            "Peuplement": "/ex02/populate",
+            "Affichage": "/ex02/display",
+        },
         "content": content
     }
     return render(request, "ex02/templates/populate.html", context)
@@ -96,30 +116,14 @@ def populate(request):
 
 def display(request):
 
-    def connect():
-        return psycopg2.connect(
-            user=settings.DB_USER,
-            password=settings.DB_PASSWORD,
-            host=settings.DB_HOST,
-            port=settings.DB_PORT,
-            database=settings.DB_NAME,
-        )
-
-    def select(cursor):
-        cursor.execute("SELECT * FROM ex02_movies")
-        return cursor.fetchall()
-
-    def close_connection(cursor, connection):
-        cursor.close()
-        connection.close()
-
     try:
-        connection = connect()
-        cursor = connection.cursor()
+        connection, cursor = connect()
         data = select(cursor)
         close_connection(cursor, connection)
         if not data:
-            return HttpResponse("No data available")
+            content = "No data available"
+        else:
+            content = None
         context = {
             "data": data,
             "nav_links": {
@@ -127,6 +131,7 @@ def display(request):
                 "Peuplement": "/ex02/populate",
                 "Affichage": "/ex02/display",
             },
+            "content": content
         }
         return render(request, "ex02/templates/display.html", context)
     except psycopg2.Error as e:

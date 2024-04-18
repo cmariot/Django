@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Movies
+from django.http import HttpResponse
 
 
 def populate(request):
@@ -65,15 +66,20 @@ def populate(request):
                 producer=data["producer"],
                 release_date=data["release_date"]
             )
-            print(f"Inserted {data}")
+            content = "Ok"
         except Exception as e:
-            return HttpResponse(e)
-            return render(request, "populate.html", {"error": e})
-    return HttpResponse("OK")
-    return render(request, "populate.html", {"inserted": True})
+            content = e
 
+    context = {
+        "title": "Populate",
+        "content": content,
+        "nav_links": {
+            "populate": "/ex03/populate",
+            "display": "/ex03/display",
+        }
+    }
+    return render(request, "ex02/templates/populate.html", context)
 
-from django.http import HttpResponse
 
 def display(request):
 
@@ -93,4 +99,4 @@ def display(request):
     data = Movies.objects.all()
     if len(data) == 0:
         return HttpResponse("No data available")
-    return render(request, "display_ex03.html", context)
+    return render(request, "ex03/templates/display.html", context)

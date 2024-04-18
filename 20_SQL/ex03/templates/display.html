@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "ex02/templates/base.html" %}
 {% load static %}
 
 {% block title %}Display{% endblock %}
@@ -19,8 +19,8 @@
 {% if data %}
     <table>
         <tr>
-            <th>Episode number</th>
             <th>Title</th>
+            <th>Episode number</th>
             <th>Opening crawl</th>
             <th>Director</th>
             <th>Producer</th>
@@ -28,8 +28,8 @@
         </tr>
         {% for movie in data %}
             <tr>
-                <td>{{ movie.episode_nb }}</td>
                 <td>{{ movie.title }}</td>
+                <td>{{ movie.episode_nb }}</td>
                 <td>{{ movie.opening_crawl }}</td>
                 <td>{{ movie.director }}</td>
                 <td>{{ movie.producer }}</td>

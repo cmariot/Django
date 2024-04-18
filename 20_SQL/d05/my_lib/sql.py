@@ -61,8 +61,8 @@ def create_table(
     connection: psycopg2.extensions.connection,
     table_name: str = "ex00_movies",
     columns: list = [
-        "title          VARCHAR(64) UNIQUE NOT NULL",
         "episode_nb     INTEGER PRIMARY KEY",
+        "title          VARCHAR(64) UNIQUE NOT NULL",
         "opening_crawl  TEXT",
         "director       VARCHAR(32) NOT NULL",
         "producer       VARCHAR(128) NOT NULL",
@@ -84,18 +84,12 @@ def insert(
         title = None
         for dict in data:
             title = dict.get("title")
-
-            # print(dict)
-
             keys = ", ".join(dict.keys())
-            print(keys)
-
-            values = dict.values()
-            print(values)
-
+            values = tuple(dict.values())
+            values_s = ", ".join(["%s"] * len(dict))
             cursor.execute(
-                f"INSERT INTO {table_name} ({', '.join(dict.keys())}) " +
-                f"VALUES ({', '.join(dict.values())})"
+                f"INSERT INTO {table_name} ({keys}) VALUES ({values_s})",
+                values
             )
     except psycopg2.Error as e:
         raise psycopg2.Error(f"Error inserting {title}: {e}")
@@ -104,3 +98,10 @@ def insert(
 def close_connection(cursor, connection):
     cursor.close()
     connection.close()
+
+
+def select(cursor, table_name="ex02_movies"):
+    cursor.execute(
+        f"SELECT * FROM {table_name}"
+    )
+    return cursor.fetchall()
