@@ -1,24 +1,5 @@
-from django.shortcuts import render
-import psycopg2
-from d05.my_lib.sql import (
-    connect, close_connection, table_exists, create_table
-)
+import d05.my_lib.sql
 
 
 def init(request):
-    try:
-        connection, cursor = connect()
-        if table_exists(cursor):
-            content = "Table already exists"
-        else:
-            create_table(cursor, connection)
-            content = "OK"
-        close_connection(cursor, connection)
-    except psycopg2.Error as e:
-        content = "Error:" + e
-        close_connection(cursor, connection)
-    context = {
-        "title": "Ex00: Initialization of ex00_movies",
-        "content": content
-    }
-    return render(request, "ex00/templates/init.html", context)
+    return d05.my_lib.sql.init(request, "ex00", next="/ex02/display")

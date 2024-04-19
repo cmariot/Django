@@ -1,12 +1,13 @@
 {% extends "d05/templates/base.html" %}
-{% load static %}
-
-{% block title %}{{title}}{% endblock %}
-
-{% block styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-{% endblock %}
 
 {% block content %}
-<p>{{ content}}</p>
+    {% if content %}
+        <p>{{content}}</p>
+    {% elif form %}
+        <form method="post" action="/{{ exercise }}/remove">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Remove">
+        </form>
+    {% endif %}
 {% endblock %}

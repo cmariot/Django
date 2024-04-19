@@ -3,16 +3,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>
-            {% block title %}{% endblock %}
-        </title>
-        {% block styles %} {% endblock %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{title}}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
     </head>
-    <body style="font-family: Helvetica, Arial, sans-serif; ">
-        {% include 'ex02/templates/nav.html' %}
-        <main style="text-align: justify; width: 95vw; margin: auto;">
-            <h1>{{ title }}</h1>
-            {% block content %}{% endblock %}
-        </main>
+    <body>
+        <section>
+            {% include 'd05/templates/nav.html' %}
+            <main>
+                <h1>{{ title }}</h1>
+                {% block content %}{% endblock %}
+            </main>
+            {% include 'd05/templates/footer.html' %}
+        </section>
+
+
     </body>
 </html>

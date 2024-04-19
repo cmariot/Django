@@ -1,0 +1,175 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(181, 212, 216);
+}
+
+section {
+    margin: auto;
+    padding: 0;
+    height: 80%;
+    width: 80%;
+    border: 2px solid rgb(181, 212, 216);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid rgb(181, 212, 216);
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    color: black;
+    background-color: rgb(181, 212, 216);
+    border: 1px solid black;
+}
+
+nav, footer {
+    margin: 0;
+    padding: 0;
+    padding-block: 0;
+    border: 1px solid rgb(181, 212, 216);
+}
+
+nav ul, footer ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+nav ul li, footer ul li {
+    float: left;
+    width: 100%;
+}
+
+nav ul li a, footer a {
+    color: rgb(181, 212, 216);
+    display: block;
+    text-align: center;
+    padding-block: 14px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid rgb(181, 212, 216);
+    height: 100%;
+    width: 100%;
+}
+
+nav ul li a:hover, footer a:hover, .active {
+    background-color: rgb(181, 212, 216);;
+    text-decoration: underline;
+    color: black;
+}
+
+main {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+    padding: 20px;
+    text-align: justify;
+}
+
+form {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+form label {
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+form p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+input {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid rgb(181, 212, 216);
+    background-color: black;
+    color: rgb(181, 212, 216);
+}
+
+input[type=submit] {
+    background-color: black;
+    color: rgb(181, 212, 216);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: rgb(181, 212, 216);
+    color: black;
+}
+
+select {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid rgb(181, 212, 216);
+    background-color: black;
+    color: rgb(181, 212, 216);
+}
+
+option {
+    background-color: black;
+    color: rgb(181, 212, 216);
+}
+
+option:hover {
+    background-color: rgb(181, 212, 216);
+    color: black;
+}
+
+option:checked {
+    background-color: rgb(181, 212, 216);
+    color: black;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}

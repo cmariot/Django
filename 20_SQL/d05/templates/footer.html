@@ -1,0 +1,12 @@
+{% if previous or next %}
+    <footer>
+        <ul>
+            {% if previous %}
+                <li><a href="{{ previous }}">&larr;  previous exercise</a></li>
+            {% endif %}
+            {% if next %}
+                <li><a href="{{ next }}">next exercise &rarr;</a></li>
+            {% endif %}
+        </ul>
+    </footer>
+{% endif %}

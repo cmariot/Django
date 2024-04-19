@@ -138,8 +138,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'ex02/static',
-    BASE_DIR / 'ex03/static',
+    BASE_DIR / 'd05',
 ]
 
 STATIC_ROOT = BASE_DIR / 'static'

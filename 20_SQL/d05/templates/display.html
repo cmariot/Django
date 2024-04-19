@@ -1,0 +1,25 @@
+{% extends "d05/templates/base.html" %}
+
+{% block content %}
+    {% if data %}
+        <table>
+            <tr>
+                <th>Episode number</th>
+                <th>Title</th>
+                <th>Opening crawl</th>
+                <th>Director</th>
+                <th>Producer</th>
+                <th>Release date</th>
+            </tr>
+            {% for movie in data %}
+                <tr>
+                    {% for field in movie %}
+                        <td>{{ field }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No data available</p>
+    {% endif %}
+{% endblock %}

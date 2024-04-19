@@ -1,0 +1,14 @@
+{% block nav %}
+    <nav>
+        <ul>
+            {% comment %} <li><a href="/{{ exercise }}/init">{{ exercise }}</a></li> {% endcomment %}
+            {% for key, value in nav_links.items %}
+                {% if active is key%}
+                    <li><a href="{{ value }}" class="active">{{ key }}</a></li>
+                {% else %}
+                    <li><a href="{{ value }}">{{ key }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+{% endblock %}
