@@ -1,7 +1,7 @@
 from django import forms
 
 
-class RemoveMovie(forms.Form):
+class UpdateMovie(forms.Form):
 
     title = forms.ChoiceField(
         label="Film title",
@@ -13,8 +13,16 @@ class RemoveMovie(forms.Form):
         )
     )
 
+    new_opening_crawl = forms.CharField(
+        label="Opening crawl",
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "rows": 3
+            }
+        )
+    )
+
     def __init__(self, choices):
-        super(RemoveMovie, self).__init__()
+        super(UpdateMovie, self).__init__()
         self.fields["title"].choices = choices
-
-

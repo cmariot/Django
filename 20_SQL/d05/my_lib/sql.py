@@ -1,7 +1,8 @@
 import psycopg2
 from django.conf import settings
 from django.shortcuts import render
-from ex04.forms import MyForm
+from ex04.forms import RemoveMovie
+from ex06.forms import UpdateMovie
 from django.http import HttpResponseRedirect
 
 
@@ -34,6 +35,21 @@ def get_nav_links(exercise="ex00"):
             "display": f"/{exercise}/display",
             "remove": f"/{exercise}/remove",
         }
+    elif exercise == "ex06":
+        return {
+            "init": f"/{exercise}/init",
+            "populate": f"/{exercise}/populate",
+            "display": f"/{exercise}/display",
+            "remove": f"/{exercise}/remove",
+            "update": f"/{exercise}/update",
+        }
+    elif exercise == "ex07":
+        return {
+            "populate": f"/{exercise}/populate",
+            "display": f"/{exercise}/display",
+            "remove": f"/{exercise}/remove",
+            "update": f"/{exercise}/update",
+        }
 
 
 def init(request, exercise="ex00", previous=None, next=None):
@@ -46,7 +62,19 @@ def init(request, exercise="ex00", previous=None, next=None):
         connection: psycopg2.extensions.connection = connect()
         cursor: psycopg2.extensions.cursor = connection.cursor()
         if not table_exists(cursor, f"{exercise}_movies"):
-            create_table(cursor, f"{exercise}_movies")
+            if exercise == "ex06":
+                create_table(cursor, f"{exercise}_movies", columns=[
+                    "episode_nb    SERIAL PRIMARY KEY",
+                    "title         VARCHAR(64) UNIQUE NOT NULL",
+                    "opening_crawl TEXT",
+                    "director      VARCHAR(32) NOT NULL",
+                    "producer      VARCHAR(128) NOT NULL",
+                    "release_date  DATE NOT NULL",
+                    "created       TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
+                    "updated       TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+                ])
+            else:
+                create_table(cursor, f"{exercise}_movies")
             connection.commit()
             content = "OK"
         else:
@@ -132,9 +160,29 @@ def create_table(
         "release_date   DATE NOT NULL"
     ]
 ):
+
     cursor.execute(
         f"CREATE TABLE {table_name} ({', '.join(columns)})"
     )
+
+    for column in columns:
+        if "updated" in column or "created" in column:
+            # Add a trigger to update the 'updated' column
+            cursor.execute(
+                """
+                CREATE OR REPLACE FUNCTION update_changetimestamp_column()
+                RETURNS TRIGGER AS $$
+                BEGIN
+                NEW.updated = now();
+                NEW.created = OLD.created;
+                RETURN NEW;
+                END;
+                $$ language 'plpgsql';
+                CREATE TRIGGER update_films_changetimestamp BEFORE UPDATE
+                ON ex06_movies FOR EACH ROW EXECUTE PROCEDURE
+                update_changetimestamp_column();
+                """)
+            return
 
 
 def populate(request, exercise="ex00", previous=None, next=None):
@@ -274,6 +322,19 @@ def close_connection(cursor, connection):
     connection.close()
 
 
+def select_columns(cursor, table_name="ex02_movies"):
+    """
+    Return a list with the column names of the table
+    """
+    cursor.execute(
+        f"""
+        SELECT column_name FROM information_schema.columns
+        WHERE table_name = '{table_name}'
+        """
+    )
+    return [column[0] for column in cursor.fetchall()]
+
+
 def display(request, exercise="ex00", previous=None, next=None):
 
     try:
@@ -281,9 +342,11 @@ def display(request, exercise="ex00", previous=None, next=None):
         cursor: psycopg2.extensions.cursor = connection.cursor()
         if not table_exists(cursor, f"{exercise}_movies"):
             content = "Table does not exist"
+            fields = None
             data = None
         else:
-            data = select(cursor, f"{exercise}_movies")
+            fields = select_columns(cursor, f"{exercise}_movies")
+            data = select(cursor, f"{exercise}_movies", fields=", ".join(fields))
             close_connection(cursor, connection)
             if not data:
                 content = "No data available"
@@ -296,6 +359,7 @@ def display(request, exercise="ex00", previous=None, next=None):
 
     context = {
         "title": f"{exercise}: Display {exercise}_movies",
+        "fields": fields,
         "data": data,
         "content": content,
         "nav_links": get_nav_links(exercise),
@@ -307,10 +371,18 @@ def display(request, exercise="ex00", previous=None, next=None):
     return render(request, "d05/templates/display.html", context)
 
 
-def select(cursor, table_name="ex02_movies"):
-    cursor.execute(
-        f"SELECT * FROM {table_name} ORDER BY {table_name}.episode_nb ASC"
-    )
+def select(cursor, table_name="ex02_movies", fields=None):
+    if fields:
+        cursor.execute(
+            f"""
+            SELECT {fields} FROM {table_name}
+            ORDER BY {table_name}.episode_nb ASC
+            """
+        )
+    else:
+        cursor.execute(
+            f"SELECT * FROM {table_name} ORDER BY {table_name}.episode_nb ASC"
+        )
     return cursor.fetchall()
 
 
@@ -338,7 +410,7 @@ def remove(request, exercise="ex04", previous=None, next=None):
                 if not film_titles:
                     content = "No data available"
                 else:
-                    my_form = MyForm(
+                    my_form = RemoveMovie(
                         choices=[(title, title) for title in film_titles]
                     )
                     content = None
@@ -365,13 +437,13 @@ def remove(request, exercise="ex04", previous=None, next=None):
         to_remove = request.POST.get("title")
 
         if not to_remove:
-            return HttpResponseRedirect("/ex04/remove")
+            return HttpResponseRedirect(f"/{exercise}/remove")
 
         try:
             connection: psycopg2.extensions.connection = connect()
             cursor: psycopg2.extensions.cursor = connection.cursor()
             if not table_exists(cursor, f"{exercise}_movies"):
-                return HttpResponseRedirect("/ex04/remove")
+                return HttpResponseRedirect(f"/{exercise}/remove")
             cursor.execute(
                 f"""
                 DELETE FROM {exercise}_movies movies
@@ -383,4 +455,72 @@ def remove(request, exercise="ex04", previous=None, next=None):
             pass
         finally:
             close_connection(cursor, connection)
-        return HttpResponseRedirect("/ex04/remove")
+        return HttpResponseRedirect(f"/{exercise}/remove")
+
+
+def update(request, exercise="ex04", previous=None, next=None):
+
+    if request.method == "GET":
+
+        try:
+            connection: psycopg2.extensions.connection = connect()
+            cursor: psycopg2.extensions.cursor = connection.cursor()
+            if not table_exists(cursor, f"{exercise}_movies"):
+                content = "Table does not exist"
+            else:
+                data = select(cursor, f"{exercise}_movies")
+                if not data:
+                    content = "No data available"
+                else:
+                    titles = []
+                    for movie in data:
+                        titles.append(movie[1])
+                    my_form = UpdateMovie(
+                        choices=[(title, title) for title in titles]
+                    )
+                    content = None
+        except psycopg2.Error as e:
+            content = str(e)
+        finally:
+            close_connection(cursor, connection)
+
+        context = {
+            "title": f"{exercise}: Update {exercise}_movies",
+            "content": content,
+            "form": my_form,
+            "nav_links": get_nav_links(exercise),
+            "exercise": f"{exercise}",
+            "previous": previous,
+            "next": next,
+            "active": "update",
+        }
+
+        return render(request, "d05/templates/update.html", context)
+
+    elif request.method == "POST":
+
+        new_opening_crawl = request.POST.get("new_opening_crawl")
+        title = request.POST.get("title")
+
+        if not new_opening_crawl or not title:
+            return HttpResponseRedirect(f"/{exercise}/update")
+
+        try:
+
+            connection: psycopg2.extensions.connection = connect()
+            cursor: psycopg2.extensions.cursor = connection.cursor()
+            if not table_exists(cursor, f"{exercise}_movies"):
+                return HttpResponseRedirect(f"/{exercise}/update")
+            cursor.execute(
+                f"""
+                UPDATE {exercise}_movies movies
+                SET opening_crawl = '{new_opening_crawl}'
+                WHERE movies.title = '{title}';
+                """
+            )
+            connection.commit()
+        except psycopg2.Error:
+            pass
+        finally:
+            close_connection(cursor, connection)
+        return HttpResponseRedirect(f"/{exercise}/update")

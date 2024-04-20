@@ -1,11 +1,11 @@
-from ex03.models import Movies
 from d05.my_lib.sql import get_nav_links
 from django.shortcuts import render
-from ex04.forms import MyForm
+from ex04.forms import RemoveMovie
+from ex06.forms import UpdateMovie
 from django.http import HttpResponseRedirect
 
 
-def populate(request, exercise="ex00", previous=None, next=None):
+def populate(request, Movies, exercise="ex00", previous=None, next=None):
 
     to_insert = [
         {
@@ -95,19 +95,22 @@ def populate(request, exercise="ex00", previous=None, next=None):
     return render(request, "d05/templates/populate.html", context)
 
 
-def display(request, exercise="ex00", previous=None, next=None):
+def display(request, Movies, exercise="ex00", previous=None, next=None):
 
-    content, data = None, None
+    content, data, fields = None, None, None
 
     if not Movies.objects.exists():
         content = "The table does not exists"
     else:
-        data = Movies.objects.all()
+        fields = Movies._meta.get_fields()
+        data = Movies.objects.all().order_by("episode_nb")
         if len(data) == 0:
             content = "The table is empty"
 
     context = {
+        "title": f"{exercise}: Display {exercise}_movies",
         "content": content,
+        "fields": fields,
         "data": data,
         "nav_links": get_nav_links(exercise),
         "previous": previous,
@@ -117,7 +120,7 @@ def display(request, exercise="ex00", previous=None, next=None):
     return render(request, "d05/templates/display_model.html", context)
 
 
-def remove(request, exercise="ex05", previous=None, next=None):
+def remove(request, Movies, exercise="ex05", previous=None, next=None):
 
     my_form = None
 
@@ -126,14 +129,14 @@ def remove(request, exercise="ex05", previous=None, next=None):
         if not Movies.objects.exists():
             content = "The table does not exists"
         else:
-            data = Movies.objects.all()
+            data = Movies.objects.all().order_by("episode_nb")
             if not data:
                 content = "No data available"
             else:
                 titles = []
                 for movie in data:
                     titles.append(movie.title)
-                my_form = MyForm(
+                my_form = RemoveMovie(
                     choices=[(title, title) for title in titles]
                 )
                 content = None
@@ -156,12 +159,67 @@ def remove(request, exercise="ex05", previous=None, next=None):
         to_remove = request.POST.get("title")
 
         if not to_remove:
-            return HttpResponseRedirect("/ex05/remove")
+            return HttpResponseRedirect(f"/{exercise}/remove")
 
         if not Movies.objects.exists():
-            return HttpResponseRedirect("/ex05/remove")
+            return HttpResponseRedirect(f"/{exercise}/remove")
 
         Movies.objects.filter(title=to_remove).delete()
 
-        return HttpResponseRedirect("/ex05/remove")
+        return HttpResponseRedirect(f"/{exercise}/remove")
 
+
+def update(request, Movies, exercise="ex05", previous=None, next=None):
+
+    my_form = None
+
+    if request.method == "GET":
+
+        if not Movies.objects.exists():
+            content = "The table does not exists"
+        else:
+            data = Movies.objects.all().order_by("episode_nb")
+            if not data:
+                content = "No data available"
+            else:
+                titles = []
+                for movie in data:
+                    titles.append(movie.title)
+                my_form = UpdateMovie(
+                    choices=[(title, title) for title in titles]
+                )
+                content = None
+
+        context = {
+            "title": f"{exercise}: Update {exercise}_movies",
+            "content": content,
+            "form": my_form,
+            "nav_links": get_nav_links(exercise),
+            "exercise": f"{exercise}",
+            "previous": previous,
+            "next": next,
+            "active": "update",
+        }
+
+        return render(request, "d05/templates/update.html", context)
+
+    elif request.method == "POST":
+
+        to_update = request.POST.get("title")
+        new_opening_crawl = request.POST.get("new_opening_crawl")
+
+        if not to_update or not new_opening_crawl:
+            return HttpResponseRedirect(f"/{exercise}/update")
+
+        if not Movies.objects.exists():
+            return HttpResponseRedirect(f"/{exercise}/update")
+
+        movie = Movies.objects.filter(title=to_update).first()
+
+        if not movie:
+            return HttpResponseRedirect(f"/{exercise}/update")
+
+        movie.opening_crawl = new_opening_crawl
+        movie.save()
+
+        return HttpResponseRedirect(f"/{exercise}/update")

@@ -10,6 +10,8 @@
                 <th>Director</th>
                 <th>Producer</th>
                 <th>Release date</th>
+                <th>Created</th>
+                <th>Updated</th>
             </tr>
             {% for movie in data %}
                 <tr>
@@ -19,6 +21,8 @@
                     <td>{{ movie.director }}</td>
                     <td>{{ movie.producer }}</td>
                     <td>{{ movie.release_date }}</td>
+                    <td>{{ movie.created }}</td>
+                    <td>{{ movie.updated }}</td>
                 </tr>
             {% endfor %}
         </table>
