@@ -5,6 +5,27 @@ from ex06.forms import UpdateMovie
 from django.http import HttpResponseRedirect
 
 
+def init(request, exercise, previous, next="/ex02/display"):
+    context = {
+        "title": get_title(exercise),
+        "content": f"The table {exercise}_movies has been " +
+        "created during the migration.",
+        "nav_links": get_nav_links(exercise),
+        "exercise": f"{exercise}",
+        "previous": previous,
+        "next": next,
+        "active": "init",
+        "created_column": display_created_updated(request, exercise),
+    }
+    return render(request, "d05/templates/init.html", context)
+
+
+def display_created_updated(request, exercise):
+    if exercise == "ex07":
+        return True
+    return False
+
+
 def populate(request, Movies, exercise="ex00", previous=None, next=None):
 
     to_insert = [
@@ -59,7 +80,7 @@ def populate(request, Movies, exercise="ex00", previous=None, next=None):
         }
     ]
 
-    errors = []
+    content = []
     title = None
     for dict in to_insert:
         try:
@@ -71,26 +92,22 @@ def populate(request, Movies, exercise="ex00", previous=None, next=None):
                 producer=dict["producer"],
                 release_date=dict["release_date"]
             )
+            content.append(f"{title}: OK")
         except Exception as e:
             if title:
-                errors.append(f"Error inserting {title}: {e}")
+                content.append(f"{title}: {str(e)}")
             else:
-                errors.append(str(e))
-
-    if not errors:
-        content = "OK"
-    else:
-        content = "Errors occurred"
+                content.append(f"{str(e)}")
 
     context = {
         "title": get_title(exercise),
         "content": content,
-        "errors": errors,
         "nav_links": get_nav_links(exercise),
         "exercise": f"{exercise}",
         "previous": previous,
         "next": next,
         "active": "populate",
+        "created_column": display_created_updated(request, exercise),
     }
     return render(request, "d05/templates/populate.html", context)
 
@@ -116,6 +133,7 @@ def display(request, Movies, exercise="ex00", previous=None, next=None):
         "previous": previous,
         "next": next,
         "active": "display",
+        "created_column": display_created_updated(request, exercise),
     }
     return render(request, "d05/templates/display_model.html", context)
 
@@ -150,6 +168,7 @@ def remove(request, Movies, exercise="ex05", previous=None, next=None):
             "previous": previous,
             "next": next,
             "active": "remove",
+            "created_column": display_created_updated(request, exercise),
         }
 
         return render(request, "d05/templates/remove.html", context)
@@ -164,7 +183,12 @@ def remove(request, Movies, exercise="ex05", previous=None, next=None):
         if not Movies.objects.exists():
             return HttpResponseRedirect(f"/{exercise}/remove")
 
-        Movies.objects.filter(title=to_remove).delete()
+        to_delete = Movies.objects.filter(title=to_remove)
+
+        if not to_delete:
+            return HttpResponseRedirect(f"/{exercise}/remove")
+
+        to_delete.delete()
 
         return HttpResponseRedirect(f"/{exercise}/remove")
 
@@ -199,6 +223,7 @@ def update(request, Movies, exercise="ex05", previous=None, next=None):
             "previous": previous,
             "next": next,
             "active": "update",
+            "created_column": display_created_updated(request, exercise),
         }
 
         return render(request, "d05/templates/update.html", context)

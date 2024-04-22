@@ -9,6 +9,8 @@ from django.http import HttpResponseRedirect
 def get_title(exercise="ex00"):
     if exercise == "ex00":
         return "ex00: SQL Initialization of a table"
+    elif exercise == "ex01":
+        return "ex01: ORM Initialization of a table"
     elif exercise == "ex02":
         return "ex02: SQL Insertion of data"
     elif exercise == "ex03":
@@ -34,6 +36,10 @@ def get_nav_links(exercise="ex00"):
         return {
             "init": f"/{exercise}/init",
         }
+    elif exercise == "ex01":
+        return {
+            "init": f"/{exercise}/init",
+        }
     elif exercise == "ex02":
         return {
             "init": f"/{exercise}/init",
@@ -79,6 +85,10 @@ def get_nav_links(exercise="ex00"):
             "populate": f"/{exercise}/populate",
             "display": f"/{exercise}/display",
         }
+    elif exercise == "ex09":
+        return {
+            "display": f"/{exercise}/display",
+        }
 
 
 def init(request, exercise="ex00", previous=None, next=None):
@@ -90,8 +100,19 @@ def init(request, exercise="ex00", previous=None, next=None):
     try:
         connection: psycopg2.extensions.connection = connect()
         cursor: psycopg2.extensions.cursor = connection.cursor()
-        if not table_exists(cursor, f"{exercise}_movies"):
-            if exercise == "ex06":
+        if table_exists(cursor, f"{exercise}_movies"):
+            content = f"Table {exercise}_movies already exists"
+        else:
+            if exercise != "ex06":
+                create_table(cursor, f"{exercise}_movies", columns=[
+                    "episode_nb    SERIAL PRIMARY KEY",
+                    "title         VARCHAR(64) UNIQUE NOT NULL",
+                    "opening_crawl TEXT",
+                    "director      VARCHAR(32) NOT NULL",
+                    "producer      VARCHAR(128) NOT NULL",
+                    "release_date  DATE NOT NULL",
+                ])
+            else:
                 create_table(cursor, f"{exercise}_movies", columns=[
                     "episode_nb    SERIAL PRIMARY KEY",
                     "title         VARCHAR(64) UNIQUE NOT NULL",
@@ -102,12 +123,8 @@ def init(request, exercise="ex00", previous=None, next=None):
                     "created       TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
                     "updated       TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
                 ])
-            else:
-                create_table(cursor, f"{exercise}_movies")
             connection.commit()
             content = "OK"
-        else:
-            content = "Table already exists"
     except psycopg2.Error as e:
         content = str(e)
     finally:
@@ -191,27 +208,25 @@ def create_table(
 ):
 
     cursor.execute(
-        f"CREATE TABLE {table_name} ({', '.join(columns)})"
+        f"CREATE TABLE {table_name} ({', '.join(columns)});"
     )
 
-    for column in columns:
-        if "updated" in column or "created" in column:
-            # Add a trigger to update the 'updated' column
-            cursor.execute(
-                """
-                CREATE OR REPLACE FUNCTION update_changetimestamp_column()
-                RETURNS TRIGGER AS $$
-                BEGIN
-                NEW.updated = now();
-                NEW.created = OLD.created;
-                RETURN NEW;
-                END;
-                $$ language 'plpgsql';
-                CREATE TRIGGER update_films_changetimestamp BEFORE UPDATE
-                ON ex06_movies FOR EACH ROW EXECUTE PROCEDURE
-                update_changetimestamp_column();
-                """)
-            return
+    if table_name == "ex06_movies":
+        # Add a trigger to update the 'updated' column
+        cursor.execute(
+            """
+            CREATE OR REPLACE FUNCTION update_changetimestamp_column()
+            RETURNS TRIGGER AS $$
+            BEGIN
+            NEW.updated = now();
+            NEW.created = OLD.created;
+            RETURN NEW;
+            END;
+            $$ language 'plpgsql';
+            CREATE TRIGGER update_films_changetimestamp BEFORE UPDATE
+            ON ex06_movies FOR EACH ROW EXECUTE PROCEDURE
+            update_changetimestamp_column();
+            """)
 
 
 def populate(request, exercise="ex00", previous=None, next=None):
@@ -272,7 +287,7 @@ def populate(request, exercise="ex00", previous=None, next=None):
         connection: psycopg2.extensions.connection = connect()
         cursor: psycopg2.extensions.cursor = connection.cursor()
 
-        errors = []
+        content = []
         title = None
         for dict in to_insert:
 
@@ -296,27 +311,24 @@ def populate(request, exercise="ex00", previous=None, next=None):
                     """
                 )
                 connection.commit()
+
+                content.append(f"{title}: OK")
+
             except psycopg2.Error as e:
                 if title:
-                    errors.append(f"Error inserting {title}: {e}")
+                    content.append(f"{title}: [Error] {e}")
                 else:
-                    errors.append(str(e))
+                    content.append(str(e))
                 connection.rollback()
 
-        if not errors:
-            content = "OK"
-        else:
-            content = "Errors occurred"
-
     except psycopg2.Error as e:
-        content = str(e)
+        content.append(str(e))
     finally:
         close_connection(cursor, connection)
 
     context = {
         "title": get_title(exercise),
         "content": content,
-        "errors": errors,
         "nav_links": get_nav_links(exercise),
         "exercise": f"{exercise}",
         "previous": previous,
@@ -472,6 +484,16 @@ def remove(request, exercise="ex04", previous=None, next=None):
             connection: psycopg2.extensions.connection = connect()
             cursor: psycopg2.extensions.cursor = connection.cursor()
             if not table_exists(cursor, f"{exercise}_movies"):
+                return HttpResponseRedirect(f"/{exercise}/remove")
+
+            # Check if the title exists in the table
+            cursor.execute(
+                f"""
+                SELECT title FROM {exercise}_movies movies
+                WHERE movies.title = '{to_remove}';
+                """
+            )
+            if not cursor.fetchone():
                 return HttpResponseRedirect(f"/{exercise}/remove")
             cursor.execute(
                 f"""
@@ -697,10 +719,11 @@ def display_planets(request):
             cursor.execute(
                 """
                 SELECT people.name, planets.name, planets.climate
-                FROM ex08_planets planets
-                JOIN ex08_people people
-                ON planets.name = people.homeworld
-                ORDER BY people.name ASC
+                FROM ex08_people people
+                JOIN ex08_planets planets
+                ON people.homeworld = planets.name
+                WHERE planets.climate ILIKE '%windy%'
+                ORDER BY people.name ASC;
                 """
             )
             data = cursor.fetchall()

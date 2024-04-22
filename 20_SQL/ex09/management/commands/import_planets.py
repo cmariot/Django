@@ -21,13 +21,13 @@ class Command(BaseCommand):
 
                     new_planet = Planets(
                         name=line[0],
-                        climate=line[1],
-                        diameter=line[2],
-                        orbital_period=line[3],
-                        population=line[4],
-                        rotation_period=line[5],
-                        surface_water=line[6],
-                        terrain=line[7]
+                        climate=line[1] or "",
+                        diameter=line[2] or 0,
+                        orbital_period=line[3] or 0,
+                        population=line[4] or 0,
+                        rotation_period=line[5] or 0,
+                        surface_water=line[6] or 0,
+                        terrain=line[7] or "",
                     )
 
                     if not Planets.objects.filter(name=new_planet.name).exists():

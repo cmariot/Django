@@ -1,0 +1,28 @@
+{% extends "d05/templates/base.html" %}
+
+{% block content %}
+    {% if idata %}
+        <table>
+            <tr>
+                {% for field in fields %}
+                    <th>{{ field }}</th>
+                {% endfor %}
+            </tr>
+            {% for people in data %}
+                <tr>
+                    <td>{{ people.name }}</td>
+                    <td>{{ people.homeworld }}</td>
+                    <td>{{ people.homeworld.climate }}</td>
+
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No data available, please use the following command line before use:</p>
+        <code>
+            python3 manage.py import_planets
+            <br>
+            python3 manage.py import_people
+        </code>
+    {% endif %}
+{% endblock %}

@@ -21,17 +21,6 @@ class Command(BaseCommand):
 
                     if line[7]:
                         planet = Planets.objects.get(name=line[7])
-                    else:
-                        planet = Planets(
-                            "Unknown",
-                            "Unknown",
-                            0,
-                            0,
-                            0,
-                            0,
-                            0
-                        )
-                        planet.save()
 
                     print(line)
 
@@ -39,9 +28,9 @@ class Command(BaseCommand):
                         name=line[0],
                         birth_year=line[1] or "",
                         gender=line[2],
-                        eye_color=line[3],
-                        hair_color=line[4],
-                        height=line[5],
+                        eye_color=line[3] or "",
+                        hair_color=line[4] or "",
+                        height=line[5] or 0,
                         mass=line[6] or 0,
                         homeworld=planet if planet else None,
                     )

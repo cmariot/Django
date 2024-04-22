@@ -192,3 +192,16 @@ footer {
     justify-content: space-evenly;
     align-items: center;
 }
+
+code {
+    background-color: rgb(181, 212, 216);
+    color: black;
+    font-family: monospace;
+    padding: 4px;
+
+}
+
+main ul li {
+    margin-block: 15px;
+    text-align: left;
+}
