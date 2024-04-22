@@ -1,4 +1,4 @@
-from d05.my_lib.sql import get_nav_links
+from d05.my_lib.sql import get_nav_links, get_title
 from django.shortcuts import render
 from ex04.forms import RemoveMovie
 from ex06.forms import UpdateMovie
@@ -83,7 +83,7 @@ def populate(request, Movies, exercise="ex00", previous=None, next=None):
         content = "Errors occurred"
 
     context = {
-        "title": f"{exercise}: Populate {exercise}_movies",
+        "title": get_title(exercise),
         "content": content,
         "errors": errors,
         "nav_links": get_nav_links(exercise),
@@ -108,7 +108,7 @@ def display(request, Movies, exercise="ex00", previous=None, next=None):
             content = "The table is empty"
 
     context = {
-        "title": f"{exercise}: Display {exercise}_movies",
+        "title": get_title(exercise),
         "content": content,
         "fields": fields,
         "data": data,
@@ -142,7 +142,7 @@ def remove(request, Movies, exercise="ex05", previous=None, next=None):
                 content = None
 
         context = {
-            "title": f"{exercise}: Remove from {exercise}_movies",
+            "title": get_title(exercise),
             "content": content,
             "form": my_form,
             "nav_links": get_nav_links(exercise),
@@ -191,7 +191,7 @@ def update(request, Movies, exercise="ex05", previous=None, next=None):
                 content = None
 
         context = {
-            "title": f"{exercise}: Update {exercise}_movies",
+            "title": get_title(exercise),
             "content": content,
             "form": my_form,
             "nav_links": get_nav_links(exercise),

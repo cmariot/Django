@@ -6,6 +6,29 @@ from ex06.forms import UpdateMovie
 from django.http import HttpResponseRedirect
 
 
+def get_title(exercise="ex00"):
+    if exercise == "ex00":
+        return "ex00: SQL Initialization of a table"
+    elif exercise == "ex02":
+        return "ex02: SQL Insertion of data"
+    elif exercise == "ex03":
+        return "ex03: ORM Insertion of data"
+    elif exercise == "ex04":
+        return "ex04: SQL Deletion of data"
+    elif exercise == "ex05":
+        return "ex05: ORM Deletion of data"
+    elif exercise == "ex06":
+        return "ex06: SQL Update of data"
+    elif exercise == "ex07":
+        return "ex07: ORM Update of data"
+    elif exercise == "ex08":
+        return "ex08: SQL Foreign Keys"
+    elif exercise == "ex09":
+        return "ex09: ORM Foreign Keys"
+    elif exercise == "ex10":
+        return "ex10: ORM Many-to-Many"
+
+
 def get_nav_links(exercise="ex00"):
     if exercise == "ex00":
         return {
@@ -50,6 +73,12 @@ def get_nav_links(exercise="ex00"):
             "remove": f"/{exercise}/remove",
             "update": f"/{exercise}/update",
         }
+    elif exercise == "ex08":
+        return {
+            "init": f"/{exercise}/init",
+            "populate": f"/{exercise}/populate",
+            "display": f"/{exercise}/display",
+        }
 
 
 def init(request, exercise="ex00", previous=None, next=None):
@@ -85,7 +114,7 @@ def init(request, exercise="ex00", previous=None, next=None):
         close_connection(cursor, connection)
 
     context = {
-        "title": f"{exercise}: Initialization of {exercise}_movies",
+        "title": get_title(exercise),
         "content": content,
         "nav_links": get_nav_links(exercise),
         "exercise": f"{exercise}",
@@ -285,7 +314,7 @@ def populate(request, exercise="ex00", previous=None, next=None):
         close_connection(cursor, connection)
 
     context = {
-        "title": f"{exercise}: Populate {exercise}_movies",
+        "title": get_title(exercise),
         "content": content,
         "errors": errors,
         "nav_links": get_nav_links(exercise),
@@ -358,7 +387,7 @@ def display(request, exercise="ex00", previous=None, next=None):
         close_connection(cursor, connection)
 
     context = {
-        "title": f"{exercise}: Display {exercise}_movies",
+        "title": get_title(exercise),
         "fields": fields,
         "data": data,
         "content": content,
@@ -395,9 +424,9 @@ def select_column(cursor, table_name="ex04_movies", column="title"):
 
 def remove(request, exercise="ex04", previous=None, next=None):
 
-    my_form = None
-
     if request.method == "GET":
+
+        content, my_form = None, None
 
         try:
             connection: psycopg2.extensions.connection = connect()
@@ -420,7 +449,7 @@ def remove(request, exercise="ex04", previous=None, next=None):
             close_connection(cursor, connection)
 
         context = {
-            "title": f"{exercise}: Remove from {exercise}_movies",
+            "title": get_title(exercise),
             "content": content,
             "form": my_form,
             "nav_links": get_nav_links(exercise),
@@ -462,6 +491,8 @@ def update(request, exercise="ex04", previous=None, next=None):
 
     if request.method == "GET":
 
+        content, my_form = None, None
+
         try:
             connection: psycopg2.extensions.connection = connect()
             cursor: psycopg2.extensions.cursor = connection.cursor()
@@ -485,7 +516,7 @@ def update(request, exercise="ex04", previous=None, next=None):
             close_connection(cursor, connection)
 
         context = {
-            "title": f"{exercise}: Update {exercise}_movies",
+            "title": get_title(exercise),
             "content": content,
             "form": my_form,
             "nav_links": get_nav_links(exercise),
@@ -524,3 +555,174 @@ def update(request, exercise="ex04", previous=None, next=None):
         finally:
             close_connection(cursor, connection)
         return HttpResponseRedirect(f"/{exercise}/update")
+
+
+def init_planets(request):
+
+    try:
+        connection: psycopg2.extensions.connection = connect()
+        cursor: psycopg2.extensions.cursor = connection.cursor()
+
+        databases = {
+            "ex08_planets": [
+                "id SERIAL PRIMARY KEY",
+                "name VARCHAR(64) UNIQUE NOT NULL",
+                "climate VARCHAR",
+                "diameter INT",
+                "orbital_period INT",
+                "population BIGINT",
+                "rotation_period INT",
+                "surface_water FLOAT",
+                "terrain VARCHAR(128)"
+            ],
+            "ex08_people": [
+                "id SERIAL PRIMARY KEY",
+                "name VARCHAR(64) UNIQUE NOT NULL",
+                "birth_year VARCHAR(32)",
+                "gender VARCHAR(32)",
+                "eye_color VARCHAR(32)",
+                "hair_color VARCHAR(32)",
+                "height INT",
+                "mass FLOAT",
+                "homeworld VARCHAR(64)",
+                "FOREIGN KEY (homeworld) REFERENCES ex08_planets(name)"
+            ]
+        }
+
+        content = []
+        for table_name, columns in databases.items():
+            if not table_exists(cursor, table_name):
+                create_table(cursor, table_name, columns)
+                connection.commit()
+                content.append("OK")
+            else:
+                content.append("Table already exists")
+
+    except psycopg2.Error as e:
+        content = str(e)
+    finally:
+        close_connection(cursor, connection)
+
+    context = {
+        "title": get_title("ex08"),
+        "content": content,
+        "nav_links": get_nav_links("ex08"),
+        "exercise": "ex08",
+        "previous": "/ex07/display",
+        "next": "/ex09/display",
+        "active": "init",
+    }
+
+    return render(request, "d05/templates/init.html", context)
+
+
+def populate_planets(request):
+
+    try:
+
+        db_csv = {
+            "ex08_planets": {
+                "csv_file": "d05/datasets/planets.csv",
+                "columns": [
+                    "name",
+                    "climate",
+                    "diameter",
+                    "orbital_period",
+                    "population",
+                    "rotation_period",
+                    "surface_water",
+                    "terrain"
+                ]
+            },
+            "ex08_people": {
+                "csv_file": "d05/datasets/people.csv",
+                "columns": [
+                    "name",
+                    "birth_year",
+                    "gender",
+                    "eye_color",
+                    "hair_color",
+                    "height",
+                    "mass",
+                    "homeworld"
+                ]
+            }
+        }
+
+        content = []
+        for table_name, table_dict in db_csv.items():
+            connection: psycopg2.extensions.connection = connect()
+            cursor: psycopg2.extensions.cursor = connection.cursor()
+            if not table_exists(cursor, table_name):
+                content.append(f"Table {table_name} does not exist")
+            else:
+                with open(table_dict["csv_file"], "r") as csv_content:
+                    cursor.copy_from(
+                         csv_content,
+                         table_name,
+                         columns=table_dict["columns"],
+                         null="NULL",
+                    )
+                    connection.commit()
+                    content.append("OK")
+            close_connection(cursor, connection)
+
+    except psycopg2.Error as e:
+        content.append(str(e))
+
+    context = {
+        "title": get_title("ex08"),
+        "content": content,
+        "nav_links": get_nav_links("ex08"),
+        "exercise": "ex08",
+        "previous": "/ex07/display",
+        "next": "/ex09/display",
+        "active": "populate",
+    }
+
+    return render(request, "d05/templates/populate.html", context)
+
+
+def display_planets(request):
+
+    try:
+        connection: psycopg2.extensions.connection = connect()
+        cursor: psycopg2.extensions.cursor = connection.cursor()
+        if not table_exists(cursor, "ex08_planets"):
+            content = "Table does not exist"
+            fields = None
+            data = None
+        else:
+            fields = ["name", "origin", "climate"]
+            cursor.execute(
+                """
+                SELECT people.name, planets.name, planets.climate
+                FROM ex08_planets planets
+                JOIN ex08_people people
+                ON planets.name = people.homeworld
+                ORDER BY people.name ASC
+                """
+            )
+            data = cursor.fetchall()
+
+            if not data:
+                content = "No data available"
+            else:
+                content = None
+    except psycopg2.Error as e:
+        content = "Error: " + str(e)
+    finally:
+        close_connection(cursor, connection)
+
+    context = {
+        "title": get_title("ex08"),
+        "fields": fields,
+        "data": data,
+        "content": content,
+        "nav_links": get_nav_links("ex08"),
+        "exercise": "ex08",
+        "previous": "/ex07/display",
+        "next": "/ex09/display",
+        "active": "display",
+    }
+    return render(request, "d05/templates/display.html", context)

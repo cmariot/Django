@@ -10,9 +10,11 @@
     </head>
     <body>
         <section>
+            <header>
+                <h1>{{ title }}</h1>
+            </header>
             {% include 'd05/templates/nav.html' %}
             <main>
-                <h1>{{ title }}</h1>
                 {% block content %}{% endblock %}
             </main>
             {% include 'd05/templates/footer.html' %}
