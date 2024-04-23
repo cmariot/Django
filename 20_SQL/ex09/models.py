@@ -27,11 +27,12 @@ class People(models.Model):
     mass = models.FloatField()
     homeworld = models.ForeignKey(
         Planets,
-        on_delete=models.CASCADE,
+        models.SET_NULL,
+        blank=True,
+        null=True,
     )
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
-

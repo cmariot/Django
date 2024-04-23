@@ -679,16 +679,19 @@ def populate_planets(request):
                 content.append(f"Table {table_name} does not exist")
             else:
                 with open(table_dict["csv_file"], "r") as csv_content:
-                    cursor.copy_from(
-                         csv_content,
-                         table_name,
-                         columns=table_dict["columns"],
-                         null="NULL",
-                    )
-                    connection.commit()
-                    content.append("OK")
+                    try:
+                        cursor.copy_from(
+                            csv_content,
+                            table_name,
+                            columns=table_dict["columns"],
+                            null="NULL",
+                        )
+                        connection.commit()
+                        content.append(f"{table_name}: OK")
+                    except psycopg2.Error as e:
+                        content.append(f"{table_name}: {e}")
+                        connection.rollback()
             close_connection(cursor, connection)
-
     except psycopg2.Error as e:
         content.append(str(e))
 
@@ -707,6 +710,7 @@ def populate_planets(request):
 
 def display_planets(request):
 
+    data = None
     try:
         connection: psycopg2.extensions.connection = connect()
         cursor: psycopg2.extensions.cursor = connection.cursor()

@@ -48,6 +48,7 @@ section {
 table {
     border-collapse: collapse;
     width: 100%;
+    min-height: 100%;
 }
 
 th, td {
@@ -125,7 +126,28 @@ form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 100%;
 }
+
+/* form input[type=not:submit], form textarea, form select, form label, form p{ */
+form input, form textarea, form select, form label, form p {
+    width: 100%;
+}
+
+form input[type=submit] {
+    width: 300px;
+}
+
+
+textarea {
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid rgb(181, 212, 216);
+    background-color: black;
+    color: rgb(181, 212, 216);
+}
+
 
 form label {
     font-weight: bold;
@@ -204,4 +226,9 @@ code {
 main ul li {
     margin-block: 15px;
     text-align: left;
+}
+
+tr th {
+    max-height: 50px;
+    height: 50px;
 }

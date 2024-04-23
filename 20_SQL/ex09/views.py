@@ -7,9 +7,11 @@ def display(request):
 
     data = People.objects.filter(
         homeworld__climate__icontains="windy"
-        ).order_by("name")
+    ).order_by("name")
 
     fields = ["name", "origin", "climate"]
+
+    print(data)
 
     context = {
         'title': get_title("ex09"),

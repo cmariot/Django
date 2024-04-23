@@ -18,7 +18,11 @@ class UpdateMovie(forms.Form):
         widget=forms.Textarea(
             attrs={
                 "class": "form-control",
-                "rows": 3
+                "rows": 3,
+                "placeholder": "Enter the opening crawl",
+                "style": "resize: none",
+                "required": "required"
+
             }
         )
     )
