@@ -11,14 +11,13 @@ def display(request):
 
     fields = ["name", "origin", "climate"]
 
-    print(data)
-
     context = {
         'title': get_title("ex09"),
         'data': data,
         'fields': fields,
         'nav_links': get_nav_links("ex09"),
         'previous': '/ex08/display',
+        'next': '/ex10',
         'active': 'display'
     }
     return render(request, 'd05/templates/display_people.html', context)

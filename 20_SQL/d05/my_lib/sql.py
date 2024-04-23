@@ -89,6 +89,10 @@ def get_nav_links(exercise="ex00"):
         return {
             "display": f"/{exercise}/display",
         }
+    elif exercise == "ex10":
+        return {
+            "index": f"/{exercise}",
+        }
 
 
 def init(request, exercise="ex00", previous=None, next=None):
@@ -212,7 +216,9 @@ def create_table(
     )
 
     if table_name == "ex06_movies":
-        # Add a trigger to update the 'updated' column
+
+        # Add a trigger to update the 'updated' column automatically
+
         cursor.execute(
             """
             CREATE OR REPLACE FUNCTION update_changetimestamp_column()
@@ -621,7 +627,7 @@ def init_planets(request):
                 content.append("Table already exists")
 
     except psycopg2.Error as e:
-        content = str(e)
+        content.append(str(e))
     finally:
         close_connection(cursor, connection)
 

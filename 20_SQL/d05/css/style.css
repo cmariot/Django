@@ -57,6 +57,11 @@ th, td {
     text-align: center;
 }
 
+.word_wrap {
+    white-space: pre-wrap;
+    word-wrap: anywhere;
+}
+
 th {
     color: black;
     background-color: rgb(181, 212, 216);
@@ -127,6 +132,15 @@ form {
   justify-content: center;
   align-items: center;
   min-height: 100%;
+  text-align: left;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 /* form input[type=not:submit], form textarea, form select, form label, form p{ */

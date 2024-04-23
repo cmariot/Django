@@ -1,0 +1,8 @@
+{% extends "d05/templates/base.html" %}
+
+{% block content %}
+<form method="post" action="/ex10/"> {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Search">
+</form>
+{% endblock %}
