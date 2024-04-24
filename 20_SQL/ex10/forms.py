@@ -24,13 +24,19 @@ class FormEx10(forms.Form):
         label="Planet diameter (greater than)",
         required=False,
     )
-    character_gender = forms.ModelChoiceField(
+    character_gender = forms.ChoiceField(
         label="Character gender",
-        queryset=People.objects.distinct('gender'),
         required=False,
+        choices=[],
         widget=forms.Select(
             attrs={
                 "class": "form-control"
             }
         )
     )
+
+    def __init__(self, *args, **kwargs):
+        super(FormEx10, self).__init__(*args, **kwargs)
+        self.fields['character_gender'].choices = People.objects.values_list(
+            'gender', 'gender'
+        ).distinct()

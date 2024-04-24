@@ -1,8 +1,50 @@
 {% extends "d05/templates/base.html" %}
 
 {% block content %}
-<form method="post" action="/ex10/"> {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Search">
-</form>
+
+    {% if empty_tables is True %}
+
+        <p>No data available, please use the following command line before use:</p>
+        <code>
+            python3 manage.py loaddata ex10_initial_data
+        </code>
+
+    {% elif data%}
+
+        <div id='search_results'>
+            <table>
+                <tr>
+                    <th>movie</th>
+                    <th>name</th>
+                    <th>gender</th>
+                    <th>homeworld</th>
+                    <th>planet diameter</th>
+                </tr>
+                {% for line in data %}
+                    <tr>
+                        <td>{{ line.movie }}</td>
+                        <td>{{ line.name }}</td>
+                        <td>{{ line.gender }}</td>
+                        <td>{{ line.homeworld }}</td>
+                        <td>{{ line.diameter }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <button onclick="window.location.href='/ex10/'">Back</button>
+
+    {% elif not_found %}
+
+        <p>Nothing corresponding to your research</p>
+        <button onclick="window.location.href='/ex10/'">Back</button>
+
+    {% else %}
+
+        <form method="post" action="/ex10/"> {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Search">
+        </form>
+
+    {% endif %}
+
 {% endblock %}

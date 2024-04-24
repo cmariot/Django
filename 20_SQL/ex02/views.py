@@ -1,19 +1,21 @@
-import d05.my_lib.sql
+import d05.my_lib.views.sql.init as sql_init
+import d05.my_lib.views.sql.populate as sql_populate
+import d05.my_lib.views.sql.display as sql_display
 
 
 def init(request):
-    return d05.my_lib.sql.init(
-        request, "ex02", previous="/ex00/init", next="/ex03/display"
+    return sql_init.init(
+        request, "ex02", previous="/ex01/init", next="/ex03/display"
     )
 
 
 def populate(request):
-    return d05.my_lib.sql.populate(
-        request, "ex02", previous="/ex00/init", next="/ex03/display"
+    return sql_populate.populate(
+        request, "ex02", previous="/ex01/init", next="/ex03/display"
     )
 
 
 def display(request):
-    return d05.my_lib.sql.display(
-        request, "ex02", previous="/ex00/init", next="/ex03/display"
+    return sql_display.display(
+        request, "ex02", previous="/ex01/init", next="/ex03/display"
     )

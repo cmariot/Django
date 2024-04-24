@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from .models import People
-from d05.my_lib.sql import get_nav_links, get_title
+from d05.my_lib.views.sql.planets import get_nav_links, get_title
 
 
 def display(request):
 
     data = People.objects.filter(
-        homeworld__climate__icontains="windy"
+        homeworld__climate__contains="windy"
     ).order_by("name")
 
     fields = ["name", "origin", "climate"]

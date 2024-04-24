@@ -148,7 +148,7 @@ form input, form textarea, form select, form label, form p {
     width: 100%;
 }
 
-form input[type=submit] {
+form input[type=submit], button {
     width: 300px;
 }
 
@@ -177,7 +177,7 @@ form p {
     width: 100%;
 }
 
-input {
+input, button {
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
@@ -186,16 +186,20 @@ input {
     color: rgb(181, 212, 216);
 }
 
-input[type=submit] {
+input[type=submit], button {
     background-color: black;
     color: rgb(181, 212, 216);
     font-weight: bold;
     cursor: pointer;
 }
 
-input[type=submit]:hover {
+input[type=submit]:hover, button:hover {
     background-color: rgb(181, 212, 216);
     color: black;
+}
+
+button {
+    margin-block: 30px;
 }
 
 select {
@@ -245,4 +249,9 @@ main ul li {
 tr th {
     max-height: 50px;
     height: 50px;
+}
+
+
+#search_results {
+  width: 100%;
 }

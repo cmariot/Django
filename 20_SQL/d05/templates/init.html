@@ -1,5 +1,9 @@
 {% extends "d05/templates/base.html" %}
 
 {% block content %}
-<p>{{ content}}</p>
+    {% if content %}
+        {% for elem in content %}
+            <p>{{ elem }}</p>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

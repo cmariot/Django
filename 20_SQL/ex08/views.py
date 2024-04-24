@@ -1,4 +1,6 @@
-from d05.my_lib.sql import init_planets, populate_planets, display_planets
+from d05.my_lib.views.sql.planets import (
+    init_planets, populate_planets, display_planets
+)
 
 
 def init(request):
