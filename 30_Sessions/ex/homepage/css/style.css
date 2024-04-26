@@ -1,0 +1,494 @@
+/* Déclaration des variables de couleur */
+:root {
+    --color-background: rgb(7, 0, 19);
+    --color-text: #ffffff;
+    --color-primary: #000000;
+    --color-gradient: linear-gradient(45deg, rgb(240, 39, 196), #00f);
+    --color-warning: rgb(240, 39, 196);
+    --font-main: "Inter", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;
+    --font-secondary: "Inter", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+/* Styles globaux */
+body {
+    font-size: 16px;
+    font-family: var(--font-main);
+    color: var(--color-text);
+    background-color: var(--color-background);
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    text-wrap: wrap;
+    word-break: break-word;
+}
+
+/* Styles pour la barre de navigation */
+nav {
+    font-family: var(--font-secondary);
+    height: 85px;
+    width: 100%;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    font-weight: 500;
+    box-shadow: var(--color-text) 0px 0px 2px;
+    padding-inline: 20px;
+    box-sizing: border-box;
+}
+
+nav * {
+    color: var(--color-text);
+    padding: 0 10px;
+    text-decoration: none;
+    margin: 0;
+}
+
+#website_name {
+    font-family: var(--font-main);
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+#user_menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.moderator {
+    font-weight: 700;
+}
+
+/* Styles pour le contenu principal */
+main {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styles pour les titres */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-main);
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 3em;
+}
+
+h2 {
+    font-size: 2.5em;
+}
+
+h3 {
+    font-size: 2em;
+}
+
+h4 {
+    font-size: 1.5em;
+}
+
+h5 {
+    font-size: 1.25em;
+}
+
+h6 {
+    font-size: 1em;
+}
+
+/* Styles pour les paragraphes */
+p {
+    font-family: var(--font-main);
+    font-size: 1em;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styles pour le texte dégradé */
+.gradient-text {
+    background-image: var(--color-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Styles pour le pied de page */
+footer {
+    font-family: var(--font-secondary);
+    height: 85px;
+    width: 100%;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    box-shadow: var(--color-text) 0px 0px 2px;
+    font-weight: 500;
+}
+
+/* Styles pour les formulaires et les inputs */
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 500px;
+    height: auto;
+    gap: 20px;
+    border-radius: 30px;
+    background-color: var(--color-background);
+    padding: 100px;
+    box-shadow: var(--color-text) 0px 0px 21px;
+    border: none;
+}
+
+button,
+input[type="submit"] {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: var(--font-secondary);
+    font-weight: 500;
+    border: none;
+    border-radius: 100px;
+    box-shadow: var(--color-text) 0px 0px 2px;
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background-color: var(--color-text);
+    color: var(--color-background);
+    box-shadow: var(--color-text) 0px 0px 10px;
+    border: none;
+}
+
+#create_tip_submit:hover {
+    color: var(--color-text);
+}
+
+input {
+    border-radius: 100px;
+}
+
+a {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--color-primary);
+}
+
+form div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+form div label {
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+form div input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 100px;
+    font-weight: 500;
+}
+
+form div input::selection {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border: 2px solid var(--color-warning);
+}
+
+form div input:focus {
+    outline: none;
+    border: 2px solid var(--color-warning);
+    box-shadow: var(--color-warning) 0px 0px 3px;
+}
+
+*:focus {
+    outline: 2px solid var(--color-warning);
+}
+
+input[type="submit"] {
+    margin-block-start: 20px;
+}
+
+button[class="best"],
+input[type="submit"][class="best"],
+.best {
+    background-color: var(--color-primary);
+    color: var(--color-text);
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: var(--font-secondary);
+    font-size: 1.1em;
+    font-weight: 500;
+    border: none;
+    border-radius: 100px;
+    box-shadow: var(--color-text) 0px 0px 2px;
+    background-image: var(--color-gradient);
+}
+
+button[class="best"]:hover,
+input[type="submit"][class="best"]:hover,
+.best:hover {
+    background-color: var(--color-text);
+    box-shadow: var(--color-text) 0px 0px 10px;
+}
+
+/* Styles pour les conteneurs flexibles */
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 80%;
+    max-width: 700px;
+    height: 100%;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Styles pour les listes de conseils */
+.tips_list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+    width: 100%;
+    list-style-type: none;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    padding-bottom: 100px;
+}
+
+.tip {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    padding: 20px;
+    border-radius: 20px;
+    display: grid;
+    box-shadow: var(--color-text) 0px 0px 21px;
+    box-sizing: border-box;
+    background-color: var(--color-background);
+}
+
+.tip>li {
+    text-align: left;
+}
+
+.tip-content {
+    grid-column: 1 / 6;
+    grid-row: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: auto;
+    border: 1px solid;
+    margin: 15px;
+    border-radius: 10px;
+    background-color: var(--color-text);
+    color: var(--color-primary);
+    font-family: var(--font-main);
+    text-align: justify;
+}
+
+.tip-actions {
+    grid-column: 1 / 6;
+    grid-row: 3 / 4;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.tip-remove {
+    grid-column: 5 / 6;
+    grid-row: 1 / 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.tip-meta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    font-size: 0.8em;
+    font-weight: 500;
+    width: 100%;
+    grid-column: 1/5;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    padding: 30px;
+}
+
+.tip-like {
+    width: 150px;
+}
+
+.tip-checked {
+    background-image: var(--color-gradient);
+    box-shadow: var(--color-text) 0px 0px 2px;
+}
+
+.tip-checked:hover {
+    box-shadow: var(--color-text) 0px 0px 10px;
+    color: var(--color-text);
+}
+
+/* Styles pour les autres éléments */
+.defilable {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 20px;
+}
+
+.main_p {
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid var(--color-text);
+    font-weight: 500;
+    font-family: var(--font-main);
+    box-shadow: var(--color-text) 0px 0px 2px;
+}
+
+.other_option {
+    width: 100%;
+}
+
+.discret_form {
+    display: block;
+    gap: 0px;
+    padding: 0px;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    width: auto;
+}
+
+
+form div[class="flex-row"] {
+    margin-block-start: 20px;
+}
+
+form div[class="flex-row"] input[type="submit"] {
+    margin-block-start: 0;
+}
+
+form a {
+    color: var(--color-text);
+}
+
+form a:hover {
+    color: var(--color-text);
+    text-decoration: underline;
+}
+
+#id_content {
+    width: -moz-available;
+    width: -webkit-fill-available;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+#create_tip_form {
+    padding: 20px;
+    align-items: center;
+    width: 100%;
+    margin-block: 150px;
+    box-sizing: border-box;
+    background-color: var(--color-background);
+}
+
+#create_tip_submit {
+    margin: 0;
+    width: 100px;
+}
+
+.error {
+    color: var(--color-warning);
+    font-weight: 700;
+}
+
+.best:hover {
+    color: var(--color-text);
+    box-shadow: var(--color-text) 0px 0px 10px;
+}
+
+pre {
+    font-family: var(--font-main);
+    font-size: 1em;
+    font-weight: 500;
+}

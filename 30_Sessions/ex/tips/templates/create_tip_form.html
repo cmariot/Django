@@ -1,0 +1,16 @@
+<form id="create_tip_form" method="post" action="{% url 'post_tip' %}">
+    {% csrf_token %}
+    {% for field in create_tip_form %}
+        <div>
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+                <p class="help_text">{{ field.help_text }}</p>
+            {% endif %}
+            {% for error in field.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <input id="create_tip_submit" class="tip-checked" type="submit" value="Post">
+</form>

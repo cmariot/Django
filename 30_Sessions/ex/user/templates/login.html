@@ -1,0 +1,26 @@
+{% extends "homepage/templates/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<form method="post">
+    <h1>Login</h1>
+    {% csrf_token %}
+    {% for field in form %}
+        <div>
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+                <p class="help_text">{{ field.help_text }}</p>
+            {% endif %}
+            {% for error in field.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <div class="flex-row">
+        <input class="best" type="submit" value="Login">
+        <p class="other_option">Don't have an account?<br><a href="{% url 'register' %}">Register</a></p>
+    </div>
+</form>
+{% endblock %}

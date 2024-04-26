@@ -1,0 +1,63 @@
+
+<ul class="tips_list">
+    {% if tips_list|length == 0 %}
+        <span>
+            <h4>No tips yet.</h4>
+            <h3>Be the first to share one!</h3>
+        </span>
+    {% else %}
+        <h1>Community prompts:</h1>
+        {% for tip in tips_list %}
+            <li class="tip" id="tip-id{{tip.id}}" >
+                    <span class="tip-meta">Posted by {{ tip.author }} on {{ tip.created_at }}</span>
+                {% if tip.user_can_delete %}
+                    <div class="tip-remove">
+                        <form class="discret_form" method="post" action="{% url 'remove_tip' tip.id %}">
+                            {% csrf_token %}
+                            <button class="tip-remove-button" type="submit" onclick="return confirm('Are you sure you want to delete this tip?')">
+                                <span class="tip-remove-text">&#10006;</span>
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+                <div class="tip-content">
+                    <pre>{{ tip.content }}</pre>
+                </div>
+                <div class="tip-actions">
+                    <form class="discret_form" method="post" action="{% url 'upvote_tip' tip.id %}">
+                        {% csrf_token %}
+                    {% if tip.has_upvoted %}
+                        <button class="tip-like tip-checked">
+                    {% else %}
+                        <button class="tip-like">
+                    {% endif %}
+                            <span class="tip-like-count">{{ tip.nb_up }}</span>
+                            {% if tip.nb_up < 2 %}
+                                <span class="tip-like-text">Upvote</span>
+                            {% else %}
+                                <span class="tip-like-text">Upvotes</span>
+                            {% endif %}
+                        </button>
+                    </form>
+                    {% if tip.user_can_downvote %}
+                        <form class="discret_form" method="post" action="{% url 'downvote_tip' tip.id %}">
+                            {% csrf_token %}
+                        {% if tip.has_downvoted %}
+                            <button class="tip-dislike tip-checked">
+                        {% else %}
+                            <button class="tip-dislike">
+                        {% endif %}
+                                <span class="tip-dislike-count">{{ tip.nb_down }}</span>
+                                {% if tip.nb_down < 2 %}
+                                    <span class="tip-dislike-text">Downvote</span>
+                                {% else %}
+                                    <span class="tip-dislike-text">Downvote</span>
+                                {% endif %}
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    {% endif %}
+</ul>

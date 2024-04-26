@@ -1,0 +1,20 @@
+{% extends 'homepage/templates/base.html' %}
+
+{% block title %}prompt.ai{% endblock %}
+
+{% block content %}
+    <div class="flex-col">
+        {% if not user.is_authenticated %}
+            <h1>Welcome to <span class="gradient-text">prompt.ai</span></h1>
+            <p class="main_p">
+                Discover tailored prompts to meet your needs,<br>and gain visibility by sharing your own.
+            </p>
+            <button class="best" onclick="location.href='{% url 'login' %}'" autofocus="autofocus">Get started</button>
+        {% else %}
+            <div class="defilable">
+                {% include 'tips/templates/create_tip_form.html' %}
+                {% include 'tips/templates/tips_list.html' %}
+            </div>
+        {% endif %}
+   </div>
+{% endblock %}

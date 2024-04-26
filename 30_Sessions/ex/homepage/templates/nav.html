@@ -1,0 +1,53 @@
+{% load static %}
+
+<nav>
+    <a href="{% url 'index' %}">
+        <p id="website_name" class="gradient-text">prompt.ai</p>
+    </a>
+    {% if username %}
+        <div id="user_menu">
+        {% if is_logged_in is False %}
+            <p id="anonymous_username">Hello {{username}}!</p>
+            <button onclick="location.href='{% url 'login' %}'">
+                Login
+            </button>
+            <button onclick="location.href='{% url 'register' %}'">
+                Register
+            </button>
+        {% else %}
+            <p>Hello {{ username }} (reputation: {{reputation}})</p>
+            <button onclick="location.href='{% url 'logout' %}'">
+                Logout
+            </button>
+        {% endif %}
+        </div>
+    {% endif %}
+</nav>
+
+<script>
+    {% if not is_logged_in %}
+        const randomUsername = async () => {
+            const response = await fetch("/user/username");
+            if (!response.ok) {
+                return "wtf";
+            }
+            const data = await response.text();
+            return data;
+        };
+        const updateUsername = async () => {
+
+            try {
+                const username = await randomUsername();
+                if (username === "wtf") {
+                    return;
+                }
+                document.querySelector("#anonymous_username").textContent = `Hello ${username}!`;
+            } catch (error) {
+                console.log("Error updating username");
+            }
+
+            console.log("Updated username");
+        };
+        setInterval(updateUsername, 42000);
+    {% endif %}
+</script>
