@@ -71,19 +71,18 @@ def populate(request, exercise="ex00", previous=None, next=None):
         for dict in to_insert:
 
             try:
-
                 title = dict.get("title")
                 insert(cursor, dict, f"{exercise}_movies")
                 connection.commit()
                 content.append(f"{title}: OK")
-
             except psycopg2.Error as e:
-
                 if title:
                     content.append(f"{title}: {e}")
                 else:
                     content.append(str(e))
-
+                connection.rollback()
+            except Exception as e:
+                content.append(str(e))
                 connection.rollback()
 
     except Exception as e:

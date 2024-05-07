@@ -6,7 +6,7 @@ class FormEx10(forms.Form):
 
     min_release_date = forms.DateField(
         label="Minimum release date",
-        required=False,
+        required=True,
         widget=forms.DateInput(attrs={
             'type': 'date',
             'placeholder': 'YYYY-MM-DD',
@@ -14,7 +14,7 @@ class FormEx10(forms.Form):
     )
     max_release_date = forms.DateField(
         label="Maximum release date",
-        required=False,
+        required=True,
         widget=forms.DateInput(attrs={
             'type': 'date',
             'placeholder': 'YYYY-MM-DD',
@@ -22,11 +22,11 @@ class FormEx10(forms.Form):
     )
     planet_diameter = forms.IntegerField(
         label="Planet diameter (greater than)",
-        required=False,
+        required=True,
     )
     character_gender = forms.ChoiceField(
         label="Character gender",
-        required=False,
+        required=True,
         choices=[],
         widget=forms.Select(
             attrs={

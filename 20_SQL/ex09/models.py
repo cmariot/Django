@@ -10,8 +10,8 @@ class Planets(models.Model):
     rotation_period = models.IntegerField(null=True)
     surface_water = models.FloatField(null=True)
     terrain = models.CharField(max_length=64, null=True)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.name
@@ -31,8 +31,8 @@ class People(models.Model):
         blank=True,
         null=True,
     )
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    updated = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.name

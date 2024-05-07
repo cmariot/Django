@@ -2,8 +2,10 @@
 
 {% block content %}
     {% if content %}
+        <ul>
         {% for elem in content %}
-            <p>{{ elem }}</p>
+            <li>{{ elem }}</li>
         {% endfor %}
+        </ul>
     {% endif %}
 {% endblock %}
