@@ -53,14 +53,12 @@ def get_nav_links(exercise="ex00"):
             "display": f"/{exercise}/display",
             "init": f"/{exercise}/init",
             "populate": f"/{exercise}/populate",
-            "remove": f"/{exercise}/remove",
             "update": f"/{exercise}/update",
         }
     elif exercise == "ex07":
         return {
             "display": f"/{exercise}/display",
             "populate": f"/{exercise}/populate",
-            "remove": f"/{exercise}/remove",
             "update": f"/{exercise}/update",
         }
     elif exercise == "ex08":

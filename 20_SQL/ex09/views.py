@@ -1,15 +1,16 @@
 from django.shortcuts import render
 from .models import People
 from d05.my_lib.views.sql.planets import get_nav_links, get_title
+from django.http import HttpResponse
 
 
 def display(request):
 
+    fields = ["name", "origin", "climate"]
+
     data = People.objects.filter(
         homeworld__climate__contains="windy"
     ).order_by("name")
-
-    fields = ["name", "origin", "climate"]
 
     context = {
         'title': get_title("ex09"),

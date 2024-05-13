@@ -20,44 +20,38 @@ def init(request, exercise="ex00", previous=None, next=None):
         connection: psycopg2.extensions.connection = connect()
         cursor: psycopg2.extensions.cursor = connection.cursor()
 
-        if table_exists(cursor, f"{exercise}_movies"):
+        if exercise != "ex06":
 
-            content.append(f"Table {exercise}_movies already exists")
+            create_table(cursor, f"{exercise}_movies", columns=[
+                "episode_nb    INTEGER PRIMARY KEY",
+                "title         VARCHAR(64) UNIQUE NOT NULL",
+                "opening_crawl TEXT",
+                "director      VARCHAR(32) NOT NULL",
+                "producer      VARCHAR(128) NOT NULL",
+                "release_date  DATE NOT NULL"
+            ])
 
         else:
 
-            if exercise != "ex06":
+            # The ex06_movies table has two additional columns:
+            # created and updated
+            # The updated column is updated automatically during an update
+            # due to the trigger
 
-                create_table(cursor, f"{exercise}_movies", columns=[
-                    "episode_nb    SERIAL PRIMARY KEY",
+            create_table(
+                cursor,
+                f"{exercise}_movies",
+                columns=[
+                    "episode_nb    INTEGER PRIMARY KEY",
                     "title         VARCHAR(64) UNIQUE NOT NULL",
                     "opening_crawl TEXT",
                     "director      VARCHAR(32) NOT NULL",
                     "producer      VARCHAR(128) NOT NULL",
                     "release_date  DATE NOT NULL",
-                ])
-
-            else:
-
-                # The ex06_movies table has two additional columns:
-                # created and updated
-                # The updated column is updated automatically during an update
-                # due to the trigger
-
-                create_table(
-                    cursor,
-                    f"{exercise}_movies",
-                    columns=[
-                        "episode_nb    SERIAL PRIMARY KEY",
-                        "title         VARCHAR(64) UNIQUE NOT NULL",
-                        "opening_crawl TEXT",
-                        "director      VARCHAR(32) NOT NULL",
-                        "producer      VARCHAR(128) NOT NULL",
-                        "release_date  DATE NOT NULL",
-                        "created       TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
-                        "updated       TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
-                    ],
-                    trigger="""
+                    "created       TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
+                    "updated       TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+                ],
+                trigger="""
                     CREATE OR REPLACE FUNCTION update_changetimestamp_column()
                     RETURNS TRIGGER AS $$
                     BEGIN
@@ -69,11 +63,11 @@ def init(request, exercise="ex00", previous=None, next=None):
                     CREATE TRIGGER update_films_changetimestamp BEFORE UPDATE
                     ON ex06_movies FOR EACH ROW EXECUTE PROCEDURE
                     update_changetimestamp_column();
-                    """
-                )
+                """
+            )
 
-            connection.commit()
-            content.append("OK")
+        connection.commit()
+        content.append("OK")
 
     except psycopg2.Error as e:
         content.append(str(e))

@@ -19,13 +19,6 @@ def display(request):
     )
 
 
-def remove(request):
-    return orm_remove.remove(
-        request, Movies, exercise="ex07",
-        previous="/ex06/display", next="/ex08/display"
-    )
-
-
 def update(request):
     return orm_update.update(
         request, Movies, exercise="ex07",

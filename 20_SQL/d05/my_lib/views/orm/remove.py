@@ -10,20 +10,17 @@ def remove(request, Movies, exercise="ex05", previous=None, next=None):
 
     if request.method == "GET":
 
-        if not Movies.objects.exists():
-            content = "The table does not exists"
+        data = Movies.objects.all().order_by("episode_nb")
+        if not data:
+            content = "No data available"
         else:
-            data = Movies.objects.all().order_by("episode_nb")
-            if not data:
-                content = "No data available"
-            else:
-                titles = []
-                for movie in data:
-                    titles.append(movie.title)
-                my_form = RemoveMovie(
-                    choices=[(title, title) for title in titles]
-                )
-                content = None
+            titles = []
+            for movie in data:
+                titles.append(movie.title)
+            my_form = RemoveMovie(
+                choices=[(title, title) for title in titles]
+            )
+            content = None
 
         context = {
             "title": get_title(exercise),
