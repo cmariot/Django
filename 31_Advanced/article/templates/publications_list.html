@@ -1,0 +1,32 @@
+<h1>Publications</h1>
+
+{% comment %}
+
+Page HTML affichant, sous forme de table HTML les champs ’title’, ’synopsis’ et ’created’, de tous les articles enregistrés dans le modèle ’Article’ dont l’auteur est l’utilisateur actuellement connecté.
+
+{% endcomment %}
+
+{% if not object_list %}
+    <p>No publications found.</p>
+{% else %}
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Synopsis</th>
+                <th>Created</th>
+                {% comment %} <ht>Detail</th> {% endcomment %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in object_list %}
+                <tr>
+                    <td>{{ article.title }}</td>
+                    <td>{{ article.synopsis }}</td>
+                    <td>{{ article.created|date }}</td>
+                    {% comment %} <td><a href="{% url 'detail' article.pk %}">Detail</a></td> {% endcomment %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

@@ -15,6 +15,14 @@ services:
     env_file:
       - ./django/.env.dev
 
+  llm:
+    container_name: llm
+    build:
+        context: ./llm
+        dockerfile: Dockerfile
+    ports:
+      - 6000:3000
+
   postgresql:
     container_name: postgresql_dev
     image: postgres:15

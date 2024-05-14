@@ -7,7 +7,7 @@ services:
     build:
       context: ./django
       dockerfile: Dockerfile.prod
-    command: gunicorn hello_django.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/home/app/web/staticfiles
     expose:
@@ -16,6 +16,14 @@ services:
       - ./django/.env.prod
     depends_on:
       - postgresql
+
+  llm:
+    container_name: llm
+    build:
+        context: ./django
+        dockerfile: Dockerfile
+    ports:
+      - 6000:3000
 
   postgresql:
     container_name: postgresql
