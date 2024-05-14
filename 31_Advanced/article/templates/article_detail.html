@@ -1,0 +1,10 @@
+
+{% extends 'app/templates/base.html' %}
+
+{% block title %}{{object.title}}{% endblock %}
+
+{% block content %}
+    <h1>{{object.title}}</h1>
+    <pre>{{object.content}}</pre>
+    <p>Published by {{object.author}} on {{object.created|date}}</p>
+{% endblock %}

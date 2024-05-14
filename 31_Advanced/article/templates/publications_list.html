@@ -15,7 +15,7 @@ Page HTML affichant, sous forme de table HTML les champs ’title’, ’synopsi
                 <th>Title</th>
                 <th>Synopsis</th>
                 <th>Created</th>
-                {% comment %} <ht>Detail</th> {% endcomment %}
+                <th>Details</th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +24,7 @@ Page HTML affichant, sous forme de table HTML les champs ’title’, ’synopsi
                     <td>{{ article.title }}</td>
                     <td>{{ article.synopsis }}</td>
                     <td>{{ article.created|date }}</td>
-                    {% comment %} <td><a href="{% url 'detail' article.pk %}">Detail</a></td> {% endcomment %}
+                    <td><a href="{% url 'details' article.pk %}">Details</a></td>
                 </tr>
             {% endfor %}
         </tbody>

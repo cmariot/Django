@@ -1,4 +1,5 @@
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from .models import Article
 
 # Articles : Page HTML affichant sous forme de table HTML tous les champs (à
@@ -6,9 +7,8 @@ from .models import Article
 # Le tableau doit disposer d’un header indiquant le titre de chaque colonne.
 
 
-class ArticleView(ListView):
+class ArticleList(ListView):
     model = Article
-    paginate_by = 100
     template_name = "article/templates/article_list.html"
 
     def get_context_data(self, **kwargs):
@@ -16,12 +16,26 @@ class ArticleView(ListView):
         return context
 
 
-class PublicationsView(ListView):
+class UserArticles(ListView):
     model = Article
-    paginate_by = 100
     template_name = "article/templates/publications_list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["object_list"] = Article.objects.filter(author=self.request.user)
+
+        if not self.request.user.is_authenticated:
+            context["object_list"] = []
+        else:
+            context["object_list"] = Article.objects.filter(
+                author=self.request.user
+            )
+        return context
+
+
+class ArticleDetail(DetailView):
+    model = Article
+    template_name = "article/templates/article_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         return context

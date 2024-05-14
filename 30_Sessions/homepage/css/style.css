@@ -247,7 +247,7 @@ form div input:focus {
 }
 
 *:focus {
-    outline: 2px solid var(--color-warning);
+    outline: 2px solid;
 }
 
 input[type="submit"] {

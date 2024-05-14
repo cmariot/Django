@@ -85,16 +85,16 @@ def register(request):
     # Post method : process the register form
     elif request.method == "POST":
         form = RegisterForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password"]
-            user = User.objects.create_user(username, password=password)
-            user.save()
-            log_in_user(request, username, password)
-            return HttpResponseRedirect("/")
-        context = get_user_data(request)
-        context["form"] = form
-        return render(request, "user/templates/register.html", context)
+        if not form.is_valid():
+            context = get_user_data(request)
+            context["form"] = form
+            return render(request, "user/templates/register.html", context)
+        username = form.cleaned_data["username"]
+        password = form.cleaned_data["password"]
+        user = User.objects.create_user(username, password)
+        user.save()
+        log_in_user(request, username, password)
+        return HttpResponseRedirect("/")
 
 
 def login(request):
@@ -116,19 +116,18 @@ def login(request):
 
     # Post method : process the login form
     elif request.method == "POST":
-
         form = LoginForm(request.POST)
-
-        if form.is_valid():
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password"]
-            log_in_user(request, username, password)
-            return HttpResponseRedirect("/")
-
-        # If the form is not valid, display the login form with the errors
-        context = get_user_data(request)
-        context["form"] = form
-        return render(request, "user/templates/login.html", context)
+        if not form.is_valid():
+            # If the form is not valid, display the login form with the errors
+            context = get_user_data(request)
+            context["form"] = form
+            return render(request, "user/templates/login.html", context)
+        log_in_user(
+            request,
+            form.cleaned_data["username"],
+            form.cleaned_data["password"]
+        )
+        return HttpResponseRedirect("/")
 
 
 def get_username(request):

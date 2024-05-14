@@ -13,12 +13,13 @@ class RegisterForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Username",
-                "autofocus": "autofocus"
+                "autofocus": "autofocus",
+                "autocomplete": "off"
             }
         ),        min_length=1,
         max_length=42,
-        strip=True,
         required=True,
+        strip=False,
         label="Username",
         validators=[
             validators.RegexValidator(
@@ -32,12 +33,15 @@ class RegisterForm(forms.ModelForm):
     password = forms.CharField(
         label="Password",
         widget=forms.PasswordInput(
-            attrs={"placeholder": "Password"}
+            attrs={
+                "placeholder": "Password",
+                "autocomplete": "off"
+            }
         ),
         min_length=8,
         max_length=100,
-        strip=True,
         required=True,
+        strip=False,
         validators=[
             validators.RegexValidator(
                 regex="^[a-zA-Z0-9_]*$",
@@ -50,12 +54,15 @@ class RegisterForm(forms.ModelForm):
     confirmation = forms.CharField(
         label="Password confirmation",
         widget=forms.PasswordInput(
-            attrs={"placeholder": "Password confirmation"}
+            attrs={
+                "placeholder": "Password confirmation",
+                "autocomplete": "off"
+            }
         ),
         min_length=8,
         max_length=100,
-        strip=True,
         required=True,
+        strip=False,
         validators=[
             validators.RegexValidator(
                 regex="^[a-zA-Z0-9_]*$",
