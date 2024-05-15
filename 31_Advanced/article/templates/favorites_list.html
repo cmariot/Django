@@ -1,0 +1,21 @@
+
+{% extends 'app/templates/base.html' %}
+
+{% block title %}{{article.title}}{% endblock %}
+
+{% block content %}
+
+    <h1>Favourites</h1>
+
+    {% if not object_list %}
+        <p>No favourites found.</p>
+    {% else %}
+        {% for favourite in object_list %}
+            <h2>{{ favourite.article.title }}</h2>
+            {{ favourite.article.synopsis }}
+            {{ favourite.article.created|date }}
+            <a href="{% url 'details' favourite.article.pk %}">Details</a>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

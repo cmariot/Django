@@ -25,12 +25,11 @@ class UserFavoriteArticle(models.Model):
         return str(self.article)
 
     def is_valid(self):
-        # Check if the form is valid and if the user has already added the article to favorites
         valid = super(UserFavoriteArticle, self).is_valid()
         if not valid:
             return False
-
-        if UserFavoriteArticle.objects.filter(user=self.user, article=self.article).exists():
+        if UserFavoriteArticle.objects.filter(
+            user=self.user, article=self.article
+        ).exists():
             return False
-
         return True
