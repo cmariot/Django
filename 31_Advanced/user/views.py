@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
-from user.forms.register import RegisterForm
+from user.forms.register_form import RegisterForm
 from user.forms.login import LoginForm
 from .models import User
 import random
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+
 
 
 ANONYMOUS_SESSION_TIMEOUT = 42
@@ -19,6 +22,7 @@ ANONYMOUS_USERNAMES = [
     "Anon"
 ]
 
+
 def get_user_data(request):
 
     """
@@ -30,7 +34,6 @@ def get_user_data(request):
     if request.user.is_authenticated:
         username = request.user.username
         is_logged_in = True
-        reputation = request.user.reputation
     else:
         if "username" not in request.session:
             username = random.choice(ANONYMOUS_USERNAMES)
@@ -38,11 +41,9 @@ def get_user_data(request):
             request.session.set_expiry(ANONYMOUS_SESSION_TIMEOUT)
         else:
             username = request.session["username"]
-        reputation = 0
     context = {
         "username": username,
         "is_logged_in": is_logged_in,
-        "reputation": reputation,
     }
     return context
 
@@ -77,31 +78,47 @@ def logout(request):
     return HttpResponseRedirect("/")
 
 
-def register(request):
+# def register(request):
 
-    # If the user is already logged in, redirect to the home page
-    if request.user.is_authenticated:
-        return HttpResponseRedirect("/")
+#     # If the user is already logged in, redirect to the home page
+#     if request.user.is_authenticated:
+#         return HttpResponseRedirect("/")
 
-    # Get method : display the register form
-    elif request.method == "GET":
-        context = get_user_data(request)
-        context["form"] = RegisterForm()
-        return render(request, "user/templates/register.html", context)
+#     # Get method : display the register form
+#     elif request.method == "GET":
+#         context = get_user_data(request)
+#         context["form"] = RegisterForm()
+#         return render(request, "user/templates/register.html", context)
 
-    # Post method : process the register form
-    elif request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data["username"]
-            password = form.cleaned_data["password"]
-            user = User.objects.create_user(username, password=password)
-            user.save()
-            log_in_user(request, username, password)
-            return HttpResponseRedirect("/")
-        context = get_user_data(request)
-        context["form"] = form
-        return render(request, "user/templates/register.html", context)
+#     # Post method : process the register form
+#     elif request.method == "POST":
+#         form = RegisterForm(request.POST)
+#         if not form.is_valid():
+#             context = get_user_data(request)
+#             context["form"] = form
+#             return render(request, "user/templates/register.html", context)
+#         username = form.cleaned_data["username"]
+#         password = form.cleaned_data["password"]
+#         user = User.objects.create_user(username, password=password)
+#         user.save()
+#         log_in_user(request, username, password)
+#         return HttpResponseRedirect("/")
+
+
+class RegisterView(CreateView):
+    model = User
+    form_class = RegisterForm
+    template_name = "user/templates/register.html"
+    success_url = reverse_lazy("login")
+
+    def form_valid(self, form):
+        valid = super(RegisterView, self).form_valid(form)
+        if not valid:
+            return valid
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password')
+        log_in_user(self.request, username, password)
+        return valid
 
 
 def login(request):

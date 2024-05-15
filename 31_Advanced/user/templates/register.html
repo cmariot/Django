@@ -4,8 +4,8 @@
 
 {% block content %}
 <form method="post">
-    <h1>Register</h1>
     {% csrf_token %}
+    <h1>Register</h1>
     {% for field in form %}
         <div>
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>

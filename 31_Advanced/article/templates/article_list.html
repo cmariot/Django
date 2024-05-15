@@ -1,35 +1,44 @@
-<h1>Articles</h1>
 
-{% comment %}
+{% extends 'app/templates/base.html' %}
 
-Page HTML affichant sous forme de table HTML tous les champs (à l’excep- tion de content) de tous les articles enregistrés dans la table Article.
-Le tableau doit disposer d’un header indiquant le titre de chaque colonne.
+{% block title %}{{article.title}}{% endblock %}
 
-{% endcomment %}
+{% block content %}
 
-{% if not object_list %}
-    <p>No articles found.</p>
-{% else %}
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Synopsis</th>
-                <th>Author</th>
-                <th>Created</th>
-                <th>Details</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for article in object_list %}
+    <h1>Articles</h1>
+
+    {% comment %}
+
+    Page HTML affichant sous forme de table HTML tous les champs (à l’excep- tion de content) de tous les articles enregistrés dans la table Article.
+    Le tableau doit disposer d’un header indiquant le titre de chaque colonne.
+
+    {% endcomment %}
+
+    {% if not object_list %}
+        <p>No articles found.</p>
+    {% else %}
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ article.title }}</td>
-                    <td>{{ article.synopsis }}</td>
-                    <td>{{ article.author }}</td>
-                    <td>{{ article.created|date }}</td>
-                    <td><a href="{% url 'details' article.pk %}">Details</a></td>
+                    <th>Title</th>
+                    <th>Synopsis</th>
+                    <th>Author</th>
+                    <th>Created</th>
+                    <th>Details</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% endif %}
+            </thead>
+            <tbody>
+                {% for article in object_list %}
+                    <tr>
+                        <td>{{ article.title }}</td>
+                        <td>{{ article.synopsis }}</td>
+                        <td>{{ article.author }}</td>
+                        <td>{{ article.created|date }}</td>
+                        <td><a href="{% url 'details' article.pk %}">Details</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+{% endblock %}

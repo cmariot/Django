@@ -1,32 +1,42 @@
-<h1>Publications</h1>
 
-{% comment %}
+{% extends 'app/templates/base.html' %}
 
-Page HTML affichant, sous forme de table HTML les champs ’title’, ’synopsis’ et ’created’, de tous les articles enregistrés dans le modèle ’Article’ dont l’auteur est l’utilisateur actuellement connecté.
+{% block title %}{{article.title}}{% endblock %}
 
-{% endcomment %}
+{% block content %}
 
-{% if not object_list %}
-    <p>No publications found.</p>
-{% else %}
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Synopsis</th>
-                <th>Created</th>
-                <th>Details</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for article in object_list %}
+    <h1>Publications</h1>
+
+    {% comment %}
+
+    Page HTML affichant, sous forme de table HTML les champs ’title’, ’synopsis’ et ’created’, de tous les articles enregistrés dans le modèle ’Article’ dont l’auteur est l’utilisateur actuellement connecté.
+
+    {% endcomment %}
+
+    {% if not object_list %}
+        <p>No publications found.</p>
+    {% else %}
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ article.title }}</td>
-                    <td>{{ article.synopsis }}</td>
-                    <td>{{ article.created|date }}</td>
-                    <td><a href="{% url 'details' article.pk %}">Details</a></td>
+                    <th>Title</th>
+                    <th>Synopsis</th>
+                    <th>Created</th>
+                    <th>Details</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% endif %}
+            </thead>
+            <tbody>
+                {% for article in object_list %}
+                    <tr>
+                        <td>{{ article.title }}</td>
+                        <td>{{ article.synopsis }}</td>
+                        <td>{{ article.created|date }}</td>
+                        <td><a href="{% url 'details' article.pk %}">Details</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    <button onclick="window.location.href='{% url 'publish' %}'">Publish</button>
+
+{% endblock %}

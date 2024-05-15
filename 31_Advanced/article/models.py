@@ -18,5 +18,19 @@ class UserFavoriteArticle(models.Model):
     user = models.ForeignKey("user.User", on_delete=models.CASCADE, null=False)
     article = models.ForeignKey(Article, on_delete=models.CASCADE, null=False)
 
+    class Meta:
+        unique_together = ['user', 'article']
+
     def __str__(self):
-        return self.article
+        return str(self.article)
+
+    def is_valid(self):
+        # Check if the form is valid and if the user has already added the article to favorites
+        valid = super(UserFavoriteArticle, self).is_valid()
+        if not valid:
+            return False
+
+        if UserFavoriteArticle.objects.filter(user=self.user, article=self.article).exists():
+            return False
+
+        return True
