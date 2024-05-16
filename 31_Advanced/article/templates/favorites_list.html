@@ -10,10 +10,10 @@
     {% if not object_list %}
         <p>No favourites found.</p>
     {% else %}
-        {% for favourite in object_list %}
+        {% for favourite in object_list reversed %}
             <h2>{{ favourite.article.title }}</h2>
-            {{ favourite.article.synopsis }}
-            {{ favourite.article.created|date }}
+            <p>{{ favourite.article.synopsis|truncatechars:20 }}</p>
+            <p>{{ favourite.article.created|date }}</p>
             <a href="{% url 'details' favourite.article.pk %}">Details</a>
         {% endfor %}
     {% endif %}

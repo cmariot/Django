@@ -22,6 +22,7 @@
                     <th>Title</th>
                     <th>Synopsis</th>
                     <th>Created</th>
+                    <th>Created since</th>
                     <th>Details</th>
                 </tr>
             </thead>
@@ -29,8 +30,9 @@
                 {% for article in object_list %}
                     <tr>
                         <td>{{ article.title }}</td>
-                        <td>{{ article.synopsis }}</td>
+                        <td>{{ article.synopsis|truncatechars:20 }}</td>
                         <td>{{ article.created|date }}</td>
+                        <td>{{ article.created|timesince }}</td>
                         <td><a href="{% url 'details' article.pk %}">Details</a></td>
                     </tr>
                 {% endfor %}

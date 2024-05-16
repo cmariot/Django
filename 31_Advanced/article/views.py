@@ -4,17 +4,15 @@ from .models import Article, UserFavoriteArticle
 from django.views.generic.edit import CreateView
 from django.urls import reverse
 
-# Articles : Page HTML affichant sous forme de table HTML tous les champs (à
-# l’exception de content) de tous les articles enregistrés dans la table Article.
-# Le tableau doit disposer d’un header indiquant le titre de chaque colonne.
-
 
 class ArticleList(ListView):
+
     model = Article
     template_name = "article/templates/article_list.html"
 
 
 class UserArticles(ListView):
+
     model = Article
     template_name = "article/templates/publications_list.html"
 
@@ -31,6 +29,7 @@ class UserArticles(ListView):
 
 
 class ArticleDetail(DetailView):
+
     model = Article
     template_name = "article/templates/article_detail.html"
 
@@ -40,6 +39,7 @@ class ArticleDetail(DetailView):
 
 
 class PublishArticle(CreateView):
+
     model = Article
     fields = ["title", "synopsis", "content"]
     template_name = "article/templates/publish_article.html"

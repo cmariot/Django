@@ -5,10 +5,9 @@
 
 {% block content %}
     <h1>{{object.title}}</h1>
-    <pre>{{object.content}}</pre>
+    <p><pre>{{object.synopsis}}</pre></p>
+    <p><pre>{{object.content}}</pre></p>
     <p>Published by {{object.author}} on {{object.created|date}}</p>
-
-    {% comment %} button add to favorites {% endcomment %}
     <form method='post' action = "{% url 'add_to_favorites' object.pk %}">
         {% csrf_token %}
         <button type='submit'>Add to favorites</button>

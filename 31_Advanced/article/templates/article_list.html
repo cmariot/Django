@@ -24,16 +24,18 @@
                     <th>Synopsis</th>
                     <th>Author</th>
                     <th>Created</th>
+                    <th>Created since</th>
                     <th>Details</th>
                 </tr>
             </thead>
             <tbody>
-                {% for article in object_list %}
+                {% for article in object_list|dictsortreversed:"created" %}
                     <tr>
                         <td>{{ article.title }}</td>
-                        <td>{{ article.synopsis }}</td>
+                        <td>{{ article.synopsis|truncatechars:20 }}</td>
                         <td>{{ article.author }}</td>
                         <td>{{ article.created|date }}</td>
+                        <td>{{ article.created|timesince }}</td>
                         <td><a href="{% url 'details' article.pk %}">Details</a></td>
                     </tr>
                 {% endfor %}

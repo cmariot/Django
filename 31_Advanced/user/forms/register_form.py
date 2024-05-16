@@ -15,7 +15,8 @@ class RegisterForm(forms.ModelForm):
                 "placeholder": "Username",
                 "autofocus": "autofocus"
             }
-        ),        min_length=1,
+        ),
+        min_length=1,
         max_length=42,
         strip=True,
         required=True,
@@ -29,28 +30,10 @@ class RegisterForm(forms.ModelForm):
         ],
     )
 
-    password = forms.CharField(
+    password = confirmation = forms.CharField(
         label="Password",
         widget=forms.PasswordInput(
             attrs={"placeholder": "Password"}
-        ),
-        min_length=8,
-        max_length=100,
-        strip=True,
-        required=True,
-        validators=[
-            validators.RegexValidator(
-                regex="^[a-zA-Z0-9_]*$",
-                message=("Password can only contain letters," +
-                         "numbers, and underscores."),
-            )
-        ],
-    )
-
-    confirmation = forms.CharField(
-        label="Password confirmation",
-        widget=forms.PasswordInput(
-            attrs={"placeholder": "Password confirmation"}
         ),
         min_length=8,
         max_length=100,
