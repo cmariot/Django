@@ -1,12 +1,13 @@
-from django import forms
+from django.forms import ModelForm
 from tips.models import Tip
+from django import forms
 
 
-class CreateTipForm(forms.Form):
+class CreateTipForm(ModelForm):
 
-    """
-    CreateTipForm is a form for creating a tip.
-    """
+    class Meta:
+        model = Tip
+        fields = ("content",)
 
     content = forms.CharField(
         label="Post your prompt here:",
@@ -26,36 +27,20 @@ class CreateTipForm(forms.Form):
         ),
     )
 
-    class Meta:
-
-        """
-        The Meta class is used to specify the model and fields that the form
-        will use. In this case, the form will use the Tip model and the content
-        field.
-        """
-
-        model = Tip
-        fields = ("content",)
-
     def is_valid(self):
-
-        # Check if the form is valid
         valid = super(CreateTipForm, self).is_valid()
         if not valid:
             self.add_error("content", "Invalid content.")
             return False
 
-        # Check if the content is not empty
         if not self.cleaned_data["content"]:
             self.add_error("content", "Content is required.")
             return False
 
-        # Check if the content is too long
         if len(self.cleaned_data["content"]) > 1000:
             self.add_error("content", "Content is too long.")
             return False
 
-        # Check if the content is too short
         if len(self.cleaned_data["content"]) < 1:
             self.add_error("content", "Content is too short.")
             return False
@@ -63,7 +48,6 @@ class CreateTipForm(forms.Form):
         return True
 
     def save(self, user, commit=True):
-        # Save the provided tip
         tip = Tip(content=self.cleaned_data["content"], author=user)
         if commit:
             tip.save()

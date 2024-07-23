@@ -171,7 +171,7 @@ form {
     border-radius: 30px;
     background-color: var(--color-background);
     padding: 100px;
-    box-shadow: var(--color-text) 0px 0px 21px;
+    box-shadow: var(--color-text) 0px 0px 5px;
     border: none;
 }
 
@@ -318,7 +318,7 @@ input[type="submit"][class="best"]:hover,
     padding: 20px;
     border-radius: 20px;
     display: grid;
-    box-shadow: var(--color-text) 0px 0px 21px;
+    box-shadow: var(--color-text) 0px 0px 5px;
     box-sizing: border-box;
     background-color: var(--color-background);
 }

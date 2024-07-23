@@ -32,6 +32,7 @@
                         <button class="tip-like">
                     {% endif %}
                             <span class="tip-like-count">{{ tip.nb_up }}</span>
+                            {% comment %} check if the number of upvotes is 1 or more {% endcomment %}
                             {% if tip.nb_up < 2 %}
                                 <span class="tip-like-text">Upvote</span>
                             {% else %}
@@ -51,7 +52,7 @@
                                 {% if tip.nb_down < 2 %}
                                     <span class="tip-dislike-text">Downvote</span>
                                 {% else %}
-                                    <span class="tip-dislike-text">Downvote</span>
+                                    <span class="tip-dislike-text">Downvotes</span>
                                 {% endif %}
                             </button>
                         </form>
