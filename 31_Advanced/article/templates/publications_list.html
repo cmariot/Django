@@ -3,9 +3,14 @@
 
 {% block title %}{{article.title}}{% endblock %}
 
-{% block content %}
 
-    <h1>Publications</h1>
+{% block header %}
+<h1 class="m-2 mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Publications</h1>
+<h2 class="m-2 mb-0 text-secondary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The articles you have published</h2>
+{% endblock %}
+
+
+{% block content %}
 
     {% comment %}
 
@@ -14,16 +19,15 @@
     {% endcomment %}
 
     {% if not object_list %}
-        <p>No publications found.</p>
+        <p class="text-center">You haven't published any articles yet.</p>
     {% else %}
-        <table>
+       <div class="table-responsive">
+        <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Synopsis</th>
-                    <th>Created</th>
-                    <th>Created since</th>
-                    <th>Details</th>
+                    <th width="20%">Title</th>
+                    <th width="50%">Synopsis</th>
+                    <th width="30%">Created</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,14 +35,15 @@
                     <tr>
                         <td>{{ article.title }}</td>
                         <td>{{ article.synopsis|truncatechars:20 }}</td>
-                        <td>{{ article.created|date }}</td>
-                        <td>{{ article.created|timesince }}</td>
-                        <td><a href="{% url 'details' article.pk %}">Details</a></td>
+                        <td>{{ article.created|date }},</br>{{article.created|time}}</td>
+                        <td><a href="{% url 'details' article.pk%}"><button class="btn btn-secondary">Read</button></a></td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     {% endif %}
-    <button onclick="window.location.href='{% url 'publish' %}'">Publish</button>
+    <div class="fixed-bottom d-flex justify-content-center m-0 mt-3">
+        <button class="btn btn-secondary m-3" onclick="window.location.href='{% url 'publish' %}'">New article</button>
+    </div>
 
 {% endblock %}

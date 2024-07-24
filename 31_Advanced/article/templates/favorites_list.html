@@ -3,19 +3,38 @@
 
 {% block title %}{{article.title}}{% endblock %}
 
+{% block header %}
+<h1 class="m-2 mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Favorites</h1>
+<h2 class="m-2 mb-0 text-secondary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Your favorite articles</h2>
+{% endblock %}
+
 {% block content %}
 
-    <h1>Favourites</h1>
-
     {% if not object_list %}
-        <p>No favourites found.</p>
+        <p class="text-center">You don't have any favorite articles yet.</p>
     {% else %}
-        {% for favourite in object_list reversed %}
-            <h2>{{ favourite.article.title }}</h2>
-            <p>{{ favourite.article.synopsis|truncatechars:20 }}</p>
-            <p>{{ favourite.article.created|date }}</p>
-            <a href="{% url 'details' favourite.article.pk %}">Details</a>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th width="20%">Title</th>
+                        <th width="50%">Synopsis</th>
+                        <th width="15%">Created</th>
+                        <th width="15%">When</th>
+                    </tr>
+                </thead>
+                <tbody>
+        {% for favorite in object_list reversed %}
+                <tr>
+                    <td>{{ favorite.article.title }}</td>
+                    <td>{{ favorite.article.synopsis|truncatechars:20 }}</td>
+                    <td>{{ favorite.article.created|date }},</br>{{favorite.article.created|time}}</td>
+                    <td>{{ favorite.article.created|timesince }} ago</td>
+                    <td><a href="{% url 'details' favorite.article.pk%}"><button class="btn btn-secondary">Read</button></a></td>                </tr>
         {% endfor %}
     {% endif %}
+    <div class="fixed-bottom d-flex justify-content-center m-0 mt-3">
+        <button class="btn btn-secondary m-3" onclick="window.location.href='{% url 'publish' %}'">New article</button>
+    </div>
 
 {% endblock %}

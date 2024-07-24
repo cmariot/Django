@@ -1,0 +1,9 @@
+TODO:
+- [ ] Change language
+- [ ] Bootstrap verifications
+- [ ] Fixtures users / articles
+- [ ] Subject verifications
+
+DONE:
+- [X] Header form on small screens
+- [X] Tests

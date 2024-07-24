@@ -3,13 +3,48 @@
 
 {% block title %}{{object.title}}{% endblock %}
 
+{% block header %}
+<h1 class="m-2 mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{object.title}}</h1>
+<h2 class="m-2 mb-0 text-secondary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{object.synopsis}}</h2>
+{% endblock %}
+
 {% block content %}
-    <h1>{{object.title}}</h1>
-    <p><pre>{{object.synopsis}}</pre></p>
-    <p><pre>{{object.content}}</pre></p>
-    <p>Published by {{object.author}} on {{object.created|date}}</p>
-    <form method='post' action = "{% url 'add_to_favorites' object.pk %}">
-        {% csrf_token %}
-        <button type='submit'>Add to favorites</button>
-    </form>
+
+    <div class="d-flex-col justify-content-between">
+
+        <h1 class="m-2">{{object.title}}</h1>
+        <h2 class="m-2 text-secondary">{{object.synopsis}}</h2>
+        <hr>
+        <p class="m-2"><pre class="m-2" style="white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word;"
+
+            >{{object.content}}</pre></p>
+        <hr>
+        <p class="m-2 text-end">Published by {{object.author}} on {{object.created|date}}</p>
+
+    </div>
+
+    {% comment %} Check if the user is logged  {% endcomment %}
+    {% if user.is_authenticated %}
+
+        <div class="d-flex justify-content-center">
+
+        {% comment %} Check if the object is already fav {% endcomment %}
+        {% if is_favorite %}
+            <form method='post' action = "{% url 'remove_from_favorites' object.pk %}">
+                {% csrf_token %}
+                <button type='submit' class="btn btn-secondary">Remove from favorites</button>
+            </form>
+        {% else %}
+            <form method='post' action = "{% url 'add_to_favorites' object.pk %}">
+                {% csrf_token %}
+                <button type='submit' class="btn btn-secondary">Add to favorites</button>
+            </form>
+        {% endif %}
+
+        </div>
+
+
+    {% endif %}
+
+
 {% endblock %}

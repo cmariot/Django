@@ -30,7 +30,7 @@ class RegisterForm(forms.ModelForm):
         ],
     )
 
-    password = confirmation = forms.CharField(
+    password = forms.CharField(
         label="Password",
         widget=forms.PasswordInput(
             attrs={"placeholder": "Password"}
@@ -43,6 +43,24 @@ class RegisterForm(forms.ModelForm):
             validators.RegexValidator(
                 regex="^[a-zA-Z0-9_]*$",
                 message=("Password can only contain letters," +
+                         "numbers, and underscores."),
+            )
+        ],
+    )
+
+    confirmation = forms.CharField(
+        label="Password confirmation",
+        widget=forms.PasswordInput(
+            attrs={"placeholder": "Password confirmation"}
+        ),
+        min_length=8,
+        max_length=100,
+        strip=True,
+        required=True,
+        validators=[
+            validators.RegexValidator(
+                regex="^[a-zA-Z0-9_]*$",
+                message=("Password confirmation can only contain letters," +
                          "numbers, and underscores."),
             )
         ],

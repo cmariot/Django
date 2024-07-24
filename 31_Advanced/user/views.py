@@ -1,11 +1,10 @@
 from django.http import HttpResponseRedirect
 from user.forms.register_form import RegisterForm
 from user.forms.login import LoginForm
-from .models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-from django.views.generic.edit import CreateView, FormView
+from django.views.generic.edit import FormView
 from .forms.logout import LogoutForm
 
 
@@ -27,15 +26,19 @@ def log_in_user(request, username, password):
         request.session.flush()
 
 
-class RegisterUser(CreateView):
+class RegisterUser(FormView):
 
-    model = User
     form_class = RegisterForm
     template_name = "user/templates/register.html"
     success_url = "/"
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect("/")
+        return super().dispatch(request, *args, **kwargs)
+
     def form_valid(self, form):
-        valid = super(RegisterUser, self).form_valid(form)
+        valid = super().form_valid(form)
         if not valid:
             return valid
         username = form.cleaned_data.get('username')
@@ -49,6 +52,11 @@ class LoginUser(FormView):
     template_name = "user/templates/login.html"
     form_class = LoginForm
     success_url = "/"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect("/")
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         valid = super(LoginUser, self).form_valid(form)
@@ -64,6 +72,11 @@ class LogoutUser(FormView):
 
     form_class = LogoutForm
     success_url = "/"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect("/")
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         valid = super(LogoutUser, self).form_valid(form)
