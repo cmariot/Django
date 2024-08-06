@@ -1,3 +1,4 @@
+{% load tz %}
 
 <ul class="tips_list">
     {% if tips_list|length == 0 %}
@@ -32,7 +33,6 @@
                         <button class="tip-like">
                     {% endif %}
                             <span class="tip-like-count">{{ tip.nb_up }}</span>
-                            {% comment %} check if the number of upvotes is 1 or more {% endcomment %}
                             {% if tip.nb_up < 2 %}
                                 <span class="tip-like-text">Upvote</span>
                             {% else %}

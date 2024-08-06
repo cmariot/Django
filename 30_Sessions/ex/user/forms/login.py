@@ -28,7 +28,7 @@ class LoginForm(forms.Form):
         validators=[
             validators.RegexValidator(
                 regex="^[a-zA-Z0-9_]*$",
-                message=("Username can only contain letters," +
+                message=("Username can only contain letters, " +
                          "numbers, and underscores."),
             )
         ],
@@ -47,7 +47,7 @@ class LoginForm(forms.Form):
         validators=[
             validators.RegexValidator(
                 regex="^[a-zA-Z0-9_]*$",
-                message=("Password can only contain letters," +
+                message=("Password can only contain letters, " +
                          "numbers, and underscores."),
             )
         ],

@@ -49,10 +49,6 @@ def _get_tips(user: User):
         has_upvoted = _has_voted(tip.up.all(), username)
         has_downvoted = _has_voted(tip.down.all(), username)
 
-        print(f"tip: {tip}")
-        print(f"nb_up: {type(nb_up)}")
-        print(f"nb_down: {nb_down}")
-
         tips_list.append(
             {
                 "id": tip.id,
