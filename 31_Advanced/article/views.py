@@ -19,7 +19,7 @@ class UserArticles(LoginRequiredMixin, ListView):
     model = Article
     template_name = "article/templates/publications_list.html"
 
-    login_url = "/login/"
+    login_url = "/en/login/"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -65,7 +65,7 @@ class PublishArticle(LoginRequiredMixin, CreateView):
     form_class = ArticleForm
     template_name = "article/templates/publish_article.html"
 
-    login_url = "/login/"
+    login_url = "/en/login/"
 
     extra_context = {
         "Title": _("Title"),
@@ -90,7 +90,7 @@ class AddToFav(LoginRequiredMixin, CreateView):
     fields = []
     template_name = "article/templates/add_to_favorites.html"
 
-    login_url = "/login/"
+    login_url = "/en/login/"
 
     def form_valid(self, form):
         if not self.request.user.is_authenticated:
@@ -117,7 +117,7 @@ class RemoveFromFav(LoginRequiredMixin, DeleteView):
 
     model = UserFavoriteArticle
 
-    login_url = "/login/"
+    login_url = "/en/login/"
 
     def get_object(self):
         article_id = self.kwargs.get("article_id")
@@ -162,7 +162,7 @@ class UserFavoriteArticles(LoginRequiredMixin, ListView):
     model = UserFavoriteArticle
     template_name = "article/templates/favorites_list.html"
 
-    login_url = "/login/"
+    login_url = "/en/login/"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

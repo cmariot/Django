@@ -1,0 +1,10 @@
+<!-- templates/registration/signup.html -->
+{% extends "app/templates/base.html" %}
+
+{% block title %}Favorites{% endblock %}
+
+{% block content %}
+  <h2>Error:</h2>
+  <p>You can't add this article to your favorites.</p>
+  <button onclick="history.back()">Go Back</button>
+{% endblock %}

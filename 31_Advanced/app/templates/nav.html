@@ -1,115 +1,43 @@
 {% load i18n %}
 
-{% comment %} <nav class="navbar navbar-dark bg-dark rounded mb-2 p-0 ">
-
-    <div class="d-flex align-items-center">
-
-
-            <a class="nav-link navbar-brand d-inline-flex align-items-start align-items-center text-secondary m-3 mt-1 mb-1" href={% url 'home' %}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-house-fill m-2" viewBox="0 0 16 16">
-                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
-                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
-                </svg>
-            </a>
-
-            <a class="nav-link text-secondary m-0" href={% url 'articles' %}>
-                <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0">
-                    Articles
-                </button>
-            </a>
-
-        {% if not user.is_authenticated %}
-
-            <a class="nav-link text-secondary m-0" href={% url 'register' %}>
-                <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0">
-                    Register
-                </button>
-            </a>
-
-        </div>
-
-
-        <div class="d-flex align-items-center justify-content-end mr-auto">
-            <form class="form-inline m-2" action={% url 'login' %} method="post">
-                {% csrf_token %}
-                <input type="text" name="username" placeholder="Username" class="round mt-2 mb-2">
-                <input type="password" name="password" placeholder="Password" class="round m-1 mt-2 mb-2">
-                <input class="btn btn-outline-secondary m-2" type="submit" value="Login">
-            </form>
-        </div>
-
-
-        {% else %}
-
-            <a class="nav-link text-secondary m-0" href={% url 'favorites' %}>
-                <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0">
-                    Favorites
-                </button>
-            </a>
-
-            <a class="nav-link text-secondary m-0" href={% url 'publications' %}>
-                <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0">
-                    Publications
-                </button>
-            </a>
-
-        </div>
-
-
-        <div class="d-flex flex-row align-items-center mr-auto m-2">
-
-            <p class="nav-item nav-text d-block flex-row align-items-center my-auto mx-2 text-secondary">Logged as {{ user.username }}</p>
-
-            <form class="form-inline nav-item" action={% url 'logout' %} method="post">
-                {% csrf_token %}
-                <input class="btn btn-outline-secondary m-2" type="submit" value="Logout">
-            </form>
-
-        </div>
-
-    {% endif %}
-
-</nav> {% endcomment %}
-
-{% if not user.is_authenticated %}
 
 <style>
     @media (max-width: 767px) {
-        .login-form {
+        .logged-as {
             display: none;
-        }
-        .login-link {
-            display: inline;
         }
     }
     @media (min-width: 768px) {
-        .login-form {
+        .logged-as {
             display: inline;
         }
-        .login-link {
-            display: none;
-        }
+    }
+
+    .hoverBg:hover {
+        background-color: #080808;
     }
 </style>
 
-<nav class="navbar navbar-dark bg-dark mb-2">
+<nav class="navbar navbar-dark mb-2 rounded-1 p-0" style="background-color: #222222;">
 
-    <span class="d-flex align-items-center">
-        <a class="nav-link navbar-brand d-inline-flex align-items-start align-items-center text-secondary m-3 mt-1 mb-1" href={% url 'home' %}>
+    <span class="d-flex align-items-center h-100 p-0 m-0" style="max-height: 55px;">
+        <a class="nav-link navbar-brand d-inline-flex align-items-start align-items-center text-secondary m-0 p-3 h-100 rounded-2 hoverBg" style="border-top-right-radius: 0px !important; border-bottom-right-radius: 0px !important;" href={% url 'home' %}>
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-house-fill m-2" viewBox="0 0 16 16">
                 <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
                 <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
             </svg>
         </a>
 
-        <a class="nav-link text-secondary m-0" href={% url 'articles' %}>
-            <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0">
+        <a class="nav-link text-secondary m-0 h-100 hoverBg" href={% url 'articles' %}>
+            <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0 hoverBg">
                 {% trans "Articles" %}
             </button>
         </a>
 
-        <a class="nav-link text-secondary m-0" href={% url 'register' %}>
-            <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0">
+{% if not user.is_authenticated %}
+
+        <a class="nav-link text-secondary m-0 h-100 hoverBg" href={% url 'register' %}>
+            <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0 hoverBg">
                 {% trans "Register" %}
             </button>
         </a>
@@ -117,81 +45,45 @@
     </span>
 
     <span class="d-flex align-items-center justify-content-end mr-auto">
-        <form class="form-inline m-1 mb-0 mt-0 login-form" action={% url 'login' %} method="post">
+        <form class="form-inline m-1 mb-0 mt-0 login-form d-flex flex-wrap
+
+        " action={% url 'login' %} method="post">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="{% trans 'Username' %}" class="round m-1 mb-0 mt-0">
-            <input type="password" name="password" placeholder="{% trans 'Password' %}" class="round m-1 mb-0 mt-0">
-            <input class="btn btn-outline-secondary m-2" type="submit" value="{% trans "Login" %}">
+            <input type="text" name="username" placeholder="{% trans 'username' %}" class="rounded-2 m-1" style="height: 38px;">
+            <input type="password" name="password" placeholder="{% trans 'password' %}" class="rounded-2 m-1" style="height: 38px;">
+            <input class="btn btn-light m-1" type="submit" value="{% trans "Login" %}">
         </form>
-
-        <a class="nav-link text-secondary m-2 login-link" href={% url 'login' %}>
-            <button type="button" class="btn btn-outline-secondary">
-                {% trans "Login" %}
-            </button>
-        </a>
-    </span>
-
-</nav>
 
 {% else %}
 
-
-<style>
-    @media (max-width: 767px) {
-        .logged-as {
-            display: none;
-        }
-    }
-    @media (min-width: 768px) {
-        .logged-as {
-            display: inline;
-        }
-    }
-</style>
-
-<nav class="navbar navbar-dark bg-dark mb-2">
-
-    <span class="d-flex align-items-center">
-        <a class="nav-link navbar-brand d-inline-flex align-items-start align-items-center text-secondary m-3 mt-1 mb-1" href={% url 'home' %}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-house-fill m-2" viewBox="0 0 16 16">
-                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
-                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
-            </svg>
-        </a>
-
-        <a class="nav-link text-secondary m-0" href={% url 'articles' %}>
-            <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0">
-                {% trans "Articles" %}
-            </button>
-        </a>
-
-        <a class="nav-link text-secondary m-0" href={% url 'favorites' %}>
-            <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0">
+        <a class="nav-link text-secondary m-0 h-100 hoverBg" href={% url 'favorites' %}>
+            <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0 hoverBg">
                 {% trans "Favorites" %}
             </button>
         </a>
 
-        <a class="nav-link text-secondary m-0" href={% url 'publications' %}>
-            <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0">
+        <a class="nav-link text-secondary m-0 h-100 hoverBg" href={% url 'publications' %}>
+            <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0 hoverBg">
                 {% trans "Publications" %}
             </button>
         </a>
 
     </span>
 
-    <span class="d-flex flex-row align-items-center justify-content-end m-2 mb-0 mt-0">
+    <span class="d-flex flex-row align-items-center justify-content-end m-0 p-0 h-100">
 
         <span class="logged-as">
             <p class="nav-item nav-text d-block flex-row align-items-center my-auto mx-2 text-secondary">{% trans "Logged as" %} {{ user.username }}</p>
         </span>
 
-        <form class="form-inline nav-item" action={% url 'logout' %} method="post">
+        <form class="form-inline nav-item h-100" action={% url 'logout' %} method="post">
             {% csrf_token %}
-            <input class="btn btn-outline-secondary m-2" type="submit" value="{% trans "Logout" %}">
+            <input class="btn btn-outline-secondary m-0 p-2 hoverBg h-100" style="border: 0; border-top-left-radius: 0px !important; border-bottom-left-radius: 0px !important;" type="submit" value="{% trans "Logout" %}">
         </form>
+
+
+{% endif %}
 
     </span>
 
 </nav>
-
-{% endif %}
