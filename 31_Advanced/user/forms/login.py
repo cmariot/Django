@@ -3,6 +3,7 @@
 from django import forms
 from user.models import User
 from django.core import validators
+from django.utils.translation import gettext_lazy as _
 
 
 class LoginForm(forms.Form):
@@ -15,7 +16,7 @@ class LoginForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Username",
+                "placeholder": _("Username"),
                 "autofocus": "autofocus"
             }
         ),
@@ -23,19 +24,19 @@ class LoginForm(forms.Form):
         max_length=42,
         strip=True,
         required=True,
-        label="Username",
+        label=_("Username"),
         validators=[
             validators.RegexValidator(
                 regex="^[a-zA-Z0-9_]*$",
-                message=("Username can only contain letters," +
-                         "numbers, and underscores."),
+                message=(_("Username can only contain letters," +
+                           "numbers, and underscores.")),
             )
         ],
     )
 
     password = forms.CharField(
-        label="Password",
-        widget=forms.PasswordInput(attrs={"placeholder": "Password"}),
+        label=_("Password"),
+        widget=forms.PasswordInput(attrs={"placeholder": _("Password")}),
         min_length=8,
         max_length=100,
         strip=True,
@@ -43,8 +44,8 @@ class LoginForm(forms.Form):
         validators=[
             validators.RegexValidator(
                 regex="^[a-zA-Z0-9_]*$",
-                message=("Password can only contain letters," +
-                         "numbers, and underscores."),
+                message=(_("Password can only contain letters," +
+                           "numbers, and underscores.")),
             )
         ],
     )
@@ -76,12 +77,12 @@ class LoginForm(forms.Form):
             user = User.objects.get(username=self.cleaned_data["username"])
             if not user.check_password(self.cleaned_data["password"]):
                 # Check if the password matches the user's password
-                self.add_error("password", "This password is incorrect.")
+                self.add_error("password", _("This password is incorrect."))
                 return False
 
         except User.DoesNotExist:
             # If the user does not exist, add an error
-            self.add_error("username", "This user does not exist.")
+            self.add_error("username", _("This user does not exist."))
             return False
 
         return True

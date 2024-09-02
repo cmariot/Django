@@ -17,10 +17,21 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.i18n import i18n_patterns
+from django.views.generic import RedirectView
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('i18n/', include('django.conf.urls.i18n')),
+]
+
+urlpatterns += [
+    path('', RedirectView.as_view(url='/en/', permanent=True)),
+]
+
+urlpatterns += i18n_patterns(
+    path('admin/', admin.site.urls),
     path("", include("home.urls")),
     path("", include("article.urls")),
     path("", include("user.urls")),
-]
+)
+

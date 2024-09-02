@@ -4,8 +4,9 @@ from user.forms.login import LoginForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
 from .forms.logout import LogoutForm
+from django.utils.translation import gettext_lazy as _
 
 
 LOGGED_IN_SESSION_TIMEOUT = 60 * 60 * 24 * 7
@@ -26,11 +27,21 @@ def log_in_user(request, username, password):
         request.session.flush()
 
 
-class RegisterUser(FormView):
+class RegisterUser(CreateView):
 
     form_class = RegisterForm
     template_name = "user/templates/register.html"
     success_url = "/"
+
+    extra_context = {
+        'Username': _('Username'),
+        'Password': _('Password'),
+        'Password confirmation': _('Password confirmation'),
+        'Register': _('Register'),
+        'Already have an account?': _('Already have an account?'),
+        'Login': _('Login'),
+        'Create an account': _('Create an account'),
+    }
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -38,6 +49,9 @@ class RegisterUser(FormView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
+        if form.cleaned_data.get('password') != form.cleaned_data.get('confirmation'):
+            form.add_error('confirmation', _('The passwords do not match.'))
+            return self.form_invalid(form)
         valid = super().form_valid(form)
         if not valid:
             return valid
@@ -52,6 +66,15 @@ class LoginUser(FormView):
     template_name = "user/templates/login.html"
     form_class = LoginForm
     success_url = "/"
+
+    extra_context = {
+        'Login': _('Login'),
+        'Access your account': _('Access your account'),
+        'Username': _('Username'),
+        'Password': _('Password'),
+        "Don't have an account?": _("Don't have an account?"),
+        'Register': _('Register'),
+    }
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:

@@ -4,6 +4,8 @@ from .models import Article, UserFavoriteArticle
 from django.views.generic.edit import CreateView, DeleteView
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.translation import gettext_lazy as _
+from django import forms
 
 
 class ArticleList(ListView):
@@ -46,13 +48,31 @@ class ArticleDetail(DetailView):
         return context
 
 
+class ArticleForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ['title', 'synopsis', 'content']
+        labels = {
+            'title': _('Title'),
+            'synopsis': _('Synopsis'),
+            'content': _('Content'),
+        }
+
+
 class PublishArticle(LoginRequiredMixin, CreateView):
 
     model = Article
-    fields = ["title", "synopsis", "content"]
+    form_class = ArticleForm
     template_name = "article/templates/publish_article.html"
 
     login_url = "/login/"
+
+    extra_context = {
+        "Title": _("Title"),
+        "Synopsis": _("Synopsis"),
+        "Content": _("Content"),
+        "Publish": _("Publish"),
+    }
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -120,10 +140,6 @@ class RemoveFromFav(LoginRequiredMixin, DeleteView):
         to_delete = UserFavoriteArticle.objects.filter(
             user_id=user_id, article_id=article_id
         )
-
-        print(f"Article ID: {article_id}")
-        print(f"User ID: {user_id}")
-        print(f"to_delete: {to_delete}")
 
         if not to_delete.exists():
             print("Article not in favorites")

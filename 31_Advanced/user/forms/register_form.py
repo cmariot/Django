@@ -1,6 +1,7 @@
 from django import forms
 from user.models import User
 from django.core import validators
+from django.utils.translation import gettext_lazy as _
 
 
 class RegisterForm(forms.ModelForm):
@@ -12,7 +13,7 @@ class RegisterForm(forms.ModelForm):
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Username",
+                "placeholder": _("Username"),
                 "autofocus": "autofocus"
             }
         ),
@@ -20,20 +21,21 @@ class RegisterForm(forms.ModelForm):
         max_length=42,
         strip=True,
         required=True,
-        label="Username",
+        label=_("Username"),
         validators=[
             validators.RegexValidator(
                 regex="^[a-zA-Z0-9_]*$",
-                message=("Username can only contain letters," +
-                         "numbers, and underscores."),
+                message=(
+                    _("Username can only contain letters, " +
+                      "numbers, and underscores.")),
             )
         ],
     )
 
     password = forms.CharField(
-        label="Password",
+        label=_("Password"),
         widget=forms.PasswordInput(
-            attrs={"placeholder": "Password"}
+            attrs={"placeholder": _("Password")}
         ),
         min_length=8,
         max_length=100,
@@ -42,16 +44,17 @@ class RegisterForm(forms.ModelForm):
         validators=[
             validators.RegexValidator(
                 regex="^[a-zA-Z0-9_]*$",
-                message=("Password can only contain letters," +
-                         "numbers, and underscores."),
+                message=(
+                    _("Password can only contain letters, " +
+                      "numbers, and underscores.")),
             )
         ],
     )
 
     confirmation = forms.CharField(
-        label="Password confirmation",
+        label=_("Password confirmation"),
         widget=forms.PasswordInput(
-            attrs={"placeholder": "Password confirmation"}
+            attrs={"placeholder": _("Password confirmation")}
         ),
         min_length=8,
         max_length=100,
@@ -60,8 +63,9 @@ class RegisterForm(forms.ModelForm):
         validators=[
             validators.RegexValidator(
                 regex="^[a-zA-Z0-9_]*$",
-                message=("Password confirmation can only contain letters," +
-                         "numbers, and underscores."),
+                message=(
+                    _("Password confirmation can only contain letters, " +
+                      "numbers, and underscores.")),
             )
         ],
     )
@@ -89,7 +93,7 @@ class RegisterForm(forms.ModelForm):
         password1 = self.cleaned_data["password"]
         password2 = self.cleaned_data["confirmation"]
         if not password1 or password1 != password2:
-            error = "Password and password confirmation do not match"
+            error = _("Password and password confirmation do not match")
             self.add_error("password", error)
             return False
 
@@ -97,7 +101,7 @@ class RegisterForm(forms.ModelForm):
         if User.objects.filter(
             username=self.cleaned_data["username"]
         ).exists():
-            self.add_error("username", "Username already taken")
+            self.add_error("username", _("Username already taken"))
             return False
 
         return True

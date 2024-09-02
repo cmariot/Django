@@ -25,6 +25,7 @@ class UserFavoriteArticle(models.Model):
         return str(self.article)
 
     def is_valid(self):
+        # Avoid double favorite
         valid = super(UserFavoriteArticle, self).is_valid()
         if not valid:
             return False

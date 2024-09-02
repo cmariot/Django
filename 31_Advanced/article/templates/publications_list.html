@@ -1,12 +1,14 @@
 
 {% extends 'app/templates/base.html' %}
 
-{% block title %}{{article.title}}{% endblock %}
+{% load i18n %}
+
+{% block title %}{% trans 'Publications' %}{% endblock %}
 
 
 {% block header %}
-<h1 class="m-2 mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Publications</h1>
-<h2 class="m-2 mb-0 text-secondary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">The articles you have published</h2>
+<h1 class="m-2 mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{% trans 'Publications' %}</h1>
+<h2 class="m-2 mb-0 text-secondary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{% trans 'The articles you have published' %}</h2>
 {% endblock %}
 
 
@@ -19,15 +21,16 @@
     {% endcomment %}
 
     {% if not object_list %}
-        <p class="text-center">You haven't published any articles yet.</p>
+        <p class="text-center">{% trans "You haven't published any articles yet." %}</p>
     {% else %}
        <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th width="20%">Title</th>
-                    <th width="50%">Synopsis</th>
-                    <th width="30%">Created</th>
+                    <th width="20%">{% trans 'Title' %}</th>
+                    <th width="50%">{% trans 'Synopsis' %}</th>
+                    <th width="30%">{% trans 'Created' %}</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -36,14 +39,14 @@
                         <td>{{ article.title }}</td>
                         <td>{{ article.synopsis|truncatechars:20 }}</td>
                         <td>{{ article.created|date }},</br>{{article.created|time}}</td>
-                        <td><a href="{% url 'details' article.pk%}"><button class="btn btn-secondary">Read</button></a></td>
+                        <td><a href="{% url 'details' article.pk%}"><button class="btn btn-secondary">{% trans 'Read' %}</button></a></td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     {% endif %}
     <div class="fixed-bottom d-flex justify-content-center m-0 mt-3">
-        <button class="btn btn-secondary m-3" onclick="window.location.href='{% url 'publish' %}'">New article</button>
+        <button class="btn btn-secondary m-3" onclick="window.location.href='{% url 'publish' %}'">{% trans 'New article' %}</button>
     </div>
 
 {% endblock %}

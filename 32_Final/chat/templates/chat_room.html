@@ -1,0 +1,134 @@
+{% extends 'app/templates/base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+
+        <h3 class="row-1">{{ chatroom.name }}</h3>
+        <hr>
+
+        <div class="col p-1" style="min-width: 300px;">
+
+            <div id="chat-container" class="d-flex flex-column">
+
+                <div id="chat-log" class="rounded-2" style="height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px;"></div>
+
+
+                <div id='chat-form' class='form-inline input-group mb-2'>
+
+                    <label class="sr-only d-none" for="chat-message-input">Message</label>
+                    <input type="text" id="chat-message-input" class="form-control mt-2" placeholder="Type your message here..." />
+
+                    <button id="chat-message-submit" class="btn btn-primary col-auto mt-2">Send</button>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col m-0 p-1" style="max-width: max-content; min-width: 200px;">
+            <div class="d-flex flex-column" style="height: 300px;">
+                <ul id="chat-users-list" class="list-group h-100" style="overflow-y: scroll; border: 1px solid #ccc; padding: 10px;">
+                    <h4 class="row-1">Users</h4>
+                    <hr>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    const username = "{{ request.user.username }}";
+    const roomName = "{{ chatroom.name }}";
+    const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+    const chatSocket = new WebSocket(
+        wsScheme + '://' + window.location.host + '/ws/chat/' + roomName + '/');
+
+    chatSocket.onopen = function(e) {
+        console.log('Chat socket connected');
+    };
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+
+        if (data.type === 'chat_message') {
+            $('#chat-log').append('<div><b>' + data.username + ':</b> ' + data.message + '</div>');
+        }
+        else if (data.type === 'chat_connection') {
+            $('#chat-log').append('<div><b><i>' + data.username + ' has joined the room.' + '</i></b></div>');
+
+            const userExists = $('#chat-users-list').find('li').filter(function() {
+                return $(this).text() === data.username;
+            }).length > 0;
+
+            if (!userExists)
+                $('#chat-users-list').append('<li class="list-group-item">' + data.username + '</li>');
+
+        }
+        else if (data.type === 'chat_disconnect') {
+            $('#chat-log').append('<div><b><i>' + data.username  + ' has left the room.' + '</i></b></div>');
+            $('#chat-users-list').find('li').filter(function() {
+                return $(this).text() === data.username;
+            }).remove();
+        }
+
+
+        $('#chat-log').scrollTop($('#chat-log')[0].scrollHeight);
+    };
+
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    $('#chat-message-input').on('keypress', function(e) {
+        if (e.keyCode === 13) {  // Enter key
+            $('#chat-message-submit').click();
+        }
+    });
+
+    $('#chat-message-submit').on('click', function() {
+        const messageInputDom = $('#chat-message-input');
+        const message = messageInputDom.val();
+        chatSocket.send(JSON.stringify({
+            'message': message,
+            'username': username
+        }));
+        messageInputDom.val('');
+    });
+
+    $(document).ready(function() {
+        chatSocket.send(JSON.stringify({
+            'message': '<username> has joined the chat',
+            'username': username
+        }));
+    });
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+{% comment %} <script>
+
+    // Use ajax to get the users in the chatroom and replace the content of the chat-users-list ul when document is ready
+
+    $(document).ready(function() {
+        $.ajax({
+            url: '{% url "room_users" chatroom.name %}',
+            type: 'GET',
+            success: function(response) {
+                const usernames = response.users;
+                usernames.forEach(username => {
+                    $('#chat-users-list').append('<li class="list-group-item rounded-2 mb-1 mt-1">' + username + '</li>');
+                });
+            }
+        });
+    });
+
+</script> {% endcomment %}
+
+
+{% endblock %}

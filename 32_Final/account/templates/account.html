@@ -1,0 +1,66 @@
+{% extends 'app/templates/base.html' %}
+
+{% block content %}
+
+    <div class="container mt-5">
+        <div id="account-content">
+
+            {% if not user.is_authenticated %}
+
+                <div class="login-form-container">
+                    <h2 class="m-0 mt-2 mb-2">Login</h2>
+                    <form id="login-form" method="post" class="form-horizontal">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group m-0 mb-2 w-100">
+                                <label for="{{ field.id_for_label }}" class="col-form-label text-md-right">{{ field.label }}</label>
+                                <input type="{{ field.field.widget.input_type }}" id="{{ field.id_for_label }}" name="{{ field.html_name }}" class="form-control" required>
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                {% endif %}
+                                {% if field.errors %}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-danger mt-1">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    <div id="error-messages" class="mt-2"></div>
+                </div>
+
+            {% else %}
+
+                <div class="container mt-5">
+                    <h1>Chatrooms</h1>
+                    {% if chatrooms %}
+                        <div class="d-flex align-items-center mb-2">
+                            {% for chatroom in chatrooms %}
+                                <button class="btn btn-primary">
+                                    <a href="{% url 'room' chatroom.name %}" class="text-white">
+                                        {{ chatroom.name }}
+                                    </a>
+                                </button>
+                            {% endfor %}
+                        </div>
+                        </ul>
+                    {% else %}
+                        <h2>No chatrooms available</h2>
+                    {% endif %}
+                </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block scripts %}
+
+
+
+{% endblock %}

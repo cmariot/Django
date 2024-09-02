@@ -1,10 +1,12 @@
 {% extends "app/templates/base.html" %}
 
-{% block title %}Register{% endblock %}
+{% load i18n %}
+
+{% block title %}{% trans "Register" %}{% endblock %}
 
 {% block header %}
-<h1 class="m-2 mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Register</h1>
-<h2 class="m-2 mb-0 text-secondary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Create an account</h2>
+<h1 class="m-2 mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{% trans "Register" %}</h1>
+<h2 class="m-2 mb-0 text-secondary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{% trans "Create an account" %}</h2>
 {% endblock %}
 
 {% block content %}
@@ -23,8 +25,10 @@
         </div>
     {% endfor %}
     <div class="d-flex mt-2 align-items-center justify-content-start">
-        <input class="btn btn-outline-secondary" type="submit" value="Register">
-        <p class="m-3">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        <input class="btn btn-outline-secondary" type="submit" value={% trans "Register" %}>
+        <p class="m-3">
+            {% trans "Already have an account?" %}
+        <a href="{% url 'login' %}">{% trans "Login" %}</a></p>
     </div>
 </form>
 {% endblock %}

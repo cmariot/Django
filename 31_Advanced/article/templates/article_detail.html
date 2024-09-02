@@ -1,6 +1,8 @@
 
 {% extends 'app/templates/base.html' %}
 
+{% load i18n %}
+
 {% block title %}{{object.title}}{% endblock %}
 
 {% block header %}
@@ -15,11 +17,9 @@
         <h1 class="m-2">{{object.title}}</h1>
         <h2 class="m-2 text-secondary">{{object.synopsis}}</h2>
         <hr>
-        <p class="m-2"><pre class="m-2" style="white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word;"
-
-            >{{object.content}}</pre></p>
+        <p class="m-2"><pre class="m-2" style="white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word;">{{object.content}}</pre></p>
         <hr>
-        <p class="m-2 text-end">Published by {{object.author}} on {{object.created|date}}</p>
+        <p class="m-2 text-end">{% trans 'Published by' %} {{object.author}} {% trans 'on' %} {{object.created|date}}</p>
 
     </div>
 
@@ -32,12 +32,12 @@
         {% if is_favorite %}
             <form method='post' action = "{% url 'remove_from_favorites' object.pk %}">
                 {% csrf_token %}
-                <button type='submit' class="btn btn-secondary">Remove from favorites</button>
+                <button type='submit' class="btn btn-secondary">{% trans 'Remove from favorites' %}</button>
             </form>
         {% else %}
             <form method='post' action = "{% url 'add_to_favorites' object.pk %}">
                 {% csrf_token %}
-                <button type='submit' class="btn btn-secondary">Add to favorites</button>
+                <button type='submit' class="btn btn-secondary">{% trans 'Add to favorites' %}</button>
             </form>
         {% endif %}
 

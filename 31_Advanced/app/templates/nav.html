@@ -1,3 +1,4 @@
+{% load i18n %}
 
 {% comment %} <nav class="navbar navbar-dark bg-dark rounded mb-2 p-0 ">
 
@@ -103,13 +104,13 @@
 
         <a class="nav-link text-secondary m-0" href={% url 'articles' %}>
             <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0">
-                Articles
+                {% trans "Articles" %}
             </button>
         </a>
 
         <a class="nav-link text-secondary m-0" href={% url 'register' %}>
             <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0">
-                Register
+                {% trans "Register" %}
             </button>
         </a>
 
@@ -118,14 +119,14 @@
     <span class="d-flex align-items-center justify-content-end mr-auto">
         <form class="form-inline m-1 mb-0 mt-0 login-form" action={% url 'login' %} method="post">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="Username" class="round m-1 mb-0 mt-0">
-            <input type="password" name="password" placeholder="Password" class="round m-1 mb-0 mt-0">
-            <input class="btn btn-outline-secondary m-2" type="submit" value="Login">
+            <input type="text" name="username" placeholder="{% trans 'Username' %}" class="round m-1 mb-0 mt-0">
+            <input type="password" name="password" placeholder="{% trans 'Password' %}" class="round m-1 mb-0 mt-0">
+            <input class="btn btn-outline-secondary m-2" type="submit" value="{% trans "Login" %}">
         </form>
 
         <a class="nav-link text-secondary m-2 login-link" href={% url 'login' %}>
             <button type="button" class="btn btn-outline-secondary">
-                Login
+                {% trans "Login" %}
             </button>
         </a>
     </span>
@@ -160,19 +161,19 @@
 
         <a class="nav-link text-secondary m-0" href={% url 'articles' %}>
             <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0">
-                Articles
+                {% trans "Articles" %}
             </button>
         </a>
 
         <a class="nav-link text-secondary m-0" href={% url 'favorites' %}>
             <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0">
-                Favorites
+                {% trans "Favorites" %}
             </button>
         </a>
 
         <a class="nav-link text-secondary m-0" href={% url 'publications' %}>
             <button type="button" class="btn btn-outline-secondary h-100 border-0 rounded-0">
-                Publications
+                {% trans "Publications" %}
             </button>
         </a>
 
@@ -181,12 +182,12 @@
     <span class="d-flex flex-row align-items-center justify-content-end m-2 mb-0 mt-0">
 
         <span class="logged-as">
-            <p class="nav-item nav-text d-block flex-row align-items-center my-auto mx-2 text-secondary">Logged as {{ user.username }}</p>
+            <p class="nav-item nav-text d-block flex-row align-items-center my-auto mx-2 text-secondary">{% trans "Logged as" %} {{ user.username }}</p>
         </span>
 
         <form class="form-inline nav-item" action={% url 'logout' %} method="post">
             {% csrf_token %}
-            <input class="btn btn-outline-secondary m-2" type="submit" value="Logout">
+            <input class="btn btn-outline-secondary m-2" type="submit" value="{% trans "Logout" %}">
         </form>
 
     </span>

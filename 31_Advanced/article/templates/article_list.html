@@ -1,11 +1,13 @@
 
 {% extends 'app/templates/base.html' %}
 
+{% load i18n %}
+
 {% block title %}{{article.title}}{% endblock %}
 
 {% block header %}
-<h1 class="m-2 mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Articles</h1>
-<h2 class="m-2 mb-0 text-secondary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Share your writings</h2>
+<h1 class="m-2 mb-0" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{% trans 'Articles' %}</h1>
+<h2 class="m-2 mb-0 text-secondary" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{% trans 'Share your writings' %}</h2>
 {% endblock %}
 
 {% block content %}
@@ -18,17 +20,18 @@
     {% endcomment %}
 
     {% if not object_list %}
-        <p class="text-center">There are no articles yet.</p>
+        <p class="text-center">{% trans 'There are no articles yet.' %}</p>
     {% else %}
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th width="20%">Title</th>
-                        <th width="50%">Synopsis</th>
-                        <th width="10%">Author</th>
-                        <th width="10%">Created</th>
-                        <th width="10%">When</th>
+                        <th width="20%">{% trans 'Title' %}</th>
+                        <th width="50%">{% trans 'Synopsis' %}</th>
+                        <th width="10%">{% trans 'Author' %}</th>
+                        <th width="10%">{% trans 'Created' %}</th>
+                        <th width="10%">{% trans 'Since' %}</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,8 +41,8 @@
                             <td>{{ article.synopsis|truncatechars:20 }}</td>
                             <td>{{ article.author }}</td>
                             <td>{{ article.created|date }},</br>{{article.created|time}}</td>
-                            <td>{{ article.created|timesince }} ago</td>
-                            <td><a href="{% url 'details' article.pk%}"><button class="btn btn-secondary">Read</button></a></td>
+                            <td>{{ article.created|timesince }}</td>
+                            <td><a href="{% url 'details' article.pk%}"><button class="btn btn-secondary">{% trans 'Read' %}</button></a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -49,7 +52,7 @@
 
     {% if user.is_authenticated %}
         <div class="fixed-bottom d-flex justify-content-center m-0 mt-3">
-            <button class="btn btn-secondary m-3" onclick="window.location.href='{% url 'publish' %}'">New article</button>
+            <button class="btn btn-secondary m-3" onclick="window.location.href='{% url 'publish' %}'">{% trans 'New article' %}</button>
         </div>
     {% endif %}
 

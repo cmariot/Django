@@ -1,0 +1,128 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-25 14:28+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: user/forms/login.py:19 user/forms/login.py:27 user/forms/register_form.py:16
+#: user/forms/register_form.py:24 user/views.py:37 user/views.py:73
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: user/forms/login.py:31
+#, fuzzy
+#| msgid "Username can only contain letters, numbers, and underscores."
+msgid "Username can only contain letters,numbers, and underscores."
+msgstr ""
+"Le nom d'utilisateur ne peut contenir que des lettres, des chiffres et des "
+"tirets du bas."
+
+#: user/forms/login.py:38 user/forms/login.py:39 user/forms/register_form.py:36
+#: user/forms/register_form.py:38 user/views.py:38 user/views.py:74
+msgid "Password"
+msgstr "Mot de passe"
+
+#: user/forms/login.py:47
+#, fuzzy
+#| msgid "Password can only contain letters, numbers, and underscores."
+msgid "Password can only contain letters,numbers, and underscores."
+msgstr ""
+"Le mot de passe ne peut contenir que des lettres, des chiffres et des tirets "
+"du bas."
+
+#: user/forms/login.py:80
+msgid "This password is incorrect."
+msgstr "Le mot de passe est incorrect."
+
+#: user/forms/login.py:85
+msgid "This user does not exist."
+msgstr "Cet utilisateur n'existe pas."
+
+#: user/forms/register_form.py:29
+msgid "Username can only contain letters, numbers, and underscores."
+msgstr ""
+"Le nom d'utilisateur ne peut contenir que des lettres, des chiffres et des "
+"tirets du bas."
+
+#: user/forms/register_form.py:48
+msgid "Password can only contain letters, numbers, and underscores."
+msgstr ""
+"Le mot de passe ne peut contenir que des lettres, des chiffres et des tirets "
+"du bas."
+
+#: user/forms/register_form.py:55 user/forms/register_form.py:57
+#: user/views.py:39
+msgid "Password confirmation"
+msgstr "Confirmation du mot de passe"
+
+#: user/forms/register_form.py:67
+msgid ""
+"Password confirmation can only contain letters, numbers, and underscores."
+msgstr ""
+"La confirmation du mot de passe ne peut contenir que des lettres, des "
+"chiffres et des tirets du bas."
+
+#: user/forms/register_form.py:96
+msgid "Password and password confirmation do not match"
+msgstr "Les mots de passe ne correspondent pas"
+
+#: user/forms/register_form.py:104
+msgid "Username already taken"
+msgstr "Nom d'utilisateur déjà pris"
+
+#: user/templates/login.html:5 user/templates/login.html:8
+#: user/templates/login.html:29 user/templates/register.html:31
+#: user/views.py:42 user/views.py:71
+msgid "Login"
+msgstr "Connexion"
+
+#: user/templates/login.html:9 user/views.py:72
+msgid "Access your account"
+msgstr "Accéder à votre compte"
+
+#: user/templates/login.html:30 user/views.py:75
+msgid "Don't have an account?"
+msgstr "Pas de compte ?"
+
+#: user/templates/login.html:30 user/templates/register.html:5
+#: user/templates/register.html:8 user/templates/register.html:28
+#: user/views.py:40 user/views.py:76
+msgid "Register"
+msgstr "S'inscrire"
+
+#: user/templates/register.html:9 user/views.py:43
+msgid "Create an account"
+msgstr "Créer un compte"
+
+#: user/templates/register.html:30 user/views.py:41
+msgid "Already have an account?"
+msgstr "Déjà un compte ?"
+
+#: user/views.py:53
+#, fuzzy
+#| msgid "This password is incorrect."
+msgid "The passwords do not match."
+msgstr "Le mot de passe est incorrect."
+
+#~ msgid "Logged as"
+#~ msgstr "Connecté en tant que"
+
+#~ msgid "Logout"
+#~ msgstr "Se déconnecter"
+
+#~ msgid "Language"
+#~ msgstr "Langue"

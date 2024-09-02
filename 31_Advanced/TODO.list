@@ -1,5 +1,4 @@
 TODO:
-- [ ] Change language
 - [ ] Bootstrap verifications
 - [ ] Fixtures users / articles
 - [ ] Subject verifications
@@ -7,3 +6,5 @@ TODO:
 DONE:
 - [X] Header form on small screens
 - [X] Tests
+- [X] Change language
+- [X] Top border article/favorites/publications tables
