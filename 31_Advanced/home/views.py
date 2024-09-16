@@ -2,7 +2,7 @@ from django.views.generic.base import RedirectView
 
 
 class HomeView(RedirectView):
-    permanent = False
+    permanent = True
     url = "/articles/"
 
     def get_redirect_url(self, *args, **kwargs):

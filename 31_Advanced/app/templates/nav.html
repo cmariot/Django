@@ -54,6 +54,16 @@
             <input class="btn btn-light m-1" type="submit" value="{% trans "Login" %}">
         </form>
 
+        {% comment %} If username and password are not provided, the form will not be submitted and the user will be redirected to the login page. {% endcomment %}
+        <script>
+            document.querySelector('.login-form').addEventListener('submit', function(e) {
+                if (document.querySelector('input[name="username"]').value === '' && document.querySelector('input[name="password"]').value === '') {
+                    e.preventDefault();
+                    window.location.href = "{% url 'login' %}";
+                }
+            });
+        </script>
+
 {% else %}
 
         <a class="nav-link text-secondary m-0 h-100 hoverBg" href={% url 'favorites' %}>
