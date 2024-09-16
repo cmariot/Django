@@ -1,0 +1,524 @@
+[
+{
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": 1,
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": 2,
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": 2,
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": 2,
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+        "name": "Can view permission",
+        "content_type": 2,
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+        "name": "Can add group",
+        "content_type": 3,
+        "codename": "add_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+        "name": "Can change group",
+        "content_type": 3,
+        "codename": "change_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": 3,
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+        "name": "Can view group",
+        "content_type": 3,
+        "codename": "view_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": 4,
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": 4,
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": 4,
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+        "name": "Can view content type",
+        "content_type": 4,
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+        "name": "Can add session",
+        "content_type": 5,
+        "codename": "add_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+        "name": "Can change session",
+        "content_type": 5,
+        "codename": "change_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": 5,
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+        "name": "Can view session",
+        "content_type": 5,
+        "codename": "view_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+        "name": "Can add user",
+        "content_type": 6,
+        "codename": "add_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+        "name": "Can change user",
+        "content_type": 6,
+        "codename": "change_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+        "name": "Can delete user",
+        "content_type": 6,
+        "codename": "delete_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+        "name": "Can view user",
+        "content_type": 6,
+        "codename": "view_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add article",
+        "content_type": 7,
+        "codename": "add_article"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change article",
+        "content_type": 7,
+        "codename": "change_article"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete article",
+        "content_type": 7,
+        "codename": "delete_article"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+        "name": "Can view article",
+        "content_type": 7,
+        "codename": "view_article"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+        "name": "Can add user favorite article",
+        "content_type": 8,
+        "codename": "add_userfavoritearticle"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+        "name": "Can change user favorite article",
+        "content_type": 8,
+        "codename": "change_userfavoritearticle"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+        "name": "Can delete user favorite article",
+        "content_type": 8,
+        "codename": "delete_userfavoritearticle"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+        "name": "Can view user favorite article",
+        "content_type": 8,
+        "codename": "view_userfavoritearticle"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+        "app_label": "auth",
+        "model": "permission"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+        "app_label": "auth",
+        "model": "group"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+        "app_label": "sessions",
+        "model": "session"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+        "app_label": "user",
+        "model": "user"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+        "app_label": "article",
+        "model": "article"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+        "app_label": "article",
+        "model": "userfavoritearticle"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "6bbp1cxm4uloh150mpsxv86rzo9j34ek",
+    "fields": {
+        "session_data": ".eJxVjMsOwiAQRf-FtSGUV8cu3fsNBIbBogZMaRON8d9tky50e8-5582cX-bRLY0mlyMbWMcOv1vweKOygXj15VI51jJPOfBN4Ttt_Fwj3U-7-xcYfRvXt1GStAQTFRIa00cLiSSlEKwygN6CxWNQPgHJ1FtYzaAxmk6gQIm0RRu1lmtx9Hzk6cUGKzQI8fkC7CFA4w:1sq6yS:WnQga-y6MaQ-r-gnyjBp5FEYkfm0eZ3IRl5KLWnHj40",
+        "expire_date": "2024-09-23T08:20:44.709Z"
+    }
+},
+{
+    "model": "user.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$MlSxllxKd5MkCOZx1zNtpT$JTifZa+nDHBQzc0xUrZFo2Yo0bJThbu6jBzuRfycJbU=",
+        "last_login": "2024-09-16T08:20:44.707Z",
+        "is_superuser": false,
+        "username": "user1",
+        "created_at": "2024-09-16T07:36:06.195Z",
+        "updated_at": "2024-09-16T07:36:06.195Z",
+        "is_staff": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "user.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$9s5KhGbmnR8jskVZH2LBol$/sPP49KUytnz0hKejDltAgXH5ubQlQ24flybjR6Awrk=",
+        "last_login": "2024-09-16T07:56:29.379Z",
+        "is_superuser": false,
+        "username": "user2",
+        "created_at": "2024-09-16T07:36:23.625Z",
+        "updated_at": "2024-09-16T07:36:23.625Z",
+        "is_staff": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "user.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$720000$PQORnUmhkw92Tn1v8CMuPh$g4ooqlD46LS+lJI0BgMvM9Vv9De5TquSSSCxIojqWnc=",
+        "last_login": "2024-09-16T08:07:58.691Z",
+        "is_superuser": false,
+        "username": "user3",
+        "created_at": "2024-09-16T07:36:35.075Z",
+        "updated_at": "2024-09-16T07:36:35.075Z",
+        "is_staff": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "article.article",
+    "pk": 1,
+    "fields": {
+        "title": "Ex00 : Construction de modèles - Classe générique",
+        "author": 3,
+        "created": "2024-09-16T07:43:10.540Z",
+        "synopsis": "Modèles et vues principales",
+        "content": "Créez un nouveau projet. Vous pouvez le nommer comme il vous plait et organiser la structure des applications comme il vous plait. Pensez qu’une structure logique et facile\r\nà comprendre facilitera les corrections.\r\n\r\nImplémentez les modèles suivants :\r\n\r\n• Article : Contenu des articles et quelques metadatas. Il doit contenir les champs suivants :\r\n    ◦ title : Titre de l’article. Chaine de charactères d’une taille maximum de 64. Non null.\r\n    ◦ author : Auteur de l’article. Référence un enregistrement du model User. Non null.\r\n    ◦ created : Date et heure complète de création. Doit être automatiquement rempli à la création. Non null.\r\n    ◦ synopsis : Résumé de l’article. Chaine de charactères d’une taille maximum de 312. Non null.\r\n    ◦ content : L’article lui-même. C’est un type texte. Non null.\r\n    La méthode __str()__ doit être ’overridé’ pour renvoyer ’title’\r\n\r\n• UserFavouriteArticle : Articles favoris enregistrés par un utilisateur. Doit contenir les champs suivants :\r\n    ◦ user : Référence un enregistrement du model User. Non null.\r\n    ◦ article : Référence un enregistrement du model Article. Non null.\r\n    La méthode __str()__ doit être ’overridé’ pour renvoyer ’title’ qui se trouve dans le modele Article.\r\n\r\nUne fois ceci fait, nous pouvons passer à l’objectif réel de ce premier exercice.\r\nEn vous servant uniquement de vues génériques (à l’exception de ’View’ dont vous n’avez pas la permission d’hériter directement), vous devez implémenter les fonctionnalités suivantes dans votre site. Chacune de ces fonctionnalités doit avoir une URL qui lui est propre :\r\n\r\nArticles : Page HTML aﬃchant sous forme de table HTML tous les champs (à l’exception de content) de tous les articles enregistrés dans la table Article. Le tableau doit disposer d’un header indiquant le titre de chaque colonne.\r\nHome : Url imposée : ’127.0.0.1:8000’. Redirige vers Articles\r\nLogin : Page HTML aﬃchant un formulaire de type POST. Logue un utilisateur non logué grâce à un nom d’utilisateur et un mot de passe. En cas d’erreur, la page doit aﬃcher un message décrivant cette erreur. En cas de succes, la vue doit rediriger vers ’Home’.\r\n\r\nVous devez également fournir au moins cinq articles d’exemples depuis trois utilisateurs diﬀérents. Fournissez des ﬁxtures si nécessaires. Le contenu des articles n’a aucune\r\nimportance, du ’lorem ipsum’ convient parfaitement.\r\n\r\nAucun formatage css n’est requis dans le cadre de cet exercice."
+    }
+},
+{
+    "model": "article.article",
+    "pk": 2,
+    "fields": {
+        "title": "Ex01 : Classes génériques",
+        "author": 3,
+        "created": "2024-09-16T07:53:53.022Z",
+        "synopsis": "Classes génériques supplémentaires",
+        "content": "En vous servant uniquement de vues génériques (à l’exception de ’View’ dont vous n’avez pas la permission d’hériter directement), vous devez implémenter les fonctionnalités suivantes dans votre site. Chacune de ces fonctionnalités doit avoir une URL qui lui est propre :\r\n\r\n- Publications : Page HTML aﬃchant, sous forme de table HTML les champs ’title’, ’synopsis’ et ’created’, de tous les articles enregistrés dans le modèle ’Article’ dont l’auteur est l’utilisateur actuellement connecté. Pour chaque article, vous devez également implémenter un lien dont l’url doit contenir l’identiﬁant du-dit article, menant à la fonctionnalité ’Detail’ de l’article en question. Le tableau doit disposer d’un ’header’ indiquant le titre de chaque colonne.\r\n\r\n- Detail : Page HTML aﬃchant tous les champs d’un article donné se trouvant en base de données. L’identiﬁant de cet article doit se trouver dans l’url. La disposition des champs est libre. Vous devez également rajouter pour chaque article présent dans la table HTML de la fonctionnalité Articles de l’exercice précédent, un lien vers le ’Detail’ du-dit\r\narticle.\r\n\r\n- Logout : Lien déloguant un utilisateur logué. L’endroit ou se trouve le lien pour se déloguer n’a pas d’importance dans cet exercice, du moment qu’il est visible et accessible. Une fois délogué, l’utilisateur est redirigé vers ’Home’\r\n\r\n- Favourites : page HTML aﬃchant, sous la forme d’une liste de liens, les titres des articles enregistrés en favori par l’utilisateur actuellement connecté. Chaque lien, dont l’url doit contenir l’identiﬁant de l’article concerné, doit mener à la fonctionnalité ’Detail’ du-dit article. Vous devez fournir au moins un utilisateur ayant au moins deux favoris diﬀérents."
+    }
+},
+{
+    "model": "article.article",
+    "pk": 3,
+    "fields": {
+        "title": "Ex02 : Classes génériques - CreateView",
+        "author": 2,
+        "created": "2024-09-16T07:57:27.471Z",
+        "synopsis": "CreateView",
+        "content": "En vous servant uniquement de CreateView, vous devez implémenter les fonctionnalités suivantes dans votre site. Chacune de ces fonctionnalités doit avoir une URL qui lui est propre :\r\n\r\n- Register : Page HTML contenant un formulaire de type ’POST’ permettant à un utilisateur non logué de créer un nouveau compte utilisateur. Le formulaire doit demander obligatoirement un login, un mot de passe et une conﬁrmation de mot de passe. Ce formulaire doit être accessible à une URL qui lui est exclusivement dédiée et qui doit terminer par ’register’.\r\n\r\n- Publish : Page HTML contenant un formulaire de type ’POST’ permettant à un utilisateur loggé de publier un nouvel article. Le champ ’author’ ne doit pas être aﬃché, il doit être completé dans la vue lors du processus de validation. Vous devez impérativement utiliser un objet ’form’ créé par votre View pour générer votre formulaire (pas de balises <input> tapé à main pour les champs de votre formulaire !) Rajoutez un lien vers cette fonctionnalité dans le template de la fonctionnalité Publications.\r\n\r\n- Add to favourite : Page HTML contenant un formulaire de type ’POST’ se trouvant dans la page de détail d’un article. Aucun champs ne doit être visible. Le champ ’article’ doit être prérempli avec l’ID de l’article courant et lors de la validation, le champ ’user’ doit être rempli avec l’ID de utilisateur logué. Ce mécanisme permet d’ajouter l’article courant dans les favoris de l’utilisateur connecté.\r\n\r\nAucun formatage CSS n’est requis dans le cadre de cet exercice.\r\n\r\nVous saviez que Django propose des formulaires tout prêt à l’emploi ?"
+    }
+},
+{
+    "model": "article.article",
+    "pk": 4,
+    "fields": {
+        "title": "Ex03 : Template tags et ﬁltres",
+        "author": 2,
+        "created": "2024-09-16T08:02:24.808Z",
+        "synopsis": "Menu / Filtres d'affichage",
+        "content": "Dans cet exercice vous devez créer un menu qui doit être visible depuis TOUTES les pages du site. Tous les liens de ce menu mènent vers des fonctionnalités que VOUS AVEZ DEJA CRÉES. S’il vous manque quelque chose... posez vous des questions.\r\n\r\nCe menu doit disposer des éléments suivants :\r\n\r\n- Home : Lien vers la fonctionnalité ’Home’ (qui elle-même redirige vers ’Articles’, vous vous souvenez ?).\r\n\r\n-  Last Articles : Lien vers la fonctionnalité ’Article’. Vous pouvez adapter le nom de ce lien en fonction de l’éventuelle thématique que vous avez choisi (mais toujours en anglais !).\r\n\r\n Si un utilisateur n’est pas connecté :\r\n\r\n    - Register : Lien vers la fonctionnalité ’Register’\r\n\r\n    - Login : Fonctionnalité ’Login’. Ici, c’est un peu diﬀérent car ce n’est pas un simple lien, vous devez mettre le formulaire entier DANS le menu. Celui-ci sera donc disponible sur toutes les pages et non plus seulement sur la page dédiée que vous avez du crée. Celle-ci doit cependant toujours aﬃcher les erreurs en cas de formulaire invalide.\r\n\r\nSi un utilisateur est connecté :\r\n\r\n- Favorites : Lien vers la fonctionnalité ’Favorites’\r\n\r\n- Publications : Lien vers la fonctionnalité ’Publications’\r\n\r\n- Logged as <user> : Simple texte indiquant que l’utilisateur est logué. <user> doit évidemment être remplacé par le nom de l’utilisateur connecté.\r\n\r\n- Logout : Fonctionnalité ’Logout’. Maintenant, vous avez un endroit précis où mettre ce lien.\r\n\r\nEn utilisant des tags et des ﬁltres, modiﬁez le template listant tous les articles de sorte que :\r\n- Le synopsis soit réduit à 20 charactères maximum, au dela desquels la suite doit être remplacée par trois points de suspension. Vous devez prévoir un exemple qui en fait la démonstration.\r\n- La liste d’articles soit triée par date, de la plus récente à la plus vieille.\r\n- Une colonne supplémentaire mentionne depuis combien de temps l’article à été publié.\r\n\r\nAucun formatage CSS n’est requis dans le cadre de cet exercice."
+    }
+},
+{
+    "model": "article.article",
+    "pk": 5,
+    "fields": {
+        "title": "Ex04 : Bootstrap",
+        "author": 1,
+        "created": "2024-09-16T08:04:31.213Z",
+        "synopsis": "Rendre le tout stylé avec bootstrap",
+        "content": "En utilisant Bootstrap, donnez a votre menu le même formatage CSS que celui se trouvant dans l’image fournie dans les ressources de la journée."
+    }
+},
+{
+    "model": "article.article",
+    "pk": 6,
+    "fields": {
+        "title": "Ex05 : Internationalisation",
+        "author": 1,
+        "created": "2024-09-16T08:06:03.042Z",
+        "synopsis": "Do you speak English ?",
+        "content": "Traduisez toute la fonctionnalité Articles du site, ainsi que le menu (qui est visible depuis cet endroit également) en francais en fonction du preﬁx se trouvant dans l’URL.\r\n\r\nPar exemple :\r\n- Si mon URL est : 127.0.0.1:8000/en/articles, alors tout son contenu sera en anglais.\r\n- Si cette URL est 127.0.0.1:8000/fr/articles, alors tout son contenu sera en français.\r\n\r\nLe contenu de la base de données et le nom du site ne sont pas à traduire.\r\nPar défaut, le site doit etre en anglais.\r\nAjoutez un lien, permettant de passer d’une langue à l’autre sur cette même page."
+    }
+},
+{
+    "model": "article.article",
+    "pk": 7,
+    "fields": {
+        "title": "Ex06 : Test",
+        "author": 1,
+        "created": "2024-09-16T08:07:42.285Z",
+        "synopsis": "Tout est bon ?",
+        "content": "En vous servant du framework de test intégré à Django, créez les tests permettant de vériﬁer que le site à bien les comportements suivants :\r\n\r\n- Les vues favourites, publications et publish ainsi que leur templates ne sont accessibles qu’aux utilisateurs connectés.\r\n- Il n’est pas possible pour un utilisateur connecté d’avoir accès au formulaire de création d’un nouvel utilisateur.\r\n- Un utilisateur ne peut pas mettre deux fois le meme article en favoris.\r\n\r\nVos tests doivent imperativement porter un nom explicite, indiquant exactement ce qu’ils veriﬁent.\r\nCorrigez toutes les erreurs potentiellements révélées par ces tests"
+    }
+},
+{
+    "model": "article.userfavoritearticle",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "article": 1
+    }
+},
+{
+    "model": "article.userfavoritearticle",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "article": 4
+    }
+},
+{
+    "model": "article.userfavoritearticle",
+    "pk": 3,
+    "fields": {
+        "user": 1,
+        "article": 5
+    }
+},
+{
+    "model": "article.userfavoritearticle",
+    "pk": 4,
+    "fields": {
+        "user": 3,
+        "article": 7
+    }
+},
+{
+    "model": "article.userfavoritearticle",
+    "pk": 5,
+    "fields": {
+        "user": 3,
+        "article": 4
+    }
+}
+]
