@@ -3,13 +3,10 @@
 {% block title %}Account{% endblock %}
 
 {% block content %}
+
     {% if request.user.is_authentificated %}
-
-        {% comment %} TODO {% endcomment %}
-
+        {% include 'account/templates/logged.html' %}
     {% else %}
-        {% comment %} Default : login form, if the user click on a register-btn, include refiser.html {% endcomment %}
-
         {% include 'account/templates/login.html' %}
     {% endif %}
 

@@ -9,12 +9,9 @@
 
 {% comment %} Login script {% endcomment %}
 
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"
-        ></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <script>
 
     function getCookie(name) {
@@ -38,7 +35,8 @@
     }
 
 
-    {% comment %} $(document).on('submit', '#login-form', function(event) {
+    // Submit login form
+    $(document).on('submit', '#login-form', function(event) {
         event.preventDefault();
         $.ajax({
             url: '{% url "login" %}',
@@ -49,43 +47,71 @@
                 csrfmiddlewaretoken: getCSRFToken()
             },
             success: function(response) {
-                if (response.success) {
-                    console.log('success');
+                if (!response.success) {
+                    console.log("Error")
+                    console.log(response.errors);
+                    //let errorlists = $('.errorlist');
+                    //for (let i = 0; i < errorlists.length; i++) {
+                    //    errorlists[i].innerHTML = '';
+                    //}
+                    //$.each(response.errors, function(key, value) {
+                    //    console.log(key, value);
+                    //    let field_ul = $('#'+ key + '_errors');
+                    //    // $.each(value, function(index, error) {
+                    //    //     field_ul.append('<li class="alert alert-danger">' + error + '</li>');
+                    //    // });
+                    //});
                 } else {
-                    $('#login-error-messages').html('');
-                    $.each(response.errors, function(key, value) {
-                        console.log(value);
-                        $('#login-error-messages').append('<div class="alert alert-danger">' + value + '</div>');
+                    console.log('success');
+                    $.ajax({
+                        url: '{% url "account" %}',
+                        type: 'GET',
+                        success: function(response) {
+                            $('body').html(response);
+                        }
                     });
                 }
             }
         });
-    }); {% endcomment %}
+    });
 
-    {% comment %} $(document).on('submit', '#register-form', function(event) {
+    // Submit register form
+    $(document).on('submit', '#register-form', function(event) {
         event.preventDefault();
         $.ajax({
             url: '{% url "register" %}',
             type: 'POST',
             data: {
                 username: $('#id_username').val(),
-                password: $('#id_password').val(),
-                password_confirmation: $('#id_password2').val(),
+                password1: $('#id_password1').val(),
+                password2: $('#id_password2').val(),
                 csrfmiddlewaretoken: getCSRFToken()
             },
             success: function(response) {
-                if (response.success) {
-                    console.log('success');
-                } else {
-                    $('#register-error-messages').html('');
+                if (!response.success) {
+                    let errorlists = $('.errorlist');
+                    for (let i = 0; i < errorlists.length; i++) {
+                        errorlists[i].innerHTML = '';
+                    }
                     $.each(response.errors, function(key, value) {
-                        console.log(value);
-                        $('#register-error-messages').append('<div class="alert alert-danger">' + value + '</div>');
+                        let field_ul = $('#'+ key + '_errors');
+                        $.each(value, function(index, error) {
+                            field_ul.append('<li class="alert alert-danger">' + error + '</li>');
+                        });
+                    });
+                } else {
+                    console.log('success');
+                    $.ajax({
+                        url: '{% url "account" %}',
+                        type: 'GET',
+                        success: function(response) {
+                            $('body').html(response);
+                        }
                     });
                 }
             }
         });
-    }); {% endcomment %}
+    });
 
     $(document).on('click', '.register', function(event) {
         event.preventDefault();

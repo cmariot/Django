@@ -11,11 +11,7 @@
             {% if field.help_text %}
                 <small class="form-text text-muted">{{ field.help_text }}</small>
             {% endif %}
-            {% if field.errors %}
-                {% for error in field.errors %}
-                    <div>{ error }}</div>
-                {% endfor %}
-            {% endif %}
+            <ul class="errorlist" id="{{ field.name }}_errors"></ul>
         </div>
     {% endfor %}
 
@@ -23,7 +19,5 @@
         <button type="submit" class="btn btn-primary">Login</button>
         <p class="mb-0 ml-3">Don't have an account? <a href="#" class="register">Register</a></p>
     </span>
-
-    <div id="login-error-messages"></div>
 
 </form>

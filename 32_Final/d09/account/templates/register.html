@@ -1,6 +1,9 @@
 <form id="register-form" method="post">
+
     <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+
     {% csrf_token %}
+
     {% for field in form %}
         <div class="form-group">
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
@@ -8,11 +11,7 @@
             {% if field.help_text %}
                 <small class="form-text text-muted">{{ field.help_text }}</small>
             {% endif %}
-            {% if field.errors %}
-                {% for error in field.errors %}
-                    <div>{ error }}</div>
-                {% endfor %}
-            {% endif %}
+            <ul class="errorlist" id="{{ field.name }}_errors"></ul>
         </div>
     {% endfor %}
 
@@ -20,7 +19,5 @@
         <button type="submit" class="btn btn-primary">Register</button>
         <p class="mb-0 ml-3">Already have an account? <a href="#" class="login">Login</a></p>
     </span>
-
-    <div id="register-error-messages"></div>
 
 </form>
