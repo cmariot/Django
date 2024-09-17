@@ -52,6 +52,7 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('account')
 
     def form_valid(self, form):
+        print("Th")
         response = super().form_valid(form)
         login(self.request, self.object)
         return response

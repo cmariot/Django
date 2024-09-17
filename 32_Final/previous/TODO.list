@@ -6,8 +6,6 @@ SINGLE PAGE APP
 CHAT FEATURES
 - [ ] UserList in ChatChannel fix the list when the same user is more than once in the chat
 
-
-
 DONE
 - [X] Redirect / to /account
 - [X] Margin between chat form

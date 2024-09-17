@@ -1,0 +1,29 @@
+<form id="login-form" method="post">
+
+    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+
+    {% csrf_token %}
+
+    {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <input type="{{ field.field.widget.input_type }}" id="{{ field.id_for_label }}" name="{{ field.html_name }}" required class="form-control">
+            {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <div>{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <span class="form-group d-flex align-items-center">
+        <button type="submit" class="btn btn-primary">Login</button>
+        <p class="mb-0 ml-3">Don't have an account? <a href="#" class="register">Register</a></p>
+    </span>
+
+    <div id="login-error-messages"></div>
+
+</form>
