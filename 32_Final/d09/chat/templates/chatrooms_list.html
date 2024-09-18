@@ -1,0 +1,25 @@
+{% load static %}
+
+<section>
+    <h2>Chatrooms</h2>
+    <div>
+        <ul class="row">
+            {% for chatroom in chatrooms %}
+                <li class="col m-3 d-flex justify-content-center align-items-center">
+                    <button class="btn btn-secondary chatroomlist-btn mb-3" onclick="window.location.href='{% url 'chat' chatroom.name %}'">
+                        <div class="card card-background" style="width: 18rem;">
+                            <div class="card-img-top">
+                                <img class="width_img" src="{% static 'img/hash.svg' %}" alt="Card image cap">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ chatroom.name }}</h5>
+                                <p class="card-text">{{ chatroom.description }}</p>
+                                <a href="{% url 'chat' chatroom.name %}" class="btn btn-secondary">Join</a>
+                            </div>
+                        </div>
+                    </button>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>

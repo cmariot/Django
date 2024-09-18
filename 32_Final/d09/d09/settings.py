@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'account',
+    'chat',
     'channels',
 ]
 
@@ -129,9 +130,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_REDIRECT_URL = '/account'
-LOGOUT_REDIRECT_URL = '/account'
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -161,8 +159,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # User model
 AUTH_USER_MODEL = "account.User"
 
-LOGIN_REDIRECT_URL = 'account'
-LOGOUT_REDIRECT_URL = 'account'
-LOGIN_URL = 'account'
+LOGIN_REDIRECT_URL = '/account'
+LOGOUT_REDIRECT_URL = '/account'
+
 
 SITE_ID = 1
+
+CHATROOMS = (
+    {
+        'name': 'General',
+        'description': 'General chatroom',
+    },
+    {
+        'name': 'Code',
+        'description': 'Code chatroom',
+    },
+    {
+        'name': 'Random',
+        'description': 'Random chatroom',
+    },
+)

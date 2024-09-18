@@ -1,1 +1,15 @@
 <p>Logged as {{ user.username }}</p>
+
+<section id="chatrooms">
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: '{% url "chatrooms" %}',
+                type: 'GET',
+                success: function(response) {
+                    $('#chatrooms').html(response);
+                }
+            });
+        });
+    </script>
+</section>

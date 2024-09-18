@@ -22,7 +22,9 @@ main {
 }
 
 #login-form,
-#register-form {
+#register-form,
+#chat,
+.card {
     width: 100%;
     max-width: 450px;
     margin: auto;
@@ -32,8 +34,48 @@ main {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.card {
+    background-color: #f4f4f4;
+}
+
+.chatroomlist-btn {
+    padding: 0;
+    border: none;
+}
+
+#chat {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 100%;
+    padding: 0;
+}
+
 ul,
 .errorlist {
     list-style: none;
     padding: 0;
+}
+
+.width_img {
+    width: 100%;
+    height: auto;
+    margin: auto;
+    display: block;
+}
+
+#chat-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffffaf;
+    border-radius: 5px 5px 0 0;
+}
+
+#chat-messages {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: inherit;
 }

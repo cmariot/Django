@@ -1,0 +1,16 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+    {% include "d09/templates/head.html" %}
+    <body>
+        {% include 'd09/templates/navbar.html' %}
+        <main class="container">
+            {% include 'chat/templates/chat_detail.html' %}
+        </main>
+        {% include 'd09/templates/footer.html' %}
+    </body>
+    {% include "d09/templates/scripts.html" %}
+
+</html>

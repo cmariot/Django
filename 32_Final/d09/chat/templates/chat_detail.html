@@ -1,0 +1,112 @@
+
+<div id="chat" class="h-100">
+
+    <nav id="chat-navbar" class="navbar navbar-dark bg-dark navbar-expand-lg p-2">
+        <h1 class="navbar-brand">{{ chat.name }}</h1>
+        <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">Users</button>
+    </nav>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{chat.name}} users:</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul>
+                {% for user in chat.users.all %}
+                    <li>{{ user.username }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <section id="chat-messages" class="d-flex flex-column p-2">
+        <div class="flex-grow-0.9 overflow-auto">
+            <ul class="flex-grow-1">
+                {% for message in chat.messages %}
+                    <li>
+                        <strong>{{ message.user.username }}</strong>
+                        <span>{{ message.text }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <form id="chat-form" method="post" action="{%
+                class="d-flex justify-content-between align-items-center">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" name="text" required class="form-control">
+                <button type="submit" class="btn btn-secondary">Send</button>
+            </div>
+        </form>
+    </section>
+</div>
+
+<script>
+    const username = "{{ request.user.username }}";
+    const roomName = "{{ chatroom.name }}";
+    const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+    const chatSocket = new WebSocket(
+        wsScheme + '://' + window.location.host + '/ws/chat/' + roomName + '/');
+
+    chatSocket.onopen = function(e) {
+        console.log('Chat socket connected');
+    };
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+
+        if (data.type === 'chat_message') {
+            $('#chat-log').append('<div><b>' + data.username + ':</b> ' + data.message + '</div>');
+        }
+        else if (data.type === 'chat_connection') {
+            $('#chat-log').append('<div><b><i>' + data.username + ' has joined the room.' + '</i></b></div>');
+
+            const userExists = $('#chat-users-list').find('li').filter(function() {
+                return $(this).text() === data.username;
+            }).length > 0;
+
+            if (!userExists)
+                $('#chat-users-list').append('<li class="list-group-item">' + data.username + '</li>');
+
+        }
+        else if (data.type === 'chat_disconnect') {
+            $('#chat-log').append('<div><b><i>' + data.username  + ' has left the room.' + '</i></b></div>');
+            $('#chat-users-list').find('li').filter(function() {
+                return $(this).text() === data.username;
+            }).remove();
+        }
+
+
+        $('#chat-log').scrollTop($('#chat-log')[0].scrollHeight);
+    };
+
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    $('#chat-message-input').on('keypress', function(e) {
+        if (e.keyCode === 13) {  // Enter key
+            $('#chat-message-submit').click();
+        }
+    });
+
+    $('#chat-message-submit').on('click', function() {
+        const messageInputDom = $('#chat-message-input');
+        const message = messageInputDom.val();
+        chatSocket.send(JSON.stringify({
+            'message': message,
+            'username': username
+        }));
+        messageInputDom.val('');
+    });
+
+    $(document).ready(function() {
+        chatSocket.send(JSON.stringify({
+            'message': '<username> has joined the chat',
+            'username': username
+        }));
+    });
+</script>
