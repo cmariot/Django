@@ -1,26 +1,10 @@
 {% load static %}
 
 <!doctype html>
-
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="icon" href="{% static 'favicon.svg' %}">
-        <script src="{% static 'scripts/jquery-3.7.1.min.js' %}"></script>
-    </head>
-    <body>
-        {% include 'd09/templates/navbar.html' %}
-        <main class="container">
-            {% block content %}{% endblock %}
-        </main>
-        {% include 'd09/templates/footer.html' %}
-    </body>
 
+    {% include "d09/templates/head.html" %}
+    {% include "d09/templates/body.html" %}
     {% include "d09/templates/scripts.html" %}
-
 
 </html>

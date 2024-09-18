@@ -1,0 +1,11 @@
+<body>
+    {% include 'd09/templates/navbar.html' %}
+    <main class="container">
+        {% if user.is_authenticated %}
+            {% include 'account/templates/logged.html' %}
+        {% else %}
+            {% include 'account/templates/login.html' %}
+        {% endif %}
+    </main>
+    {% include 'd09/templates/footer.html' %}
+</body>

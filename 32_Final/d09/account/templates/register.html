@@ -1,4 +1,4 @@
-<form id="register-form" method="post">
+<form id="register-form" method="post" action="{% url 'register' %}">
 
     <h1 class="h3 mb-3 font-weight-normal">Register</h1>
 
@@ -17,7 +17,7 @@
 
     <span class="form-group d-flex align-items-center">
         <button type="submit" class="btn btn-primary">Register</button>
-        <p class="mb-0 ml-3">Already have an account? <a href="#" class="login">Login</a></p>
+        <p class="mb-0 ms-2">Already have an account? <a href="{% url "login" %}" class="login">Login</a></p>
     </span>
 
 </form>

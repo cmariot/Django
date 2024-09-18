@@ -1,4 +1,4 @@
-<form id="login-form" method="post">
+<form id="login-form" method="post" action="{% url 'login' %}">
 
     <h1 class="h3 mb-3 font-weight-normal">Login</h1>
 
@@ -11,13 +11,14 @@
             {% if field.help_text %}
                 <small class="form-text text-muted">{{ field.help_text }}</small>
             {% endif %}
-            <ul class="errorlist" id="{{ field.name }}_errors"></ul>
         </div>
     {% endfor %}
 
+    <ul class="errorlist" id="login_errorlist"></ul>
+
     <span class="form-group d-flex align-items-center">
         <button type="submit" class="btn btn-primary">Login</button>
-        <p class="mb-0 ml-3">Don't have an account? <a href="#" class="register">Register</a></p>
+        <p class="mb-0 ms-2">Don't have an account? <a href={%url "register"%} class="register">Register</a></p>
     </span>
 
 </form>
