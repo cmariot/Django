@@ -2,7 +2,7 @@ from django.views.generic import FormView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import LoginForm, RegisterForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 
@@ -57,4 +57,12 @@ class Register(CreateView):
 
 
 class Logout(LogoutView):
-    template_name = 'd09/templates/body.html'
+
+    def post(self, request, *args, **kwargs):
+        super().post(request, *args, **kwargs)
+        logout(request)
+        return JsonResponse({
+            'body': render_to_string(
+                'd09/templates/body.html', request=request
+            )
+        })

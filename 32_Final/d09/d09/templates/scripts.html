@@ -121,8 +121,14 @@
             url: '{% url "logout" %}',
             type: 'POST',
             success: function(response) {
-                console.log(response);
-                $('body').html(response);
+                $('body').html(response.body);
+                $.ajax({
+                    url: '{% url "login" %}',
+                    type: 'GET',
+                    success: function(response) {
+                        $('main').html(response);
+                    }
+                });
             }
         });
     });
