@@ -4,7 +4,7 @@
 
     <nav id="chat-navbar" class="navbar navbar-dark bg-dark navbar-expand-lg ps-3 pe-3">
         <h1 class="navbar-brand">{{ chat.name }}</h1>
-        <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">Users</button>
+        <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" id="nb_user">Users</button>
     </nav>
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -15,123 +15,120 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <ul>
-                {% for user in chat.users.all %}
-                    <li>{{ user.username }}</li>
-                {% endfor %}
-                <li>test</li>
-                <li>test</li>
-                <li>test</li>
-                <li>test</li>
-            </ul>
+            <ul id="chat-users"></ul>
         </div>
     </div>
 
-
     <section id="chat-messages" class="d-flex flex-column p-2">
-
-        <ul id="messages-list" class="flex-grow-1 ps-3 pe-3">
-
-            <li class="chat-message p-2">
-
-                <div class="chat-message-card p-2">
-                    <img class="p-2 chat-message-user-img" src="{% static 'img/default_user.svg' %}" alt="Card image cap" style="width: 50px;">
-                    <div class="card-body p-2- ps-3 pe-3">
-                        <span class="d-flex gap-2 align-items-center">
-                            <h5 class="card-title small"><b>username</b></h5>
-                            <p class="card-title small">03/04/24 14h30</p>
-                        </span>
-                        <p class="card-text">message</p>
-                    </div>
-                </div>
-
-            </li>
-
-
-        </ul>
-
+        <ul id="messages-list" class="flex-grow-1 ps-3 pe-3"></ul>
         <form id="chat-form" method="post" class="d-flex justify-content-between align-items-center">
             <div class="input-group">
-                <input id="chat-message-input" type="text" name="text" required class="form-control">
-                <button type="submit" class="btn btn-secondary" id="chat-message-submit">Send</button>
+                <input id="chat-message-input" type="text" name="text" required class="form-control" placeholder="Type a message..." autocomplete="off">
+                <button type="submit" class="btn btn-secondary" id="chat-message-submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+                    </svg>
+                    Send
+                </button>
             </div>
         </form>
-
     </section>
+
 </div>
 
 <script>
+
+    function create_message_card(messagesList, message, username, datetime) {
+        const messageDom = $('<li class="chat-message p-2">');
+        let messageCardDom;
+        if (username === "{{ user.username }}") {
+            messageCardDom = $('<div class="chat-message-card p-2" style="background-color: #33333329;">');
+        } else {
+            messageCardDom = $('<div class="chat-message-card p-2">');
+        }
+        const imgDom = $('<img class="p-2" src="{% static 'img/default_user.svg' %}" alt="Card image cap" style="width: 50px;">');
+        const cardBodyDom = $('<div class="card-body chat-card-body p-2- ps-3 pe-3">');
+        const cardTitleDom = $('<span class="d-flex gap-2 align-items-center">');
+        const usernameDom = $('<h5 class="card-title small"><b>' + username + '</b></h5>');
+        const datetimeDom = $('<p class="card-title small">' + datetime + '</p>');
+        const messageTextDom = $('<p class="card-text">' + message + '</p>');
+        cardTitleDom.append(usernameDom);
+        cardTitleDom.append(datetimeDom);
+        cardBodyDom.append(cardTitleDom);
+        cardBodyDom.append(messageTextDom);
+        messageCardDom.append(imgDom);
+        messageCardDom.append(cardBodyDom);
+        messageDom.append(messageCardDom);
+        messagesList.append(messageDom);
+    }
+
+    function update_message_list() {
+        $.get("{% url 'chatroom_messages' chat.name %}", function(data) {
+            const messagesList = $('#messages-list');
+            for (let i = 0; i < data.length; i++) {
+                const message = data[i]['content'];
+                const username = data[i]['user'];
+                const datetime = data[i]['created_at'];
+                create_message_card(messagesList, message, username, datetime);
+            }
+            $('#messages-list').scrollTop($('#messages-list')[0].scrollHeight);
+        });
+    }
+
+    function update_user_list() {
+        $.get("{% url 'chatroom_users' chat.name %}", function(data) {
+            $('#chat-users').empty();
+            for (let i = 0; i < data.length; i++) {
+                const userDom = $('<li class="list-group-item">' + data[i] + '</li>');
+                $('#chat-users').append(userDom);
+            }
+            if (data.length < 2) {
+                $('#nb_user').text(data.length + ' User');
+            } else {
+                $('#nb_user').text(data.length + ' Users');
+            }
+        });
+    }
 
     const username = "{{ user.username }}";
     const roomName = "{{ chat.name }}";
     const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
     const chatSocket = new WebSocket(wsScheme + '://' + window.location.host + '/ws/chat/' + roomName + '/');
 
+    // client connected to the server
     chatSocket.onopen = function(e) {
         console.log('Chat socket connected');
     };
 
+    // client received a message from the server
     chatSocket.onmessage = function(e) {
 
         const data = JSON.parse(e.data);
 
-        console.log("chatSocket.onmessage:")
-        console.log(data)
-
         if (data.type === 'chat_message') {
-
-            console.log("chatSocket.onmessage: chat_message")
-
-            // Add the message to messages_list
             const message = data.message;
             const username = data.username;
             const datetime = data.datetime;
-
             const messagesList = $('#messages-list');
-
-            // <div class="chat-message-card p-2">
-            //     <img class="p-2" src="{% static 'img/default_user.svg' %}" alt="Card image cap" style="width: 50px;">
-            //     <div class="card-body p-2- ps-3 pe-3">
-            //         <span class="d-flex gap-2 align-items-center">
-            //             <h5 class="card-title small"><b>username</b></h5>
-            //             <p class="card-title small">03/04/24 14h30</p>
-            //         </span>
-            //         <p class="card-text">message</p>
-            //     </div>
-            // </div>
-
-            const messageDom = $('<li class="chat-message p-2">');
-            const messageCardDom = $('<div class="chat-message-card p-2">');
-            const imgDom = $('<img class="p-2" src="{% static 'img/default_user.svg' %}" alt="Card image cap" style="width: 50px;">');
-            const cardBodyDom = $('<div class="card-body chat-card-body p-2- ps-3 pe-3">');
-            const cardTitleDom = $('<span class="d-flex gap-2 align-items-center">');
-            const usernameDom = $('<h5 class="card-title small"><b>' + username + '</b></h5>');
-            const datetimeDom = $('<p class="card-title small">' + datetime + '</p>');
-            const messageTextDom = $('<p class="card-text">' + message + '</p>');
-
-            cardTitleDom.append(usernameDom);
-            cardTitleDom.append(datetimeDom);
-            cardBodyDom.append(cardTitleDom);
-            cardBodyDom.append(messageTextDom);
-            messageCardDom.append(imgDom);
-            messageCardDom.append(cardBodyDom);
-            messageDom.append(messageCardDom);
-
-            messagesList.append(messageDom);
-
-            // Scroll to the bottom of the messages list #messages-list
-            $('#messages-list').scrollTop($('#messages-list')[0].scrollHeight);
-
-
-
+            create_message_card(messagesList, message, username, datetime);
+        } else if (data.type === 'chat_connection') {
+            // Add the '<user> has joined the chat' message
+            const username = data.username;
+            const message = "<b>" + username + "</b> has joined the chat";
+            const messagesList = $('#messages-list');
+            messagesList.append('<li class="chat-message p-2">' + message + '</li>');
+            update_user_list();
+        } else if (data.type === 'chat_disconnection') {
+            // Add the '<user> has left the chat' to messages_list
+            const username = data.username;
+            const message = "<b>" + username + "</b> has left the chat";
+            const messagesList = $('#messages-list');
+            messagesList.append('<li class="chat-message p-2">' + message + '</li>');
+            update_user_list();
+        } else {
+            return
         }
-        else if (data.type === 'chat_connection') {
-
-        }
-        else if (data.type === 'chat_disconnect') {
-
-        }
-        // $('#chat-log').scrollTop($('#chat-log')[0].scrollHeight);
+        $('#messages-list').scrollTop($('#messages-list')[0].scrollHeight);
     };
 
     chatSocket.onclose = function(e) {
@@ -150,13 +147,6 @@
     });
 
     $(document).ready(function() {
-
-
-        // chatSocket.send(JSON.stringify({
-        //     'message': '<username> has joined the chat',
-        //     'username': username
-        // }));
-
         $('#chat-messages').css('max-height',
             window.innerHeight
                 - $('#navbar').height()
@@ -166,6 +156,9 @@
                 - $('#chat-navbar').height()
                 - $('main').css('padding-bottom').replace('px', '')
         );
+
+        update_message_list();
+        update_user_list();
 
         // Focus on the chat message input
         $('#chat-message-input').focus();

@@ -127,6 +127,8 @@
                     type: 'GET',
                     success: function(response) {
                         $('main').html(response);
+                        // Set the current page to the login page url
+                        window.history.pushState(null, null, '{% url "account" %}');
                     }
                 });
             }

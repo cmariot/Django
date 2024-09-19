@@ -24,7 +24,8 @@ main {
 #login-form,
 #register-form,
 #chat,
-.card-chatroomslist {
+.card-chatroomslist,
+.list-group-item {
     width: 100%;
     max-width: 450px;
     margin: auto;
@@ -93,6 +94,7 @@ ul,
 
 .card-text {
     text-wrap: wrap;
+    word-break: break-all;
 }
 
 .navbar-brand {
@@ -135,4 +137,12 @@ input:focus {
 
 .chat-card-body {
     max-width: calc(100% - 50px);
+}
+
+#chat-message-submit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }

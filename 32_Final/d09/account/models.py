@@ -4,6 +4,7 @@ from django.db import models
 
 class User(AbstractUser):
 
+    id = models.AutoField(primary_key=True, unique=True, editable=False)
     username = models.CharField(max_length=150, unique=True)
     password = models.CharField(max_length=150)
 
