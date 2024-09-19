@@ -3,5 +3,5 @@ from .views import ChatRooms, Chat
 
 urlpatterns = [
     path('', ChatRooms.as_view(), name='chatrooms'),
-    path('<slug:slug>/', Chat.as_view(), name='chat'),
+    path('<str:room_name>/', Chat.as_view(), name='chat'),
 ]

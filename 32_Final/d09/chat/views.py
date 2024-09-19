@@ -26,3 +26,4 @@ class Chat(DetailView):
     template_name = 'chat/templates/chat.html'
     context_object_name = 'chat'
     slug_field = 'name'
+    slug_url_kwarg = 'room_name'

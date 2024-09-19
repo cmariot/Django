@@ -9,26 +9,32 @@
             Chat
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation" data-toggle="dropdown">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Account
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                        {% if user.is_authenticated %}
-                            <button class="logout btn dropdown-item">Logout</button>
-                        {% else %}
+        {% if user.is_authenticated %}
+            <div class="d-flex align-items-center justify-content-between gap-3">
+                <span class="navbar-text">
+                    Logged as {{ user.username }}
+                </span>
+                <button class="logout btn btn-secondary">Logout</button>
+            </div>
+        {% else %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation" data-toggle="dropdown">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Account
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                             <li><a class="dropdown-item login" href="#">Login</a></li>
                             <li><a class="dropdown-item register" href="#">Register</a></li>
-                        {% endif %}
-                    </ul>
-                </li>
-            </ul>
-        </div>
+                        </ul>
+
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
 
     </span>
 
