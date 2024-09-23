@@ -3,7 +3,6 @@ import json
 from .models import ChatRoom, Message
 from account.models import User
 from asgiref.sync import sync_to_async
-import asyncio
 
 
 def save_message(username, room_name, content):
@@ -111,7 +110,6 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         }))
 
     async def chat_disconnection(self, event):
-        await asyncio.sleep(0.2)
         username = event['username']
         await self.send(text_data=json.dumps({
             'type': 'chat_disconnection',

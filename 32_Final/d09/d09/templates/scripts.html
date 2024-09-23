@@ -126,6 +126,9 @@
                     url: '{% url "login" %}',
                     type: 'GET',
                     success: function(response) {
+                        if (current_chatroom) {
+                            leave_chatroom();
+                        }
                         $('main').html(response);
                         // Set the current page to the login page url
                         window.history.pushState(null, null, '{% url "account" %}');

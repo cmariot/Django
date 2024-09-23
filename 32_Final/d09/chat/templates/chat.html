@@ -1,4 +1,5 @@
 {% load static %}
+{% load tz %}
 
 <div id="chat" class="h-100">
 
@@ -50,7 +51,7 @@
         const cardBodyDom = $('<div class="card-body chat-card-body p-2- ps-3 pe-3">');
         const cardTitleDom = $('<span class="d-flex gap-2 align-items-center">');
         const usernameDom = $('<h5 class="card-title small nowrap"><b>' + username + '</b></h5>');
-        const datetimeDom = $('<p class="card-title small nowrap">' + datetime + '</p>');
+        const datetimeDom = $('<p class="card-title small nowrap">{% localtime %}' + datetime + '{% endlocaltime %}</p>');
         const messageTextDom = $('<p class="card-text">' + message + '</p>');
         cardTitleDom.append(usernameDom);
         cardTitleDom.append(datetimeDom);
@@ -187,6 +188,7 @@
             'username': username
         }));
         messageInputDom.val('');
+        $('#chat-message-input').focus();
     });
 
     $(document).ready(function() {
