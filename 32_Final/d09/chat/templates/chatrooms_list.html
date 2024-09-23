@@ -27,46 +27,9 @@
 
 <script>
 
-    let current_chatroom = null;
+    var current_chatroom = null;
 
-    // Set the chatroom active in the chatroom list navbar
-    function set_chatroom_active_navbar(chatroomName) {
-
-        const chatrooms = $('.navbar-chatroom-link');
-        const chatroomLink = $(`.navbar-chatroom-link:contains('${chatroomName}')`);
-
-        chatrooms.each(function() {
-            $(this).removeClass('active');
-        });
-        chatroomLink.addClass('active');
-
-    }
-
-    function joinChatroom(chatroomName) {
-
-        console.log('Joining chatroom:', chatroomName);
-
-        set_chatroom_active_navbar(chatroomName);
-        if (current_chatroom) {
-            leaveChatroom();
-        }
-        $.get(`/chat/${chatroomName}`, function(data) {
-            current_chatroom = chatroomName;
-            $('main').html(data);
-            // window.history.pushState(null, null, `/chat/${chatroomName}`);
-
-        });
-
-    }
-
-    function leaveChatroom() {
-
-        console.log('Leaving chatroom:', current_chatroom);
-
-        leave_chatroom(current_chatroom);
-        current_chatroom = null;
-    }
-
+    // Add the chatrooms to the navbar
     function add_chatrooms_navbar() {
         const chatrooms = $('.chatroomlist-btn');
         const navbar = $('#navbar');
@@ -85,6 +48,34 @@
         });
         // Add the chatrooms to the navbar
         navbarBrand.append(navbarContainer);
+    }
+
+    // Set the chatroom active in the chatroom list navbar
+    function set_chatroom_active_navbar(chatroomName) {
+        const chatrooms = $('.navbar-chatroom-link');
+        const chatroomLink = $(`.navbar-chatroom-link:contains('${chatroomName}')`);
+        chatrooms.each(function() {
+            $(this).removeClass('active');
+        });
+        chatroomLink.addClass('active');
+    }
+
+    // Join a chatroom by loading the chatroom page
+    function joinChatroom(chatroomName) {
+        console.log('Joining chatroom:', chatroomName);
+        set_chatroom_active_navbar(chatroomName);
+        if (current_chatroom) { leaveChatroom(); }
+        $.get(`/chat/${chatroomName}`, function(data) {
+            current_chatroom = chatroomName;
+            $('main').html(data);
+        });
+    }
+
+    // Leave the current chatroom
+    function leaveChatroom() {
+        console.log('Leaving chatroom:', current_chatroom);
+        leave_chatroom(current_chatroom);
+        current_chatroom = null;
     }
 
     // Add the chatroom names in the navbar
