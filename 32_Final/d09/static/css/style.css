@@ -146,3 +146,15 @@ input:focus {
     justify-content: center;
     gap: 10px;
 }
+
+.nowrap {
+    text-wrap: nowrap;
+    overflow: hidden;
+}
+
+#navbar-ul {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}

@@ -1,19 +1,20 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
-from datetime import datetime
 from .models import ChatRoom, Message
 from account.models import User
 from asgiref.sync import sync_to_async
+import asyncio
 
 
 def save_message(username, room_name, content):
     chatroom = ChatRoom.objects.get(name=room_name)
     user = User.objects.get(username=username)
-    Message.objects.create(
+    message = Message.objects.create(
         chatroom=chatroom,
         user=user,
         content=content
     )
+    return message
 
 
 def add_user(username, room_name):
@@ -89,14 +90,17 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         username = event['username']
 
         # Save message to the database with sync_to_async
-        await sync_to_async(save_message)(username, self.room_name, message)
+        message_saved = await sync_to_async(save_message)(
+            username, self.room_name, message
+        )
 
         # Envoyer le message WebSocket au client
         await self.send(text_data=json.dumps({
             'type': 'chat_message',
             'username': username,
             'message': message,
-            'datetime': str(datetime.now().strftime('%m/%d/%Y %H:%M'))
+            'datetime': str(message_saved.created_at.strftime('%m/%d/%Y %H:%M')),
+            'id': message_saved.id
         }))
 
     async def chat_connection(self, event):
@@ -107,6 +111,7 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         }))
 
     async def chat_disconnection(self, event):
+        await asyncio.sleep(0.2)
         username = event['username']
         await self.send(text_data=json.dumps({
             'type': 'chat_disconnection',

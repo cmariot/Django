@@ -7,7 +7,7 @@
         <ul class="row">
             {% for chatroom in chatrooms|dictsort:"created_at" %}
                 <li class="col m-3 d-flex justify-content-center align-items-center">
-                    <button class="btn btn-secondary chatroomlist-btn mb-3" onclick="window.location.href='{% url 'chat' chatroom.name %}'">
+                    <button class="btn btn-secondary chatroomlist-btn mb-3" onclick="joinChatroom('{{ chatroom.name }}')">
                         <div class="card card-background card-chatroomslist" style="width: 18rem;">
                             <div class="card-img-top">
                                 <img class="width_img" src="{% static 'img/hash.svg' %}" alt="Card image cap">
@@ -15,7 +15,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ chatroom.name }}</h5>
                                 <p class="card-text">{{ chatroom.description }}</p>
-                                <a href="{% url 'chat' chatroom.name %}" class="btn btn-secondary join-chatroom">Join</a>
+                                <a href="#" class="btn btn-secondary join-chatroom" disabled onclick="return false;">Join</a>
                             </div>
                         </div>
                     </button>
@@ -25,4 +25,71 @@
     </div>
 </section>
 
-<script></script>
+<script>
+
+    let current_chatroom = null;
+
+    // Set the chatroom active in the chatroom list navbar
+    function set_chatroom_active_navbar(chatroomName) {
+
+        const chatrooms = $('.navbar-chatroom-link');
+        const chatroomLink = $(`.navbar-chatroom-link:contains('${chatroomName}')`);
+
+        chatrooms.each(function() {
+            $(this).removeClass('active');
+        });
+        chatroomLink.addClass('active');
+
+    }
+
+    function joinChatroom(chatroomName) {
+
+        console.log('Joining chatroom:', chatroomName);
+
+        set_chatroom_active_navbar(chatroomName);
+        if (current_chatroom) {
+            leaveChatroom();
+        }
+        $.get(`/chat/${chatroomName}`, function(data) {
+            current_chatroom = chatroomName;
+            $('main').html(data);
+            // window.history.pushState(null, null, `/chat/${chatroomName}`);
+
+        });
+
+    }
+
+    function leaveChatroom() {
+
+        console.log('Leaving chatroom:', current_chatroom);
+
+        leave_chatroom(current_chatroom);
+        current_chatroom = null;
+    }
+
+    function add_chatrooms_navbar() {
+        const chatrooms = $('.chatroomlist-btn');
+        const navbar = $('#navbar');
+        const navbarBrand = $('#chatrooms-nav-list');
+        const navbarContainer = $('<ul class="navbar-nav"></ul>');
+        chatrooms.each(function() {
+            const chatroomName = $(this).find('.card-title').text();
+            const chatroomLink = $(this).find('.join-chatroom');
+            const li = $('<li class="nav-item"></li>');
+            const chatroomLinkNavbar = $('<button></button>');
+            chatroomLinkNavbar.attr('class', 'nav-item nav-link navbar-chatroom-link');
+            chatroomLinkNavbar.attr('onclick', `joinChatroom('${chatroomName}')`);
+            chatroomLinkNavbar.text(chatroomName);
+            li.append(chatroomLinkNavbar);
+            navbarContainer.append(li);
+        });
+        // Add the chatrooms to the navbar
+        navbarBrand.append(navbarContainer);
+    }
+
+    // Add the chatroom names in the navbar
+    $(document).ready(function() {
+        add_chatrooms_navbar();
+    });
+
+</script>
