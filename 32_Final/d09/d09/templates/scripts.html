@@ -22,6 +22,7 @@
         return getCookie('csrftoken');
     }
 
+    $
     $.ajaxSetup({
         beforeSend: function(xhr, settings) {
             if (!/^(GET|HEAD|OPTIONS|TRACE)$/.test(settings.type) && !this.crossDomain) {

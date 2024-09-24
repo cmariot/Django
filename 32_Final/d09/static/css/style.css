@@ -24,7 +24,8 @@ main {
 #login-form,
 #register-form,
 #chat,
-.card-chatroomslist {
+.card-chatroomslist,
+.chat-user-item {
     width: 100%;
     max-width: 450px;
     margin: auto;
@@ -128,6 +129,7 @@ input:focus {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: row;
+    max-width: 90%;
 }
 
 .chat-message-user-img {
@@ -206,4 +208,9 @@ main.container {
 
 .chatroom-list-button-right {
     padding-left: 1rem;
+}
+
+.connexion-message {
+    text-align: center;
+
 }

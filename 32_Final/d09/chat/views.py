@@ -43,10 +43,12 @@ class Chat(LoginRequiredMixin, DetailView):
 
 
 def get_chatroom_users(request, room_name):
+
     if not request.user.is_authenticated:
         return JsonResponse({'error': 'User not authenticated'})
+
     chatroom = ChatRoom.objects.get(name=room_name)
-    users = chatroom.users.all()
+    users = chatroom.users.all().order_by('username')
     users_list = []
     for user in users:
         users_list.append(user.username)

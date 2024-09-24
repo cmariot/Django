@@ -41,11 +41,14 @@
 <script>
 
     function create_message_card(messagesList, message, username, datetime, id) {
-        const messageDom = $('<li class="chat-message li-message p-2" id="chat_message_' + id + '">');
+        let messageDom;
         let messageCardDom;
+
         if (username === "{{ user.username }}") {
+            messageDom = $('<li class="chat-message li-message p-2 d-flex justify-content-end" id="chat_message_' + id + '">');
             messageCardDom = $('<div class="chat-message-card p-2" style="background-color: #33333329;">');
         } else {
+            messageDom = $('<li class="chat-message li-message p-2 d-flex justify-content-start" id="chat_message_' + id + '">');
             messageCardDom = $('<div class="chat-message-card p-2">');
         }
         const imgDom = $('<img class="p-2" src="{% static 'img/default_user.svg' %}" alt="Card image cap" style="width: 50px;">');
@@ -83,7 +86,7 @@
         $.get("{% url 'chatroom_users' chat.name %}", function(data) {
             $('#chat-users').empty();
             for (let i = 0; i < data.length; i++) {
-                const userDom = $('<li class="list-group-item">' + data[i] + '</li>');
+                const userDom = $('<li class="list-group-item chat-user-item">' + data[i] + '</li>');
                 $('#chat-users').append(userDom);
             }
             if (data.length < 2) {
@@ -129,14 +132,14 @@
                 const username = data.username;
                 const message = "<b>" + username + "</b> has joined the chat";
                 const messagesList = $('#messages-list');
-                messagesList.append('<li class="chat-message p-2" class="connexion-message" >' + message + '</li>');
+                messagesList.append('<li class="chat-message p-2 connexion-message" >' + message + '</li>');
                 update_user_list();
             } else if (data.type === 'chat_disconnection') {
                 // Add the '<user> has left the chat' to messages_list
                 const username = data.username;
                 const message = "<b>" + username + "</b> has left the chat";
                 const messagesList = $('#messages-list');
-                messagesList.append('<li class="chat-message p-2" class="connexion-message">' + message + '</li>');
+                messagesList.append('<li class="chat-message p-2 connexion-message">' + message + '</li>');
                 update_user_list();
             } else {
                 return
@@ -159,6 +162,9 @@
 
     $('#chat-message-submit').on('click', function(e) {
         e.preventDefault();
+
+        console.log('Sending message');
+
         const messageInputDom = $('#chat-message-input');
         const message = messageInputDom.val();
         const username = "{{ user.username }}";
