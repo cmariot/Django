@@ -22,18 +22,19 @@
 
     <section id="chat-messages" class="d-flex flex-column p-2">
         <ul id="messages-list" class="flex-grow-1 ps-3 pe-3"></ul>
-        <form id="chat-form" method="post" class="d-flex justify-content-between align-items-center">
-            <div class="input-group">
-                <input id="chat-message-input" type="text" name="text" required class="form-control" placeholder="Type a message..." autocomplete="off">
-                <button type="submit" class="btn btn-secondary" id="chat-message-submit">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
-                    </svg>
-                    Send
-                </button>
-            </div>
-        </form>
     </section>
+
+    <form id="chat-form" method="post" class="d-flex justify-content-between align-items-center">
+        <div class="input-group">
+            <input id="chat-message-input" type="text" name="text" required class="form-control" placeholder="Type a message..." autocomplete="off">
+            <button type="submit" class="btn btn-secondary" id="chat-message-submit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
+                </svg>
+                Send
+            </button>
+        </div>
+    </form>
 
 </div>
 
@@ -51,7 +52,7 @@
         const cardBodyDom = $('<div class="card-body chat-card-body p-2- ps-3 pe-3">');
         const cardTitleDom = $('<span class="d-flex gap-2 align-items-center">');
         const usernameDom = $('<h5 class="card-title small nowrap"><b>' + username + '</b></h5>');
-        const datetimeDom = $('<p class="card-title small nowrap">{% localtime %}' + datetime + '{% endlocaltime %}</p>');
+        const datetimeDom = $('<p class="card-title small nowrap">' + datetime + '</p>');
         const messageTextDom = $('<p class="card-text">' + message + '</p>');
         cardTitleDom.append(usernameDom);
         cardTitleDom.append(datetimeDom);
@@ -148,28 +149,6 @@
             console.log('Chat socket closed');
         };
 
-        $('#chat-messages').css('max-height',
-            window.innerHeight
-                - $('#navbar').height()
-                - $('footer').height()
-                - $('main').css('padding-top').replace('px', '')
-                - $('main').css('padding-bottom').replace('px', '')
-                - $('#chat-navbar').height()
-                - $('main').css('padding-bottom').replace('px', '')
-        );
-
-        $(window).resize(function() {
-            $('#chat-messages').css('max-height',
-                window.innerHeight
-                    - $('#navbar').height()
-                    - $('footer').height()
-                    - $('main').css('padding-top').replace('px', '')
-                    - $('main').css('padding-bottom').replace('px', '')
-                    - $('#chat-navbar').height()
-                    - $('main').css('padding-bottom').replace('px', '')
-            );
-        });
-
         $('#chat-message-input').focus();
 
     }
@@ -193,6 +172,17 @@
 
     $(document).ready(function() {
         join_chatroom('{{ chat.name }}');
+        $('#chat-messages').css('max-height',
+            window.innerHeight
+                - $('#navbar').height()
+                - $('footer').height()
+                - $('main').css('padding-top').replace('px', '')
+                - $('main').css('padding-bottom').replace('px', '')
+                - $('#chat-navbar').height()
+                - $('main').css('padding-bottom').replace('px', '')
+                - $('#chat-form').height()
+        );
+
     });
 
 

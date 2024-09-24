@@ -3,26 +3,40 @@
 <section>
     <h2>Chatrooms</h2>
     <p>Join a chatroom to start chatting with other users.</p>
-    <div>
-        <ul class="row">
-            {% for chatroom in chatrooms|dictsort:"created_at" %}
-                <li class="col m-3 d-flex justify-content-center align-items-center">
-                    <button class="btn btn-secondary chatroomlist-btn mb-3" onclick="joinChatroom('{{ chatroom.name }}')">
-                        <div class="card card-background card-chatroomslist" style="width: 18rem;">
-                            <div class="card-img-top">
-                                <img class="width_img" src="{% static 'img/hash.svg' %}" alt="Card image cap">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ chatroom.name }}</h5>
-                                <p class="card-text">{{ chatroom.description }}</p>
-                                <a href="#" class="btn btn-secondary join-chatroom" disabled onclick="return false;">Join</a>
-                            </div>
-                        </div>
-                    </button>
-                </li>
-            {% endfor %}
-        </ul>
+        {% comment %} <div> {% endcomment %}
+                {% comment %} <ul class="row"> {% endcomment %}
+                    {% comment %} {% for chatroom in chatrooms|dictsort:"created_at" %} {% endcomment %}
+                        {% comment %} <li class="col m-3 d-flex justify-content-center align-items-center"> {% endcomment %}
+                            {% comment %} <button class="btn btn-secondary chatroomlist-btn mb-3" onclick="joinChatroom('{{ chatroom.name }}')"> {% endcomment %}
+                                {% comment %} <div class="card card-background card-chatroomslist" style="width: 18rem;"> {% endcomment %}
+                                    {% comment %} <div class="card-img-top"> {% endcomment %}
+                                        {% comment %} <img class="width_img" src="{% static 'img/hash.svg' %}" alt="Card image cap"> {% endcomment %}
+                                {% comment %} </div> {% endcomment %}
+                                    {% comment %} <div class="card-body"> {% endcomment %}
+                                        {% comment %} <h5 class="card-title">{{ chatroom.name }}</h5> {% endcomment %}
+                                        {% comment %} <p class="card-text">{{ chatroom.description }}</p> {% endcomment %}
+                                        {% comment %} <a href="#" class="btn btn-secondary join-chatroom" disabled onclick="return false;">Join</a> {% endcomment %}
+                                {% comment %} </div> {% endcomment %}
+                            {% comment %} </div> {% endcomment %}
+                        {% comment %} </button> {% endcomment %}
+                    {% comment %} </li> {% endcomment %}
+                    {% comment %} {% endfor %} {% endcomment %}
+            {% comment %} </ul> {% endcomment %}
+    {% comment %} </div> {% endcomment %}
+
+    <div class="list-group">
+        {% for chatroom in chatrooms|dictsort:"created_at" %}
+            <button class="list-group-item list-group-item-action d-flex chatroom-list-btn" onclick="joinChatroom('{{chatroom.name}}')">
+                <img class="chatroom-list-img" src="{% static 'img/hash.svg' %}" alt="Card image cap">
+                <div class="chatroom-list-button-right card-body">
+                    <h6 class="card-title chatroom-name">{{ chatroom.name }}</h6>
+                    <p class="card-text mb-1">{{ chatroom.description }}</p>
+                    <a href="#" class="btn btn-secondary join-chatroom" disabled onclick="return false;">Join</a>
+                </div>
+            </button>
+        {% endfor %}
     </div>
+
 </section>
 
 <script>
@@ -31,12 +45,12 @@
 
     // Add the chatrooms to the navbar
     function add_chatrooms_navbar() {
-        const chatrooms = $('.chatroomlist-btn');
+        const chatrooms = $('.chatroom-name');
         const navbar = $('#navbar');
         const navbarBrand = $('#chatrooms-nav-list');
         const navbarContainer = $('<ul class="navbar-nav"></ul>');
         chatrooms.each(function() {
-            const chatroomName = $(this).find('.card-title').text();
+            const chatroomName = $(this).text();
             const chatroomLink = $(this).find('.join-chatroom');
             const li = $('<li class="nav-item"></li>');
             const chatroomLinkNavbar = $('<button></button>');
@@ -62,6 +76,8 @@
 
     // Join a chatroom by loading the chatroom page
     function joinChatroom(chatroomName) {
+        $('#navbarNavDarkDropdown').collapse('hide');
+        if (current_chatroom === chatroomName) { return; }
         console.log('Joining chatroom:', chatroomName);
         set_chatroom_active_navbar(chatroomName);
         if (current_chatroom) { leaveChatroom(); }

@@ -38,7 +38,6 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         self.username = self.scope['user'].username
         # Add user to the chat room in the database with sync_to_async function
         await sync_to_async(add_user)(self.username, self.room_name)
-        # add_user(self.username, self.room_name)
         # Join the channel group
         await self.channel_layer.group_add(
             self.room_group_name,
@@ -87,18 +86,18 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
     async def chat_message(self, event):
         message = event['message']
         username = event['username']
-
-        # Save message to the database with sync_to_async
         message_saved = await sync_to_async(save_message)(
             username, self.room_name, message
         )
-
-        # Envoyer le message WebSocket au client
         await self.send(text_data=json.dumps({
             'type': 'chat_message',
             'username': username,
             'message': message,
-            'datetime': str(message_saved.created_at.strftime('%m/%d/%Y %H:%M')),
+            'datetime': str(
+                message_saved.created_at
+                    .astimezone()
+                    .strftime('%Y-%m-%d %H:%M:%S')
+            ),
             'id': message_saved.id
         }))
 

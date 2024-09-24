@@ -30,10 +30,10 @@
 
         {% else %}
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation" data-toggle="dropdown">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown2" aria-controls="navbarNavDarkDropdown2" aria-expanded="false" aria-label="Toggle navigation" data-toggle="dropdown">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown2">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -56,16 +56,32 @@
 
 <script>
 
-    $('#navbarNavDarkDropdown').on('hidden.bs.collapse', function () {
+    $('#navbarNavDarkDropdown').on('hide.bs.collapse', function () {
+        console.log('Navbar dropdown closed');
         $('#chat-messages').css('max-height',
             window.innerHeight
-            - $('#navbar').height()
-            - $('footer').height()
-            - $('main').css('padding-top').replace('px', '')
-            - $('main').css('padding-bottom').replace('px', '')
-            - $('#chat-navbar').height()
-            - $('main').css('padding-bottom').replace('px', '')
-        ).css('transition', 'max-height 0.5s');
+                - $('#navbar').height()
+                - $('footer').height()
+                - $('main').css('padding-top').replace('px', '')
+                - $('main').css('padding-bottom').replace('px', '')
+                - $('#chat-navbar').height()
+                - $('main').css('padding-bottom').replace('px', '')
+                - $('#chat-form').height()
+        ).css('transition', 'max-height 0.2s')
+    })
+
+    $('#navbarNavDarkDropdown').on('hidden.bs.collapse', function () {
+        console.log('Navbar dropdown closed');
+        $('#chat-messages').css('max-height',
+            window.innerHeight
+                - $('#navbar').height()
+                - $('footer').height()
+                - $('main').css('padding-top').replace('px', '')
+                - $('main').css('padding-bottom').replace('px', '')
+                - $('#chat-navbar').height()
+                - $('main').css('padding-bottom').replace('px', '')
+                - $('#chat-form').height()
+        ).css('transition', 'max-height 0.2s')
     })
 
 </script>

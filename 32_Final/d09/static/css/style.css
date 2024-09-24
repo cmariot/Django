@@ -24,8 +24,7 @@ main {
 #login-form,
 #register-form,
 #chat,
-.card-chatroomslist,
-.list-group-item {
+.card-chatroomslist {
     width: 100%;
     max-width: 450px;
     margin: auto;
@@ -50,6 +49,7 @@ main {
     height: 100%;
     max-width: 100%;
     padding: 0;
+    justify-content: space-between;
 }
 
 ul,
@@ -157,4 +157,53 @@ input:focus {
     width: 100%;
     align-items: flex-start;
     justify-content: space-between;
+}
+
+main.container {
+    flex: 1;
+}
+
+#chat-messages {
+    /* max-height: 681px; */
+    max-height: 100%;
+}
+
+/* Élément | http://127.0.0.1:8000/account/ */
+
+.chatroom-list-img {
+    height: 100%;
+    width: auto;
+    padding: 1rem;
+    margin: auto;
+    display: block;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f4f4f4;
+}
+
+.chatroom-list-btn {
+    /* height: 10vh; */
+    width: auto;
+    padding: 1rem;
+}
+
+/* Élément | http://127.0.0.1:8000/account/ */
+
+.list-group {
+    height: 100%;
+}
+
+/* Élément | http://127.0.0.1:8000/account/ */
+
+#chatrooms {
+    height: 100%;
+}
+
+/* Élément | http://127.0.0.1:8000/account/ */
+
+#chatrooms>section:nth-child(1) {
+    height: 100%;
+}
+
+.chatroom-list-button-right {
+    padding-left: 1rem;
 }
