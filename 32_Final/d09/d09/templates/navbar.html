@@ -13,40 +13,40 @@
 
         {% if user.is_authenticated %}
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation" data-toggle="dropdown">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                <ul class="navbar-nav mr-auto" id="navbar-ul">
-                    <li id="chatrooms-nav-list"></li>
-                    <li class="d-flex align-items-center justify-content-between gap-3">
-                        <span class="navbar-text">
-                            Logged as {{ user.username }}
-                        </span>
-                        <button class="logout btn btn-secondary">Logout</button>
-                    </li>
-                </ul>
-            </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation" data-toggle="dropdown">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+            <ul class="navbar-nav mr-auto" id="navbar-ul">
+                <li id="chatrooms-nav-list"></li>
+                <li class="d-flex align-items-center justify-content-between gap-3">
+                    <span class="navbar-text">
+                        Logged as {{ user.username }}
+                    </span>
+                    <button class="logout btn btn-secondary">Logout</button>
+                </li>
+            </ul>
+        </div>
 
         {% else %}
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown2" aria-controls="navbarNavDarkDropdown2" aria-expanded="false" aria-label="Toggle navigation" data-toggle="dropdown">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown2">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Account
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item login" href="#">Login</a></li>
-                            <li><a class="dropdown-item register" href="#">Register</a></li>
-                        </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown2" aria-controls="navbarNavDarkDropdown2" aria-expanded="false" aria-label="Toggle navigation" data-toggle="dropdown">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown2">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Account
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <li><a class="dropdown-item login" href="#">Login</a></li>
+                        <li><a class="dropdown-item register" href="#">Register</a></li>
+                    </ul>
 
-                    </li>
-                </ul>
-            </div>
+                </li>
+            </ul>
+        </div>
 
         {% endif %}
 

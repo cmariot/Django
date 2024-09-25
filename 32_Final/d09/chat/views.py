@@ -21,7 +21,6 @@ class ChatRooms(LoginRequiredMixin, ListView):
                     name=chatroom['name'],
                     description=chatroom['description']
                 )
-        # cleaned_chatrooms : don't send unnecessary data
         return chatrooms
 
     def get_redirect_field_name(self) -> str:
@@ -47,6 +46,9 @@ def get_chatroom_users(request, room_name):
     if not request.user.is_authenticated:
         return JsonResponse({'error': 'User not authenticated'})
 
+    if request.method != 'GET':
+        return JsonResponse({'error': 'Method not allowed'})
+
     chatroom = ChatRoom.objects.get(name=room_name)
     users = chatroom.users.all().order_by('username')
     users_list = []
@@ -59,11 +61,17 @@ def get_chatroom_messages(request, room_name):
     if not request.user.is_authenticated:
         return JsonResponse({'error': 'User not authenticated'})
 
+    if request.method != 'GET':
+        return JsonResponse({'error': 'Method not allowed'})
+
     chatroom = ChatRoom.objects.get(name=room_name)
     if not chatroom:
         return JsonResponse({'error': 'Chatroom not found'})
 
-    messages = Message.objects.filter(chatroom=chatroom).order_by('-created_at')[:3]
+    messages = Message.objects.filter(
+        chatroom=chatroom
+    ).order_by('-created_at')[:3]
+
     messages_list = []
 
     for message in messages:
@@ -71,7 +79,9 @@ def get_chatroom_messages(request, room_name):
             'id': message.id,
             'user': message.user.username,
             'content': message.content,
-            'created_at': message.created_at.astimezone().strftime('%Y-%m-%d %H:%M:%S')
+            'created_at': message.created_at.astimezone().strftime(
+                '%m/%d/%Y %H:%M:%S'
+            )
         })
 
     return JsonResponse(messages_list, safe=False)
