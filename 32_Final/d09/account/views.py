@@ -8,11 +8,13 @@ from django.template.loader import render_to_string
 
 
 class Account(FormView):
+
     form_class = LoginForm
-    template_name = 'account/templates/index.html'
+    template_name = 'd09/templates/base.html'
 
 
 class Login(LoginView, FormView):
+
     form_class = LoginForm
     template_name = 'account/templates/login.html'
 
@@ -34,6 +36,7 @@ class Login(LoginView, FormView):
 
 
 class Register(CreateView):
+
     form_class = RegisterForm
     template_name = 'account/templates/register.html'
     success_url = "/account"

@@ -3,12 +3,15 @@ import json
 from .models import ChatRoom, Message
 from account.models import User
 from asgiref.sync import sync_to_async
-import asyncio
 
 
 def save_message(username, room_name, content):
     chatroom = ChatRoom.objects.get(name=room_name)
+    if not chatroom:
+        return
     user = User.objects.get(username=username)
+    if not user:
+        return
     message = Message.objects.create(
         chatroom=chatroom,
         user=user,
@@ -19,14 +22,26 @@ def save_message(username, room_name, content):
 
 def add_user(username, room_name):
     chat_room = ChatRoom.objects.get(name=room_name)
+    if not chat_room:
+        return
+    elif chat_room.users.filter(username=username).exists():
+        return
     user = User.objects.get(username=username)
+    if not user:
+        return
     chat_room.users.add(user)
     chat_room.save()
 
 
 def remove_user(username, room_name):
     chat_room = ChatRoom.objects.get(name=room_name)
+    if not chat_room:
+        return
+    elif not chat_room.users.filter(username=username).exists():
+        return
     user = User.objects.get(username=username)
+    if not user:
+        return
     chat_room.users.remove(user)
     chat_room.save()
 
@@ -82,34 +97,28 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
                 'datetime': str(
                     message_saved.created_at
                         .astimezone()
-                        .strftime('%Y-%m-%d %H:%M:%S')
+                        .strftime('%m/%d/%Y %H:%M:%S')
                 ),
             }
         )
 
     async def chat_message(self, event):
-        message_content = event['message']
-        message_username = event['username']
-        message_datetime = event['datetime']
-        message_id = event['id']
         await self.send(text_data=json.dumps({
             'type': 'chat_message',
-            'username': message_username,
-            'message': message_content,
-            'datetime': message_datetime,
-            'id': message_id
+            'username': event['username'],
+            'message': event['message'],
+            'datetime': event['datetime'],
+            'id': event['id']
         }))
 
     async def chat_connection(self, event):
-        username = event['username']
         await self.send(text_data=json.dumps({
             'type': 'chat_connection',
-            'username': username
+            'username': event['username']
         }))
 
     async def chat_disconnection(self, event):
-        username = event['username']
         await self.send(text_data=json.dumps({
             'type': 'chat_disconnection',
-            'username': username
+            'username': event['username']
         }))

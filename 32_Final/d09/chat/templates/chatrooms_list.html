@@ -26,32 +26,27 @@
     // Add the chatrooms to the navbar
     function add_chatrooms_navbar() {
         const chatrooms = $('.chatroom-name');
-        const navbar = $('#navbar');
-        const navbarBrand = $('#chatrooms-nav-list');
-        const navbarContainer = $('<ul class="navbar-nav"></ul>');
+        const chatrooms_ul = $('<ul class="navbar-nav"></ul>');
         chatrooms.each(function() {
-            const chatroomName = $(this).text();
-            const chatroomLink = $(this).find('.join-chatroom');
-            const li = $('<li class="nav-item"></li>');
-            const chatroomLinkNavbar = $('<button></button>');
-            chatroomLinkNavbar.attr('class', 'nav-item nav-link navbar-chatroom-link');
-            chatroomLinkNavbar.attr('onclick', `joinChatroom('${chatroomName}')`);
-            chatroomLinkNavbar.text(chatroomName);
-            li.append(chatroomLinkNavbar);
-            navbarContainer.append(li);
+            const chatroom_name = $(this).text();
+            const chatroom_li = $('<li class="nav-item"></li>');
+            const chatroom_button = $('<button class="nav-link navbar-chatroom-link" onclick="joinChatroom(\'' + chatroom_name + '\')">' + chatroom_name + '</button>');
+            chatroom_li.append(chatroom_button);
+            chatrooms_ul.append(chatroom_li);
         });
         // Add the chatrooms to the navbar
-        navbarBrand.append(navbarContainer);
+        $('#chatrooms-nav-list').append(chatrooms_ul);
     }
 
     // Set the chatroom active in the chatroom list navbar
     function set_chatroom_active_navbar(chatroomName) {
         const chatrooms = $('.navbar-chatroom-link');
-        const chatroomLink = $(`.navbar-chatroom-link:contains('${chatroomName}')`);
         chatrooms.each(function() {
             $(this).removeClass('active');
+            if ($(this).text() === chatroomName) {
+                $(this).addClass('active');
+            }
         });
-        chatroomLink.addClass('active');
     }
 
     // Join a chatroom by loading the chatroom page

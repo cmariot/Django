@@ -124,12 +124,13 @@ input:focus {
 
 .chat-message-card {
     width: fit-content;
+    max-width: 75%;
     background-color: #ffffffaf;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: row;
-    max-width: 75%;
+    align-items: flex-start;
 }
 
 .chat-message-user-img {
@@ -182,19 +183,13 @@ main.container {
 
 }
 
-/* Élément | http://127.0.0.1:8000/account/ */
-
 .list-group {
     height: 100%;
 }
 
-/* Élément | http://127.0.0.1:8000/account/ */
-
 #chatrooms {
     height: 100%;
 }
-
-/* Élément | http://127.0.0.1:8000/account/ */
 
 #chatrooms>section:nth-child(1) {
     height: 100%;
@@ -206,5 +201,4 @@ main.container {
 
 .connexion-message {
     text-align: center;
-
 }

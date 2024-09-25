@@ -26,7 +26,7 @@
 
     <form id="chat-form" method="post" class="d-flex justify-content-between align-items-center">
         <div class="input-group">
-            <input id="chat-message-input" type="text" name="text" required class="form-control" placeholder="Type a message..." autocomplete="off">
+            <input id="chat-message-input" type="text" name="text" required class="form-control" placeholder="Type a message..." autocomplete="off" autofocus>
             <button type="submit" class="btn btn-secondary" id="chat-message-submit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
                     <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
@@ -40,59 +40,43 @@
 
 <script>
 
-    function create_message_card(messagesList, message, username, datetime, id) {
-        let messageDom;
-        let messageCardDom;
-
+    function create_message_card(message, username, datetime, id) {
+        let message_card = $("<li class='chat-message li-message p-2 d-flex'><div class='chat-message-card p-2' style='background-color: #33333317;'><img class='p-2' src='{% static 'img/default_user.svg' %}' style='width: 50px;'><div class='card-body chat-card-body p-2- ps-3 pe-3'><span class='d-flex gap-2 align-items-center' style='flex-wrap: wrap;'><h5 class='card-title small nowrap'><b>" + username + "</b></h5><p class='card-title small nowrap'>" + datetime + "</p></span><p class='card-text'>" + message + "</p></div></div></li>");
+        message_card[0].id = 'chat_message_' + id;
         if (username === "{{ user.username }}") {
-            messageDom = $('<li class="chat-message li-message p-2 d-flex justify-content-end" id="chat_message_' + id + '">');
-            messageCardDom = $('<div class="chat-message-card p-2" style="background-color: #33333329;">');
+            message_card[0].classList.add('justify-content-end');
         } else {
-            messageDom = $('<li class="chat-message li-message p-2 d-flex justify-content-start" id="chat_message_' + id + '">');
-            messageCardDom = $('<div class="chat-message-card p-2">');
+            message_card[0].classList.add('justify-content-start');
         }
-        const imgDom = $('<img class="p-2" src="{% static 'img/default_user.svg' %}" alt="Card image cap" style="width: 50px;">');
-        const cardBodyDom = $('<div class="card-body chat-card-body p-2- ps-3 pe-3">');
-        const cardTitleDom = $('<span class="d-flex gap-2 align-items-center">');
-        const usernameDom = $('<h5 class="card-title small nowrap"><b>' + username + '</b></h5>');
-        const datetimeDom = $('<p class="card-title small nowrap">' + datetime + '</p>');
-        const messageTextDom = $('<p class="card-text">' + message + '</p>');
-        cardTitleDom.append(usernameDom);
-        cardTitleDom.append(datetimeDom);
-        cardBodyDom.append(cardTitleDom);
-        cardBodyDom.append(messageTextDom);
-        messageCardDom.append(imgDom);
-        messageCardDom.append(cardBodyDom);
-        messageDom.append(messageCardDom);
-        return messageDom;
+        return message_card;
     }
 
     async function update_message_list() {
-        await $.get("{% url 'chatroom_messages' chat.name %}", function(data) {
+        await $.get("{% url 'chatroom_messages' chat.name %}", function(messages) {
             const messagesList = $('#messages-list');
-            for (let i = 0; i < data.length; i++) {
-                const message = data[i]['content'];
-                const username = data[i]['user'];
-                const datetime = data[i]['created_at'];
-                const id = data[i]['id'];
-                const messageDom = create_message_card(messagesList, message, username, datetime, id);
-                messagesList.append(messageDom);
+            for (let i = 0; i < messages.length; i++) {
+                const message_card = create_message_card(
+                    messages[i]['content'],
+                    messages[i]['user'],
+                    messages[i]['created_at'],
+                    messages[i]['id']
+                );
+                messagesList.append(message_card);
             }
             $('#messages-list').scrollTop($('#messages-list')[0].scrollHeight);
         });
     }
 
     async function update_user_list() {
-        await $.get("{% url 'chatroom_users' chat.name %}", function(data) {
+        await $.get("{% url 'chatroom_users' chat.name %}", function(chatroom_users) {
             $('#chat-users').empty();
-            for (let i = 0; i < data.length; i++) {
-                const userDom = $('<li class="list-group-item chat-user-item">' + data[i] + '</li>');
-                $('#chat-users').append(userDom);
+            for (let i = 0; i < chatroom_users.length; i++) {
+                $('#chat-users').append($('<li class="list-group-item chat-user-item">' + chatroom_users[i] + '</li>'));
             }
-            if (data.length < 2) {
-                $('#nb_user').text(data.length + ' User');
+            if (chatroom_users.length < 2) {
+                $('#nb_user').text(chatroom_users.length + ' User');
             } else {
-                $('#nb_user').text(data.length + ' Users');
+                $('#nb_user').text(chatroom_users.length + ' Users');
             }
         });
     }
@@ -107,50 +91,34 @@
         const username = "{{ user.username }}";
         const roomName = "{{ chat.name }}";
         const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+
         chatSocket = new WebSocket(wsScheme + '://' + window.location.host + '/ws/chat/' + roomName + '/');
 
-        // client connected to the server
-        chatSocket.onopen = function(e) {
-            return ;
-        };
-
-        // client received a message from the server
         chatSocket.onmessage = function(e) {
-
-            const data = JSON.parse(e.data);
-
-            if (data.type === 'chat_message') {
-                const message = data.message;
-                const username = data.username;
-                const datetime = data.datetime;
-                const id = data.id;
-                const messagesList = $('#messages-list');
-                let messageDom = create_message_card(messagesList, message, username, datetime, id);
-                messagesList.append(messageDom);
-            } else if (data.type === 'chat_connection') {
-                // Add the '<user> has joined the chat' message
-                const username = data.username;
-                const message = "<b>" + username + "</b> has joined the chat";
-                const messagesList = $('#messages-list');
-                messagesList.append('<li class="chat-message p-2 connexion-message" >' + message + '</li>');
+            const event = JSON.parse(e.data);
+            if (event.type === 'chat_message') {
+                let message_card = create_message_card(
+                    event.message,
+                    event.username,
+                    event.datetime,
+                    event.id
+                );
+                $('#messages-list').append(message_card);
+            } else if (event.type === 'chat_connection') {
+                const message = "<b>" + event.username + "</b> has joined the chat";
+                $('#messages-list').append('<li class="chat-message p-2 connexion-message" >' + message + '</li>');
                 update_user_list();
-            } else if (data.type === 'chat_disconnection') {
+            } else if (event.type === 'chat_disconnection') {
                 // Add the '<user> has left the chat' to messages_list
-                const username = data.username;
-                const message = "<b>" + username + "</b> has left the chat";
-                const messagesList = $('#messages-list');
-                messagesList.append('<li class="chat-message p-2 connexion-message">' + message + '</li>');
+                const message = "<b>" + event.username + "</b> has left the chat";
+                $('#messages-list').append('<li class="chat-message p-2 connexion-message">' + message + '</li>');
                 update_user_list();
             } else {
                 return
             }
             $('#messages-list').scrollTop($('#messages-list')[0].scrollHeight);
+        };
 
-        };
-        chatSocket.onclose = function(e) {
-            return ;
-        };
-        $('#chat-message-input').focus();
     }
 
     function leave_chatroom() {
@@ -162,6 +130,9 @@
         const messageInputDom = $('#chat-message-input');
         const message = messageInputDom.val();
         const username = "{{ user.username }}";
+        if (message.trim() === '') {
+            return;
+        }
         chatSocket.send(JSON.stringify({
             'message': message,
             'username': username
