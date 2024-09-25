@@ -129,7 +129,7 @@ input:focus {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: row;
-    max-width: 90%;
+    max-width: 75%;
 }
 
 .chat-message-user-img {
@@ -165,13 +165,6 @@ main.container {
     flex: 1;
 }
 
-#chat-messages {
-    /* max-height: 681px; */
-    max-height: 100%;
-}
-
-/* Élément | http://127.0.0.1:8000/account/ */
-
 .chatroom-list-img {
     height: 100%;
     width: auto;
@@ -183,9 +176,10 @@ main.container {
 }
 
 .chatroom-list-btn {
-    /* height: 10vh; */
     width: auto;
     padding: 1rem;
+    align-items: center;
+
 }
 
 /* Élément | http://127.0.0.1:8000/account/ */

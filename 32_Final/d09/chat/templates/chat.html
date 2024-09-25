@@ -67,8 +67,8 @@
         return messageDom;
     }
 
-    function update_message_list() {
-        $.get("{% url 'chatroom_messages' chat.name %}", function(data) {
+    async function update_message_list() {
+        await $.get("{% url 'chatroom_messages' chat.name %}", function(data) {
             const messagesList = $('#messages-list');
             for (let i = 0; i < data.length; i++) {
                 const message = data[i]['content'];
@@ -82,8 +82,8 @@
         });
     }
 
-    function update_user_list() {
-        $.get("{% url 'chatroom_users' chat.name %}", function(data) {
+    async function update_user_list() {
+        await $.get("{% url 'chatroom_users' chat.name %}", function(data) {
             $('#chat-users').empty();
             for (let i = 0; i < data.length; i++) {
                 const userDom = $('<li class="list-group-item chat-user-item">' + data[i] + '</li>');
@@ -99,9 +99,9 @@
 
     var chatSocket = null;
 
-    function join_chatroom(chatroomName) {
+    async function join_chatroom(chatroomName) {
 
-        update_message_list();
+        await update_message_list();
         update_user_list();
 
         const username = "{{ user.username }}";
@@ -111,7 +111,7 @@
 
         // client connected to the server
         chatSocket.onopen = function(e) {
-            console.log('Chat socket connected');
+            return ;
         };
 
         // client received a message from the server
@@ -147,13 +147,10 @@
             $('#messages-list').scrollTop($('#messages-list')[0].scrollHeight);
 
         };
-
         chatSocket.onclose = function(e) {
-            console.log('Chat socket closed');
+            return ;
         };
-
         $('#chat-message-input').focus();
-
     }
 
     function leave_chatroom() {
@@ -162,9 +159,6 @@
 
     $('#chat-message-submit').on('click', function(e) {
         e.preventDefault();
-
-        console.log('Sending message');
-
         const messageInputDom = $('#chat-message-input');
         const message = messageInputDom.val();
         const username = "{{ user.username }}";
@@ -176,20 +170,33 @@
         $('#chat-message-input').focus();
     });
 
+    function set_chat_height() {
+        try {
+            var window_heigth = window.innerHeight;
+            var navbar_closed_height = 56;
+            var main_padding = $('main').css('padding-top').replace('px', '') * 1
+                + $('main').css('padding-bottom').replace('px', '') * 1
+            var chat_navbar_height = $('#chat-navbar').height()
+                + $('#chat-navbar').css('padding-top').replace('px', '') * 1
+                + $('#chat-navbar').css('padding-bottom').replace('px', '') * 1;
+            var chat_form_height = $('#chat-form').height();
+            var footer_height = $('footer').height();
+            let one_hundred_percent = window_heigth - navbar_closed_height - main_padding - footer_height - chat_navbar_height - chat_form_height;
+            let css_value = (one_hundred_percent) + "px";
+            $('#chat-messages').css('max-height', css_value);
+        } catch (error) {
+            return;
+        }
+    }
+
     $(document).ready(function() {
         join_chatroom('{{ chat.name }}');
-        $('#chat-messages').css('max-height',
-            window.innerHeight
-                - $('#navbar').height()
-                - $('footer').height()
-                - $('main').css('padding-top').replace('px', '')
-                - $('main').css('padding-bottom').replace('px', '')
-                - $('#chat-navbar').height()
-                - $('main').css('padding-bottom').replace('px', '')
-                - $('#chat-form').height()
-        );
-
+        set_chat_height();
     });
 
+    $(window).resize(function() {
+        set_chat_height();
+        $('#messages-list').scrollTop($('#messages-list')[0].scrollHeight);
+    });
 
 </script>

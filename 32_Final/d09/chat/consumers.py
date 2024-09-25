@@ -101,7 +101,6 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         }))
 
     async def chat_connection(self, event):
-        await asyncio.sleep(0.1)
         username = event['username']
         await self.send(text_data=json.dumps({
             'type': 'chat_connection',

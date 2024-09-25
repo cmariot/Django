@@ -52,39 +52,3 @@
 
     </span>
 </nav>
-
-
-<script>
-
-    $(document).ready(function() {
-
-        $('#navbarNavDarkDropdown').on('hide.bs.collapse', function () {
-            $('#chat-messages').css('max-height',
-                window.innerHeight
-                    // - $('#navbar').height()
-                    - 56
-                    - $('footer').height()
-                    - $('main').css('padding-top').replace('px', '')
-                    - $('main').css('padding-bottom').replace('px', '')
-                    - $('#chat-navbar').height()
-                    - $('main').css('padding-bottom').replace('px', '')
-                    - $('#chat-form').height()
-            )
-        })
-
-        $('#navbarNavDarkDropdown').on('hidden.bs.collapse', function () {
-            $('#chat-messages').css('max-height',
-                window.innerHeight
-                    - $('#navbar').height()
-                    - $('footer').height()
-                    - $('main').css('padding-top').replace('px', '')
-                    - $('main').css('padding-bottom').replace('px', '')
-                    - $('#chat-navbar').height()
-                    - $('main').css('padding-bottom').replace('px', '')
-                    - $('#chat-form').height()
-            ).css('transition', 'max-height 0.2s')
-        })
-
-    });
-
-</script>

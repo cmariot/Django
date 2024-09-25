@@ -1,13 +1,7 @@
 <section id="chatrooms">
     <script>
         $(document).ready(function() {
-            $.ajax({
-                url: '{% url "chatrooms" %}',
-                type: 'GET',
-                success: function(response) {
-                    $('#chatrooms').html(response);
-                }
-            });
+            jquery_get_replace('{% url "chatrooms" %}', '#chatrooms');
         });
     </script>
 </section>
