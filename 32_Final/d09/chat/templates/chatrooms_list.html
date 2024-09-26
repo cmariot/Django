@@ -25,6 +25,7 @@
 
     // Add the chatrooms to the navbar
     function add_chatrooms_navbar() {
+        if ($('.navbar-chatroom-link').length) { return; }
         const chatrooms = $('.chatroom-name');
         const chatrooms_ul = $('<ul class="navbar-nav"></ul>');
         chatrooms.each(function() {
@@ -50,12 +51,12 @@
     }
 
     // Join a chatroom by loading the chatroom page
-    function joinChatroom(chatroomName) {
+    async function joinChatroom(chatroomName) {
         $('#navbarNavDarkDropdown').collapse('hide');
         if (current_chatroom === chatroomName) { return; }
         set_chatroom_active_navbar(chatroomName);
         if (current_chatroom) { leaveChatroom(); }
-        $.get(`/chat/${chatroomName}`, function(data) {
+        await $.get(`/chat/${chatroomName}`, function(data) {
             current_chatroom = chatroomName;
             $('main').html(data);
         });

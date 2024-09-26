@@ -68,9 +68,11 @@ def get_chatroom_messages(request, room_name):
     if not chatroom:
         return JsonResponse({'error': 'Chatroom not found'})
 
-    messages = Message.objects.filter(
-        chatroom=chatroom
-    ).order_by('-created_at')[:3]
+    # Get the 3 lasts messages from the chatroom and reverse the order to
+    # display them in the correct order
+    messages = Message.objects.filter(chatroom=chatroom).order_by(
+        '-created_at'
+    )[:3][::-1]
 
     messages_list = []
 

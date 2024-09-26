@@ -23,4 +23,8 @@
 
 </form>
 
-<script>$('#id_username').focus();</script>
+<script>
+    $('#id_username').focus();
+    $('#id_username').attr('autocomplete', 'username');
+    $('#id_password').attr('autocomplete', 'current-password');
+</script>

@@ -12,6 +12,10 @@ class Account(FormView):
     form_class = LoginForm
     template_name = 'd09/templates/base.html'
 
+    extra_context = {
+        'title': 'Chat - Home'
+    }
+
 
 class Login(LoginView, FormView):
 

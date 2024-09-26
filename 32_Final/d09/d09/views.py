@@ -2,5 +2,5 @@ from django.views.generic.base import RedirectView
 
 
 class HomeView(RedirectView):
-    url = '/account'
+    url = 'account'
     permanent = True

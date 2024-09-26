@@ -27,6 +27,7 @@
         }
     });
 
+    var is_authentificated = '{{ user.is_authenticated }}';
 
     // Submit login form
     $(document).on('submit', '#login-form', function(event) {
@@ -41,6 +42,7 @@
             success: function(response) {
                 if (response.success) {
                     $('body').html(response.body);
+                    is_authentificated = 'True';
                 } else {
                     let errorlists = $('.errorlist');
                     for (let i = 0; i < errorlists.length; i++) {
@@ -71,6 +73,7 @@
             success: function(response) {
                 if (response.success) {
                     $('body').html(response.body);
+                    is_authentificated = 'True';
                 } else {
                     let errorlists = $('.errorlist');
                     for (let i = 0; i < errorlists.length; i++) {
@@ -95,6 +98,8 @@
             type: 'GET',
             success: function(response) {
                 $('main').html(response);
+                $('.register').addClass('active');
+                $('.login').removeClass('active');
             }
         });
     });
@@ -107,6 +112,8 @@
             type: 'GET',
             success: function(response) {
                 $('main').html(response);
+                $('.login').addClass('active');
+                $('.register').removeClass('active');
             }
         });
     });
@@ -127,12 +134,35 @@
                             leave_chatroom();
                         }
                         $('main').html(response);
-                        // Set the current page to the login page url
+                        is_authentificated = 'False';
                         window.history.pushState(null, null, '{% url "account" %}');
                     }
                 });
             }
         });
+    });
+
+    // Home button
+    $(document).on('click', '.home', function(event) {
+        event.preventDefault();
+        if (is_authentificated === 'True') {
+            if (current_chatroom) {
+                leave_chatroom();
+            }
+            $.ajax({
+                url: '{% url "chatrooms" %}',
+                type: 'GET',
+                success: function(response) {
+                    $('#navbarNavDarkDropdown').collapse('hide');
+                    $('main').html(response);
+                    window.history.pushState(null, null, '{% url "account" %}');
+                }
+            });
+        }
+        else {
+            $('.login').click();
+        }
+
     });
 
 </script>
